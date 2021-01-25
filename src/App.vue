@@ -1,35 +1,36 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link :to="{ name: 'Products' }">Shop</router-link> |
-      <router-link :to="{ name: 'About' }">About</router-link>
+    <div class="container-fluid px-0" role="navigation">
+      <b-nav align="center">
+        <b-nav-item :to="{ name: 'Products' }" class="nav-item">Shop</b-nav-item>
+        <b-nav-item :to="{ name: 'About' }" class="nav-item">About</b-nav-item>
+      </b-nav>
     </div>
-    <router-view />
+    <b-container>
+      <router-view />
+    </b-container>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.nav {
+  background-color: #C7ECFF;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
+.nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #0000B3;
 }
 
-#nav  {
+.nav {
   a.router-link-exact-active {
-
-  color: magenta;
+    background-color: #A1DFFF;
+    border-bottom: 2px #0000B3 solid;
   }
+}
+
+h1, h2, h3, h4 {
+  text-align: center;
+  color: #0000B3;
 }
 </style>
