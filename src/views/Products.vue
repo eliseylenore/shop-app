@@ -1,7 +1,11 @@
 <template>
   <div>
     <h1 class="mt-md-5">Products</h1>
-    <product-card :product="product" />
+    <b-row>
+      <b-col xs="12" md="4">
+        <product-card :product="product" />
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -17,6 +21,7 @@ export default {
         id: 1,
         title: "Dad jeans",
         img: require("./../assets/img/cast-kristi.png"),
+        price: "28.50",
         items: [
           {
             id: 5551,
