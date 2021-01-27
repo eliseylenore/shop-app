@@ -4,7 +4,7 @@
       <div
         class="product-image"
         :aria-label="product.img"
-        :style="'background-image: url(' + product.img + ')'"
+        :style="'background-image: url(' + productImg + ')'"
       ></div>
       <h4 class="my-5">
         <strong>{{ product.title }}</strong> ${{ price }}
@@ -35,6 +35,9 @@ export default {
   methods: {
     goToProduct: function() {
       this.$router.push({ name: "Product", params: { id: this.product.id } });
+    },
+    productImg: function() {
+      return require(this.product.img);
     }
   }
 };

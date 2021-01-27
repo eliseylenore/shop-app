@@ -1,0 +1,50 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Dad jeans",
+      "img": "./assets/img/cast-kristi.png",
+      "price": "28.50",
+      "items": [
+        {
+          "id": 5551,
+          "size": 6,
+          "color": "purple"
+        },
+        {
+          "id": 5552,
+          "size": 6,
+          "color": "purple"
+        },
+        {
+          "id": 5553,
+          "size": 6,
+          "color": "blue"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Mom jeans",
+      "img": "./../assets/img/dad-jeans.jpeg",
+      "price": "28.50",
+      "items": [
+        {
+          "id": 5551,
+          "size": 6,
+          "color": "purple"
+        },
+        {
+          "id": 5552,
+          "size": 6,
+          "color": "purple"
+        },
+        {
+          "id": 5553,
+          "size": 6,
+          "color": "blue"
+        }
+      ]
+    }
+  ]
+}

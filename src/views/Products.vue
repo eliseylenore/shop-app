@@ -2,7 +2,7 @@
   <div>
     <h1 class="mt-md-5">Products</h1>
     <b-row>
-      <b-col xs="12" md="4">
+      <b-col xs="12" md="4" v-for="product in products" :key="product.id">
         <product-card :product="product" />
       </b-col>
     </b-row>
@@ -11,12 +11,24 @@
 
 <script>
 import ProductCard from "@/components/ProductCard.vue";
+import axios from "axios";
 export default {
   components: {
     ProductCard
   },
+  created() {
+    axios
+      .get("http://localhost:3000/products")
+      .then(response => {
+        this.products = response.data;
+      })
+      .catch(error => {
+        console.log("There was an error:", error.response);
+      });
+  },
   data() {
     return {
+      products: [],
       product: {
         id: 1,
         title: "Dad jeans",
