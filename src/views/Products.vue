@@ -11,47 +11,14 @@
 
 <script>
 import ProductCard from "@/components/ProductCard.vue";
-import axios from "axios";
+import { mapState } from "vuex";
 export default {
   components: {
     ProductCard
   },
   created() {
-    axios
-      .get("http://localhost:3000/products")
-      .then(response => {
-        this.products = response.data;
-      })
-      .catch(error => {
-        console.log("There was an error:", error.response);
-      });
+    this.$store.dispatch("fetchProducts");
   },
-  data() {
-    return {
-      products: [],
-      product: {
-        id: 1,
-        title: "Dad jeans",
-        price: "28.50",
-        items: [
-          {
-            id: 5551,
-            size: 6,
-            color: "purple"
-          },
-          {
-            id: 5552,
-            size: 6,
-            color: "purple"
-          },
-          {
-            id: 5553,
-            size: 6,
-            color: "blue"
-          }
-        ]
-      }
-    };
-  }
+  computed: mapState(["products"])
 };
 </script>
