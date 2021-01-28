@@ -32,7 +32,6 @@ export default {
       product: {
         id: 1,
         title: "Dad jeans",
-        img: require("./../assets/img/cast-kristi.png"),
         price: "28.50",
         items: [
           {

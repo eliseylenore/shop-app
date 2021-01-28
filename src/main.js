@@ -11,6 +11,13 @@ import "bootstrap-vue/dist/bootstrap-vue.css"
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 
+// How to import all images?
+// function importAll(r) {
+//   return r.keys().map(r);
+// }
+
+// importAll(require.context("./assets/img", true, /\.(png|jpe?g|svg)$/));
+
 Vue.config.productionTip = false;
 
 new Vue({
