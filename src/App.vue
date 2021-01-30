@@ -8,26 +8,32 @@
         <b-nav-item :to="{ name: 'About' }" class="nav-item">About</b-nav-item>
       </b-nav>
     </div>
-    <b-container>
-      <router-view />
-    </b-container>
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
+
+body {
+  font-family: "Myriad Pro";
+}
 .nav {
-  background-color: #c7ecff;
+  background-color: #00264d;
+  padding: 1em 0;
 }
 
 .nav a {
   font-weight: bold;
-  color: #0000b3;
+  color: white;
+  &:hover {
+    color: white;
+    background-color: #114170;
+  }
 }
 
 .nav {
   a.router-link-exact-active {
-    background-color: #a1dfff;
-    border-bottom: 2px #0000b3 solid;
+    background-color: #015fc0;
   }
 }
 
@@ -35,7 +41,22 @@ h1,
 h2,
 h3,
 h4 {
+  text-weight: bold;
   text-align: center;
-  color: #0000b3;
+  color: #00264d;
+}
+
+button {
+  background-color: #015fc0;
+  border: none;
+  color: white;
+  padding: 0.5em 1.5em;
+}
+button:hover {
+  background-color: #014790;
+}
+
+button:active {
+  background-color: #003060;
 }
 </style>

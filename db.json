@@ -2,47 +2,72 @@
   "products": [
     {
       "id": 1,
-      "title": "Dad jeans",
-      "img": "cast-kristi.png",
+      "title": "Baseline scuba set",
+      "img": "product-scuba.png",
       "price": "28.50",
+      "description": "Goggles, swim cap, oxygen set up",
       "items": [
         {
           "id": 5551,
           "size": 6,
-          "color": "purple"
+          "color": "Navy blue",
+          "hex": "#003366" 
         },
         {
           "id": 5552,
           "size": 6,
-          "color": "purple"
+          "color": "Bright turquoise", 
+          "hex": "#0CD6D2"
         },
         {
           "id": 5553,
           "size": 6,
-          "color": "blue"
+          "color": "Tabasco", 
+          "hex": "#A32319"
         }
       ]
     },
     {
       "id": 2,
-      "title": "Real dad jeans",
-      "img": "dad-jeans.jpeg",
+      "title": "Soft vermillion scarf",
+      "img": "product-scarf.png",
       "price": "50.00",
+      "description": "Goggles, swim cap, oxygen set up",
       "items": [
         {
-          "id": 5554,
+          "id": 5560,
           "size": 6,
-          "color": "purple"
-        },
+          "color": "Vermillion", 
+          "hex": "#A32319"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Sherpa lined caramel jacket",
+      "img": "product-jacket.png",
+      "price": "92.00",
+      "description": "Goggles, swim cap, oxygen set up",
+      "items": [
         {
-          "id": 5555,
+          "id": 5570,
           "size": 6,
-          "color": "purple"
-        },
+          "color": "Caramel", 
+          "hex": "#FFDDAF"
+        }
+      ]
+    }, 
+    {
+      "id": 4,
+      "title": "Sherpa lined caramel jacket",
+      "img": "product-sweater.png",
+      "price": "43.80",
+      "items": [
         {
-          "id": 5556,
+          "id": 5580,
           "size": 6,
-          "color": "blue"
+          "color": "Caramel",
+          "hex": "#FFDDAF"
         }
       ]
     }

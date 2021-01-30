@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <h1 class="mt-md-5">Products</h1>
-    <b-row>
-      <b-col xs="12" md="4" v-for="product in products" :key="product.id">
-        <product-card :product="product" />
-      </b-col>
-    </b-row>
-  </div>
+  <b-container>
+    <div>
+      <h1 class="mt-md-5">Products</h1>
+      <b-row>
+        <b-col xs="12" md="4" v-for="product in products" :key="product.id">
+          <product-card :product="product" />
+        </b-col>
+      </b-row>
+    </div>
+  </b-container>
 </template>
 
 <script>
