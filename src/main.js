@@ -5,11 +5,12 @@ import store from "./store";
 import { BootstrapVue } from "bootstrap-vue";
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
-import "bootstrap/dist/css/bootstrap.css"
-import "bootstrap-vue/dist/bootstrap-vue.css"
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+import "@/assets/fonts/fonts.css";
 
 // Make BootstrapVue available throughout your project
-Vue.use(BootstrapVue)
+Vue.use(BootstrapVue);
 
 // How to import all images?
 // function importAll(r) {
@@ -24,4 +25,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount("#app")
+}).$mount("#app");

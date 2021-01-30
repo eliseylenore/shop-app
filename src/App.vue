@@ -13,9 +13,8 @@
 </template>
 
 <style lang="scss">
-
 body {
-  font-family: "Myriad Pro";
+  font-family: "Myriad Pro", sans-serif !important;
 }
 .nav {
   background-color: #00264d;

@@ -21,7 +21,7 @@
           </div>
           <div class="my-4">
             <h4>Materials and care</h4>
-          <p>Materials and care</p>
+            <p>Materials and care</p>
           </div>
         </b-col>
       </b-row>
@@ -40,7 +40,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h2, h3, h4 {
+h2,
+h3,
+h4 {
   text-align: left;
 }
 img {
