@@ -16,14 +16,20 @@
           <p>${{ product.price }}</p>
           <div class="mt-4">
             <h4>Color</h4>
-            <div>
-              <div
+            <div class="mb-2">
+              <button
                 v-for="color in product.colors"
-                class="color-swatch"
+                :class="[
+                  'color-swatch',
+                  'mr-1',
+                  product.selectedColor === color ? 'active' : ''
+                ]"
+                :style="'background-color: ' + color"
                 :key="product.colors.indexOf(color)"
+                @click="changeColor(color)"
               >
-                {{ color }}
-              </div>
+                <span class="sr-only">{{ color }}</span>
+              </button>
             </div>
           </div>
           <button class="">
@@ -45,7 +51,7 @@
           </div>
           <div class="my-4" :class="materialsShowing ? 'closed' : 'open'">
             <button
-            @click="toggleMaterials"
+              @click="toggleMaterials"
               class="materials d-flex align-items-center justify-content-start"
             >
               <h4 class="mb-0 mr-2">Materials and care</h4>
@@ -81,26 +87,14 @@ export default {
     },
     toggleMaterials() {
       this.materialsShowing = !this.materialsShowing;
+    },
+    changeColor(color) {
+      this.$store.dispatch("changeProductSelectedColor", color);
     }
   },
-  computed: {
-    ...mapState(["product"]),
-    // colors() {
-    //   const colorArr = [];
-    //   for (let item in this.products.items) {
-    //     let miniItem = {
-    //       color: item.color,
-    //       hex: item.hex
-    //     };
-    //     if (!colorArr.includes(miniItem)) {
-    //       colorArr.push(miniItem);
-    //     } else {
-    //       continue;
-    //     }
-    //   }
-    //   return colorArr;
-    // }
-  }
+  computed: mapState({
+    product: state => state.product
+  })
 };
 </script>
 
@@ -112,17 +106,29 @@ h4 {
   font-weight: bold;
 }
 button.description,
-button.materials {
-  background-color: transparent;
-  padding: 0;
+button {
+  &.materials,
+  &.description,
+  &.color-swatch {
+    background-color: transparent;
+    padding: 0;
+  }
+}
+
+.color-swatch {
+  height: 2em;
+  width: 2em;
+}
+.color-swatch.active {
+  border: 3px solid #ff744e;
 }
 .closed img {
   -webkit-transition: 0.3s ease-in-out;
-   -webkit-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
 }
 .open img {
   -webkit-transition: 0.3s ease-in-out;
-   -webkit-transform: rotate(0deg);
+  -webkit-transform: rotate(0deg);
 }
 .product-img {
   box-shadow: 3px 3px 15px rgba(163, 35, 25, 0.4);

@@ -17,13 +17,17 @@ export default new Vuex.Store({
       const colorArr = [];
       for (const item of product.items) {
         if (!colorArr.includes(item.hex)) {
-          colorArr.push(item.hex)
+          colorArr.push(item.hex);
         }
       }
       state.product = {
         ...product,
-        colors: colorArr
-      }
+        colors: colorArr,
+        selectedColor: colorArr[0]
+      };
+    },
+    SET_PRODUCT_COLOR(state, color) {
+      state.product.selectedColor = color;
     }
   },
   actions: {
@@ -50,6 +54,9 @@ export default new Vuex.Store({
             console.log("There was an error:", error.response);
           });
       }
+    },
+    changeProductSelectedColor({ commit }, color) {
+      commit("SET_PRODUCT_COLOR", color);
     }
   },
   getters: {
