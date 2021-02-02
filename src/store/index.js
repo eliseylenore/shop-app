@@ -14,7 +14,16 @@ export default new Vuex.Store({
       state.products = products;
     },
     SET_PRODUCT(state, product) {
-      state.product = product;
+      const colorArr = [];
+      for (const item of product.items) {
+        if (!colorArr.includes(item.hex)) {
+          colorArr.push(item.hex)
+        }
+      }
+      state.product = {
+        ...product,
+        colors: colorArr
+      }
     }
   },
   actions: {
@@ -31,7 +40,7 @@ export default new Vuex.Store({
       var product = this.getters.getProductById(id);
 
       if (product) {
-        commit("SET_PRODUCT", product)
+        commit("SET_PRODUCT", product);
       } else {
         ProductService.getProduct(id)
           .then(response => {
@@ -44,7 +53,7 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getProductById: state => id =>  {
+    getProductById: state => id => {
       return state.products.find(product => product.id === id);
     }
   },

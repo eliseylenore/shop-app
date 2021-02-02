@@ -18,11 +18,11 @@ body {
 }
 .nav {
   background-color: #00264d;
-  padding: 1em 0;
+  padding: 0.7em 0;
 }
 
 .nav a {
-  font-weight: bold;
+  font-size: 1.4em;
   color: white;
   &:hover {
     color: white;
@@ -40,7 +40,7 @@ h1,
 h2,
 h3,
 h4 {
-  text-weight: bold;
+  font-weight: bold;
   text-align: center;
   color: #00264d;
 }

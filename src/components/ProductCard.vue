@@ -1,14 +1,17 @@
 <template>
   <div class="product-card d-flex flex-column align-items-center">
-    <button class="w-100 mt-3 px-0" v-on:click="goToProduct">
+    <button class="w-100 px-0" v-on:click="goToProduct">
       <div
         class="product-image"
         :aria-label="product.alt"
         :style="'background-image: url(' + product.img + ')'"
       ></div>
-      <h4 class="my-5">
-        <strong>{{ product.title }}</strong> ${{ price }}
-      </h4>
+      <p class="mt-4">
+        <strong>{{ product.title }}</strong> 
+      </p>
+      <p class="mb-4">
+        ${{ price }}
+      </p>
     </button>
   </div>
 </template>
@@ -53,6 +56,7 @@ h4 {
   color: #000;
 }
 .product-card button {
+  padding: 0;
   border: none;
   background-color: white;
   color: black;

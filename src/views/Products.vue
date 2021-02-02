@@ -4,7 +4,7 @@
       <h1 class="mt-md-5">Products</h1>
       <b-row>
         <b-col xs="12" md="4" v-for="product in products" :key="product.id">
-          <product-card :product="product" />
+          <product-card :product="product" class="my-4"/>
         </b-col>
       </b-row>
     </div>
