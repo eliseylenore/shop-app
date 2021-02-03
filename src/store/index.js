@@ -16,25 +16,31 @@ export default new Vuex.Store({
     SET_PRODUCT(state, product) {
       const hexArr = [];
       const sizesArr = [];
-      console.log("items", Object.keys(product.items));
-      for (let item in Object.keys(product.items)) {
-        console.log("item", product.items[item]);
-        for (let part of Object.keys(product.items[item])) {
-          sizesArr.push(part);
+      for (let item of Object.keys(product.items)) {
+        sizesArr.push(item);
+      }
+      // now need to get colors!
+      for (let size of sizesArr) {
+        for (let color of Object.keys(product.items[size])) {
+          if (!hexArr.includes(color)) {
+            hexArr.push(color);
+          }
         }
       }
 
-      // now need to get colors! 
-      
       state.product = {
         ...product,
         colors: hexArr,
         sizes: sizesArr,
-        selectedColor: hexArr[0]
+        selectedColor: hexArr[0],
+        selectedSize: ""
       };
     },
     SET_PRODUCT_COLOR(state, color) {
       state.product.selectedColor = color;
+    },
+    SET_PRODUCT_SIZE(state, size) {
+      state.product.selectedSize = size;
     }
   },
   actions: {
@@ -64,6 +70,9 @@ export default new Vuex.Store({
     },
     changeProductSelectedColor({ commit }, color) {
       commit("SET_PRODUCT_COLOR", color);
+    },
+    changeProductSelectedSize({ commit }, size) {
+      commit("SET_PRODUCT_SIZE", size);
     }
   },
   getters: {

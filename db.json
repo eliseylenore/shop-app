@@ -6,8 +6,8 @@
       "img": "product-scuba.png",
       "price": "28.50",
       "description": "Goggles, swim cap, oxygen set up",
-      "items": [
-        {
+      "items":         
+      {
           "small": {
             "#003366": [
               {
@@ -37,7 +37,6 @@
             ]
           }
         }
-      ]
     }
   ]
 }

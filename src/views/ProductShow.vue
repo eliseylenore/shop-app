@@ -24,13 +24,31 @@
                   'mr-1',
                   product.selectedColor === color ? 'active' : ''
                 ]"
-                :style="'background-color: ' + color.hex"
+                :style="'background-color: ' + color"
                 :key="product.colors.indexOf(color)"
                 @click="changeColor(color)"
               >
                 <span class="sr-only">{{ color }}</span>
               </button>
               <p class="mt-2">{{ product.selectedColor.color }}</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h4>Size</h4>
+            <div class="mb-2">
+              <button
+                v-for="size in product.sizes"
+                :class="[
+                  'size-listing',
+                  'mr-1',
+                  product.selectedSize === size ? 'active' : ''
+                ]"
+                :key="product.sizes.indexOf(size)"
+                @click="changeSize(size)"
+              >
+                {{ size }}
+              </button>
+              <p class="mt-2">{{ product.selectedSize.size }}</p>
             </div>
           </div>
           <button class="">
@@ -91,6 +109,9 @@ export default {
     },
     changeColor(color) {
       this.$store.dispatch("changeProductSelectedColor", color);
+    },
+    changeSize(size) {
+      this.$store.dispatch("changeProductSelectedSize", size);
     }
   },
   computed: mapState({
@@ -110,9 +131,17 @@ button.description,
 button {
   &.materials,
   &.description,
-  &.color-swatch {
+  &.color-swatch, 
+  &.size-listing {
     background-color: transparent;
     padding: 0;
+    color: #000;
+  }
+}
+.size-listing {
+  text-transform: capitalize;
+  &.active {
+    font-weight: bold;
   }
 }
 
