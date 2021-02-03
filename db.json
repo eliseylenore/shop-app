@@ -8,72 +8,34 @@
       "description": "Goggles, swim cap, oxygen set up",
       "items": [
         {
-          "id": 5551,
-          "size": 6,
-          "color": "Navy blue",
-          "hex": "#003366" 
-        },
-        {
-          "id": 5551,
-          "size": 6,
-          "color": "Navy blue",
-          "hex": "#003366" 
-        },
-        {
-          "id": 5552,
-          "size": 6,
-          "color": "Bright turquoise", 
-          "hex": "#0CD6D2"
-        },
-        {
-          "id": 5553,
-          "size": 6,
-          "color": "Tabasco", 
-          "hex": "#A32319"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "title": "Soft vermillion scarf",
-      "img": "product-scarf.png",
-      "price": "50.00",
-      "description": "Goggles, swim cap, oxygen set up",
-      "items": [
-        {
-          "id": 5560,
-          "size": 6,
-          "color": "Vermillion", 
-          "hex": "#A32319"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "title": "Sherpa lined caramel jacket",
-      "img": "product-jacket.png",
-      "price": "92.00",
-      "description": "Goggles, swim cap, oxygen set up",
-      "items": [
-        {
-          "id": 5570,
-          "size": 6,
-          "color": "Caramel", 
-          "hex": "#FFDDAF"
-        }
-      ]
-    }, 
-    {
-      "id": 4,
-      "title": "Sherpa lined caramel jacket",
-      "img": "product-sweater.png",
-      "price": "43.80",
-      "items": [
-        {
-          "id": 5580,
-          "size": 6,
-          "color": "Caramel",
-          "hex": "#FFDDAF"
+          "small": {
+            "#003366": [
+              {
+                "id": 5551,
+                "color": "Navy blue"
+              }
+            ]
+          },
+          "medium": {
+            "#003366": [
+              {
+                "id": 5551,
+                "color": "Navy blue"
+              }
+            ],
+            "#0CD6D2": [
+              {
+                "id": 5552,
+                "color": "Bright turquoise"
+              }
+            ],
+            "#A32319": [
+              {
+                "id": 5553,
+                "color": "Tabasco"
+              }
+            ]
+          }
         }
       ]
     }

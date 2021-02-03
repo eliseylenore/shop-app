@@ -24,12 +24,13 @@
                   'mr-1',
                   product.selectedColor === color ? 'active' : ''
                 ]"
-                :style="'background-color: ' + color"
+                :style="'background-color: ' + color.hex"
                 :key="product.colors.indexOf(color)"
                 @click="changeColor(color)"
               >
                 <span class="sr-only">{{ color }}</span>
               </button>
+              <p class="mt-2">{{ product.selectedColor.color }}</p>
             </div>
           </div>
           <button class="">

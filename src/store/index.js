@@ -14,16 +14,23 @@ export default new Vuex.Store({
       state.products = products;
     },
     SET_PRODUCT(state, product) {
-      const colorArr = [];
-      for (const item of product.items) {
-        if (!colorArr.includes(item.hex)) {
-          colorArr.push(item.hex);
+      const hexArr = [];
+      const sizesArr = [];
+      console.log("items", Object.keys(product.items));
+      for (let item in Object.keys(product.items)) {
+        console.log("item", product.items[item]);
+        for (let part of Object.keys(product.items[item])) {
+          sizesArr.push(part);
         }
       }
+
+      // now need to get colors! 
+      
       state.product = {
         ...product,
-        colors: colorArr,
-        selectedColor: colorArr[0]
+        colors: hexArr,
+        sizes: sizesArr,
+        selectedColor: hexArr[0]
       };
     },
     SET_PRODUCT_COLOR(state, color) {
