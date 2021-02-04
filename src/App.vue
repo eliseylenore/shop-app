@@ -6,15 +6,21 @@
           >Shop</b-nav-item
         >
         <b-nav-item :to="{ name: 'About' }" class="nav-item">About</b-nav-item>
-        <b-nav-item :to="{ name: 'Cart' }" class="cart-item">
-          <img src="cart.svg" alt="" style="height: 1.5em;" />
-          Cart
-        </b-nav-item>
+        <cart-button />
       </b-nav>
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+import CartButton from "@/components/CartButton.vue";
+export default {
+  components: {
+    CartButton
+  }
+};
+</script>
 
 <style lang="scss">
 $prussianBlue: #00264d;
@@ -42,6 +48,9 @@ body {
 .nav {
   a.router-link-exact-active {
     background-color: $scienceBlue;
+  }
+  .cart-item {
+    position: relative;
   }
 }
 @media screen and (min-width: 992px) {
