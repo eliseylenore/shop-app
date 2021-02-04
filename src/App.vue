@@ -13,11 +13,16 @@
 </template>
 
 <style lang="scss">
+$prussianBlue: #00264d;
+$midnightBlue: #003060;
+$chathamsBlue: #114170;
+$congressBlue: #014790;
+$scienceBlue: #015fc0;
 body {
   font-family: "Myriad Pro", sans-serif !important;
 }
 .nav {
-  background-color: #00264d;
+  background-color: $prussianBlue;
   padding: 0.7em 0;
 }
 
@@ -26,13 +31,13 @@ body {
   color: white;
   &:hover {
     color: white;
-    background-color: #114170;
+    background-color: $chathamsBlue;
   }
 }
 
 .nav {
   a.router-link-exact-active {
-    background-color: #015fc0;
+    background-color: $scienceBlue;
   }
 }
 
@@ -42,20 +47,20 @@ h3,
 h4 {
   font-weight: bold;
   text-align: center;
-  color: #00264d;
+  color: $prussianBlue;
 }
 
 button {
-  background-color: #015fc0;
+  background-color: $scienceBlue;
   border: none;
   color: white;
   padding: 0.5em 1.5em;
 }
 button:hover {
-  background-color: #014790;
+  background-color: $congressBlue;
 }
 
 button:active {
-  background-color: #003060;
+  background-color: $midnightBlue;
 }
 </style>

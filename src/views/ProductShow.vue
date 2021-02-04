@@ -30,7 +30,7 @@
               >
                 <span class="sr-only">{{ color }}</span>
               </button>
-              <p class="mt-2">{{ product.selectedColor.color }}</p>
+              <p class="mt-2">{{ product.selectedColor }}</p>
             </div>
           </div>
           <div class="mt-4">
@@ -40,7 +40,7 @@
                 v-for="size in product.sizes"
                 :class="[
                   'size-listing',
-                  'mr-1',
+                  'mr-2',
                   product.selectedSize === size ? 'active' : ''
                 ]"
                 :key="product.sizes.indexOf(size)"
@@ -51,9 +51,16 @@
               <p class="mt-2">{{ product.selectedSize.size }}</p>
             </div>
           </div>
-          <button class="">
+          <button class="" @click="addToCart(product)">
             Add to cart
           </button>
+          <p
+            v-for="error in errors"
+            :key="errors.indexOf(error)"
+            class="red-text mt-2"
+          >
+            {{ error }}
+          </p>
           <div class="my-4" :class="descriptionShowing ? 'closed' : 'open'">
             <button
               @click="toggleDescription"
@@ -97,7 +104,8 @@ export default {
   data() {
     return {
       descriptionShowing: true,
-      materialsShowing: false
+      materialsShowing: false,
+      errors: []
     };
   },
   methods: {
@@ -112,6 +120,14 @@ export default {
     },
     changeSize(size) {
       this.$store.dispatch("changeProductSelectedSize", size);
+    },
+    addToCart(product) {
+      this.errors = [];
+      if (this.product.selectedSize) {
+        this.$store.dispatch("addToCart", product);
+      } else {
+        this.errors.push("Size required");
+      }
     }
   },
   computed: mapState({
@@ -127,11 +143,15 @@ h4 {
   text-align: left;
   font-weight: bold;
 }
+
+.red-text {
+  color: red;
+}
 button.description,
 button {
   &.materials,
   &.description,
-  &.color-swatch, 
+  &.color-swatch,
   &.size-listing {
     background-color: transparent;
     padding: 0;

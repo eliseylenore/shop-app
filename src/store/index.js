@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    cart: [],
     products: [],
     product: {}
   },
@@ -19,7 +20,6 @@ export default new Vuex.Store({
       for (let item of Object.keys(product.items)) {
         sizesArr.push(item);
       }
-      // now need to get colors!
       for (let size of sizesArr) {
         for (let color of Object.keys(product.items[size])) {
           if (!hexArr.includes(color)) {
@@ -35,6 +35,17 @@ export default new Vuex.Store({
         selectedColor: hexArr[0],
         selectedSize: ""
       };
+    },
+    ADD_TO_CART(state, product) {
+      console.log("items", state.product.items);
+      const selectedProduct = {
+        ...state.product.items[product.selectedSize][product.selectedColor][0],
+        color: product.selectedColor,
+        size: product.selectedSize,
+        title: product.title,
+        productId: product.id
+      };
+      state.cart.push(selectedProduct);
     },
     SET_PRODUCT_COLOR(state, color) {
       state.product.selectedColor = color;
@@ -67,6 +78,9 @@ export default new Vuex.Store({
             console.log("There was an error:", error.response);
           });
       }
+    },
+    addToCart({ commit }, product) {
+      commit("ADD_TO_CART", product);
     },
     changeProductSelectedColor({ commit }, color) {
       commit("SET_PRODUCT_COLOR", color);
