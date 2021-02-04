@@ -6,12 +6,31 @@
         :aria-label="product.alt"
         :style="'background-image: url(' + product.img + ')'"
       ></div>
-      <p class="mt-4">
-        <strong>{{ product.title }}</strong> 
-      </p>
-      <p class="mb-4">
-        ${{ price }}
-      </p>
+      <div v-if="!product.quantity">
+        <p class="mt-4 ml-4 mb-0 text-left">
+          <strong>{{ product.title }}</strong>
+        </p>
+        <p class="mb-4 ml-4 text-left">${{ price }}</p>
+      </div>
+      <div v-else>
+        <b-row>
+          <b-col xs="6">
+            <p class="mt-4 ml-4 mb-0 text-left">
+              <strong>{{ product.title }}</strong>
+            </p>
+            <p class="ml-4 mb-0 text-left">{{ product.color }}</p>
+            <p class="ml-4 mb-0 text-left" style="text-transform: capitalize;">
+              {{ product.size }}
+            </p>
+            <p class="mb-4 ml-4 text-left">${{ price }}</p>
+          </b-col>
+          <b-col xs="6">
+            <p class="mt-4 ml-4 mb-0 text-left">
+              Quantity: {{ product.quantity }}
+            </p>
+          </b-col>
+        </b-row>
+      </div>
     </button>
   </div>
 </template>

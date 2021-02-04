@@ -6,6 +6,10 @@
           >Shop</b-nav-item
         >
         <b-nav-item :to="{ name: 'About' }" class="nav-item">About</b-nav-item>
+        <b-nav-item :to="{ name: 'Cart' }" class="cart-item">
+          <img src="cart.svg" alt="" style="height: 1.5em;" />
+          Cart
+        </b-nav-item>
       </b-nav>
     </div>
     <router-view />
@@ -38,6 +42,12 @@ body {
 .nav {
   a.router-link-exact-active {
     background-color: $scienceBlue;
+  }
+}
+@media screen and (min-width: 992px) {
+  .nav .cart-item {
+    position: absolute;
+    right: 2em;
   }
 }
 

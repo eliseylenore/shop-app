@@ -40,10 +40,13 @@ export default new Vuex.Store({
       console.log("items", state.product.items);
       const selectedProduct = {
         ...state.product.items[product.selectedSize][product.selectedColor][0],
-        color: product.selectedColor,
+        hex: product.selectedColor,
         size: product.selectedSize,
         title: product.title,
-        productId: product.id
+        productId: product.id,
+        img: product.img,
+        price: product.price,
+        quantity: 1
       };
       state.cart.push(selectedProduct);
     },
