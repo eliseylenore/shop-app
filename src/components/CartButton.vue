@@ -1,6 +1,6 @@
 <template class="cart-button">
   <b-nav-item :to="{ name: 'Cart' }" class="cart-item">
-    <div class="cart-quantity">
+    <div v-if="cartLength > 0" class="cart-quantity">
       <p class="text-center mb-0 pb-0">
         {{ cartLength}}
       </p>

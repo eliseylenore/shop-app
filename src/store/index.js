@@ -32,26 +32,40 @@ export default new Vuex.Store({
         ...product,
         colors: hexArr,
         sizes: sizesArr,
-        selectedColor: hexArr[0],
+        selectedHex: hexArr[0],
         selectedSize: ""
       };
     },
     ADD_TO_CART(state, product) {
-      console.log("items", state.product.items);
-      const selectedProduct = {
-        ...state.product.items[product.selectedSize][product.selectedColor][0],
-        hex: product.selectedColor,
-        size: product.selectedSize,
-        title: product.title,
-        productId: product.id,
-        img: product.img,
-        price: product.price,
-        quantity: 1
-      };
-      state.cart.push(selectedProduct);
+      // iterate through items to see if already have one in there
+      let matchFound = false;
+      for (let item of state.cart) {
+        console.log("item in cart", item);
+        console.log("product", product);
+        if (
+          item.hex === product.selectedHex &&
+          item.size === product.selectedSize
+        ) {
+          item.quantity += 1;
+          matchFound = true;
+        }
+      }
+      if (!matchFound) {
+        const selectedProduct = {
+          ...state.product.items[product.selectedSize][product.selectedHex][0],
+          hex: product.selectedHex,
+          size: product.selectedSize,
+          title: product.title,
+          productId: product.id,
+          img: product.img,
+          price: product.price,
+          quantity: 1
+        };
+        state.cart.push(selectedProduct);
+      }
     },
     SET_PRODUCT_COLOR(state, color) {
-      state.product.selectedColor = color;
+      state.product.selectedHex = color;
     },
     SET_PRODUCT_SIZE(state, size) {
       state.product.selectedSize = size;
@@ -85,7 +99,7 @@ export default new Vuex.Store({
     addToCart({ commit }, product) {
       commit("ADD_TO_CART", product);
     },
-    changeProductSelectedColor({ commit }, color) {
+    changeProductselectedHex({ commit }, color) {
       commit("SET_PRODUCT_COLOR", color);
     },
     changeProductSelectedSize({ commit }, size) {
