@@ -69,17 +69,20 @@ h4 {
   color: $prussianBlue;
 }
 
-button {
+button,
+.button {
   background-color: $scienceBlue;
   border: none;
   color: white;
   padding: 0.5em 1.5em;
 }
-button:hover {
+button:hover,
+.button:hover {
   background-color: $congressBlue;
 }
 
-button:active {
+button:active,
+.button:active {
   background-color: $midnightBlue;
 }
 </style>

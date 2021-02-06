@@ -14,42 +14,18 @@
             {{ product.title }}
           </h2>
           <p>${{ product.price }}</p>
+          <product-form :product="product"/>
           <div class="mt-4">
-            <h4>Color</h4>
-            <div class="mb-2">
-              <button
-                v-for="color in product.colors"
-                :class="[
-                  'color-swatch',
-                  'mr-1',
-                  product.selectedColor === color ? 'active' : ''
-                ]"
-                :style="'background-color: ' + color"
-                :key="product.colors.indexOf(color)"
-                @click="changeColor(color)"
-              >
-                <span class="sr-only">{{ color }}</span>
-              </button>
-              <p class="mt-2">{{ product.selectedColor }}</p>
-            </div>
-          </div>
-          <div class="mt-4">
-            <h4>Size</h4>
-            <div class="mb-2">
-              <button
-                v-for="size in product.sizes"
-                :class="[
-                  'size-listing',
-                  'mr-2',
-                  product.selectedSize === size ? 'active' : ''
-                ]"
-                :key="product.sizes.indexOf(size)"
-                @click="changeSize(size)"
-              >
-                {{ size }}
-              </button>
-              <p class="mt-2">{{ product.selectedSize.size }}</p>
-            </div>
+              <!-- <b-col xs="6">
+                <h4><label for="quantity">Quantity</label></h4>
+                <select id="quantity" v-model.number="product.selectedHex">
+                  <option>5</option>
+                  <option>4</option>
+                  <option>3</option>
+                  <option>2</option>
+                  <option>1</option>
+                </select>
+              </b-col> -->
           </div>
           <button class="" @click="addToCart(product)">
             Add to cart
@@ -97,7 +73,11 @@
 
 <script>
 import { mapState } from "vuex";
+import ProductForm from "@/components/ProductForm.vue";
 export default {
+  components: {
+    ProductForm
+  },
   created() {
     this.$store.dispatch("fetchProduct", this.$route.params.id);
   },
@@ -114,9 +94,6 @@ export default {
     },
     toggleMaterials() {
       this.materialsShowing = !this.materialsShowing;
-    },
-    changeColor(color) {
-      this.$store.dispatch("changeProductSelectedColor", color);
     },
     changeSize(size) {
       this.$store.dispatch("changeProductSelectedSize", size);
@@ -150,28 +127,13 @@ h4 {
 button.description,
 button {
   &.materials,
-  &.description,
-  &.color-swatch,
-  &.size-listing {
+  &.description {
     background-color: transparent;
     padding: 0;
     color: #000;
   }
 }
-.size-listing {
-  text-transform: capitalize;
-  &.active {
-    font-weight: bold;
-  }
-}
 
-.color-swatch {
-  height: 2em;
-  width: 2em;
-}
-.color-swatch.active {
-  border: 3px solid #ff744e;
-}
 .closed img {
   -webkit-transition: 0.3s ease-in-out;
   -webkit-transform: rotate(90deg);
