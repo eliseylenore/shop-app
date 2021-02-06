@@ -33,7 +33,8 @@ export default new Vuex.Store({
         colors: hexArr,
         sizes: sizesArr,
         selectedHex: hexArr[0],
-        selectedSize: ""
+        selectedSize: "",
+        quantity: 1
       };
     },
     ADD_TO_CART(state, product) {
@@ -59,7 +60,7 @@ export default new Vuex.Store({
           productId: product.id,
           img: product.img,
           price: product.price,
-          quantity: 1
+          quantity: product.quantity
         };
         state.cart.push(selectedProduct);
       }

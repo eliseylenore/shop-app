@@ -15,28 +15,6 @@
           </h2>
           <p>${{ product.price }}</p>
           <product-form :product="product"/>
-          <div class="mt-4">
-              <!-- <b-col xs="6">
-                <h4><label for="quantity">Quantity</label></h4>
-                <select id="quantity" v-model.number="product.selectedHex">
-                  <option>5</option>
-                  <option>4</option>
-                  <option>3</option>
-                  <option>2</option>
-                  <option>1</option>
-                </select>
-              </b-col> -->
-          </div>
-          <button class="" @click="addToCart(product)">
-            Add to cart
-          </button>
-          <p
-            v-for="error in errors"
-            :key="errors.indexOf(error)"
-            class="red-text mt-2"
-          >
-            {{ error }}
-          </p>
           <div class="my-4" :class="descriptionShowing ? 'closed' : 'open'">
             <button
               @click="toggleDescription"
@@ -85,7 +63,6 @@ export default {
     return {
       descriptionShowing: true,
       materialsShowing: false,
-      errors: []
     };
   },
   methods: {
@@ -94,17 +71,6 @@ export default {
     },
     toggleMaterials() {
       this.materialsShowing = !this.materialsShowing;
-    },
-    changeSize(size) {
-      this.$store.dispatch("changeProductSelectedSize", size);
-    },
-    addToCart(product) {
-      this.errors = [];
-      if (this.product.selectedSize) {
-        this.$store.dispatch("addToCart", product);
-      } else {
-        this.errors.push("Size required");
-      }
     }
   },
   computed: mapState({
@@ -121,9 +87,6 @@ h4 {
   font-weight: bold;
 }
 
-.red-text {
-  color: red;
-}
 button.description,
 button {
   &.materials,
