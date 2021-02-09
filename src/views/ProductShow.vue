@@ -22,7 +22,7 @@
             >
               <h4 class="mb-0 mr-2">Description</h4>
               <img
-                src="./../../public/expand-triangle.svg"
+                src="./../../public/img/expand-triangle.svg"
                 alt=""
                 style="height: 0.7em;"
               />
@@ -36,7 +36,7 @@
             >
               <h4 class="mb-0 mr-2">Materials and care</h4>
               <img
-                src="./../../public/expand-triangle.svg"
+                src="./../../public/img/expand-triangle.svg"
                 alt=""
                 style="height: 0.7em;"
               />

@@ -5,7 +5,7 @@
         {{ cartLength}}
       </p>
     </div>
-    <img src="cart.svg" alt="" style="height: 1.5em;" />
+    <img src="/img/cart.svg" alt="" style="height: 1.5em;" />
     Cart
   </b-nav-item>
 </template>

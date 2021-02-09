@@ -47,7 +47,7 @@ export default new Vuex.Store({
           item.hex === product.selectedHex &&
           item.size === product.selectedSize
         ) {
-          item.quantity += 1;
+          item.quantity += product.quantity;
           matchFound = true;
         }
       }

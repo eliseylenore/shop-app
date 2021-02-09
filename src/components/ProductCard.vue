@@ -13,14 +13,18 @@
 
 <script>
 export default {
-  data() {
-    return {
-      title: "Park Cleanup"
-    };
-  },
   props: {
     product: {
-      type: Object
+      type: Object,
+      required: true,
+      validator: propValue => {
+        const isPNG = propValue.img.endsWith(".png");
+        const isJPG =
+          propValue.img.endsWith(".jpg") || propValue.img.endsWith(".jpeg");
+        const hasValidExtension = isPNG || isJPG;
+
+        return hasValidExtension;
+      }
     }
   },
   methods: {
