@@ -31,7 +31,7 @@ export default new Vuex.Store({
       state.product = {
         ...product,
         colors: hexArr,
-        sizes: sizesArr,
+        sizes: Object.keys(sizesArr),
         selectedHex: hexArr[0],
         selectedSize: "",
         quantity: 1

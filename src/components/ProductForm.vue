@@ -30,7 +30,7 @@
       <b-col xs="6">
         <h4 class="text-left">Size</h4>
         <div class="d-flex flex-row">
-          <div v-for="size in Object.keys(product.sizes)" :key="size">
+          <div v-for="size in product.sizes" :key="size">
             <label
               :for="size"
               :class="[
@@ -115,13 +115,17 @@ export default {
       return currentColorSizes;
     },
     maxQuantity() {
-      let numberAvailable = this.$store.state.product.items[
-        this.product.selectedHex
-      ].sizes[this.product.selectedSize];
-      if (numberAvailable > 10) {
-        return 10;
+      if (this.product.selectedSize) {
+        let numberAvailable = this.$store.state.product.items[
+          this.product.selectedHex
+        ].sizes[this.product.selectedSize];
+        if (numberAvailable > 10) {
+          return 10;
+        } else {
+          return numberAvailable;
+        }
       } else {
-        return numberAvailable;
+        return 10;
       }
     }
   }
@@ -143,8 +147,12 @@ h4 {
 .color-swatch.active {
   border: 3px solid #ff744e;
 }
+label {
+  cursor: pointer;
+}
 label.disabled {
   color: grey;
+  text-decoration: line-through;
 }
 .size-listing {
   text-transform: capitalize;
