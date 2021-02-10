@@ -93,10 +93,31 @@ export default {
   methods: {
     addToCart(product) {
       this.errors = [];
-      if (this.product.selectedSize) {
-        this.$store.dispatch("addToCart", product);
-      } else {
+      // check if quantity exceeds amount
+      let quantityExceedsAvailable = false;
+      for (let item of this.$store.state.cart) {
+        if (
+          item.productId === product.id &&
+          item.size === product.selectedSize
+        ) {
+          console.log("found same product in cart");
+          let totalQuantity = item.quantity + product.quantity;
+          if (totalQuantity > item.sizes[product.selectedSize]) {
+            quantityExceedsAvailable = true;
+          }
+        }
+      }
+
+      if (quantityExceedsAvailable) {
+        this.errors.push(
+          "That quantity is not available. Please try a lower quantity."
+        );
+      } else if (!this.product.selectedSize) {
         this.errors.push("Size required");
+      } else if (!this.selectedColorSizes[this.product.selectedSize]) {
+        this.errors.push("Please select available size.");
+      } else {
+        this.$store.dispatch("addToCart", product);
       }
     }
   },
@@ -156,7 +177,7 @@ label.disabled {
 }
 .size-listing {
   text-transform: capitalize;
-  &.active {
+  &.active:not(.disabled) {
     font-weight: bold;
   }
 }

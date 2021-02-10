@@ -41,8 +41,6 @@ export default new Vuex.Store({
       // iterate through items to see if already have one in there
       let matchFound = false;
       for (let item of state.cart) {
-        console.log("item in cart", item);
-        console.log("product", product);
         if (
           item.hex === product.selectedHex &&
           item.size === product.selectedSize
