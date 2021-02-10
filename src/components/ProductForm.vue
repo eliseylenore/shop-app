@@ -32,15 +32,7 @@
         <h4 class="text-left">Size</h4>
         <div class="d-flex flex-row">
           <div v-for="size in product.sizes" :key="size">
-            <label
-              :for="size"
-              :class="[
-                'size-listing',
-                'pr-2',
-                product.selectedSize === size ? 'active' : '',
-                selectedColorSizes[size] ? '' : 'disabled'
-              ]"
-            >
+            <label :for="size" :class="sizeClasses(size)">
               <input
                 type="radio"
                 :disabled="!selectedColorSizes[size]"
@@ -121,6 +113,15 @@ export default {
       } else {
         this.$store.dispatch("addToCart", product);
       }
+    },
+    sizeClasses(size) {
+      let classes = ["size-listing", "pr-2"];
+      if (!this.selectedColorSizes[size]) {
+        classes.push("disabled");
+      } else if (this.product.selectedSize === size) {
+        classes.push("active");
+      }
+      return classes;
     }
   },
   computed: {
