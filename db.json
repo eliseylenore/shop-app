@@ -9,27 +9,27 @@
       "items":         
       {
         "#003366": {
-          "sizes": [
-            {"small": 2}, 
-            {"medium": 3}
-          ], 
+          "sizes": {
+            "small": 2, 
+            "medium": 3
+          }, 
           "id": 5551,
           "color": "Navy blue"
         },
         "#0CD6D2": {
-          "sizes": [
-            {"small": 2}, 
-            {"medium": 3}, 
-            {"large": 5}
-          ], 
+          "sizes": {
+            "small": 2, 
+            "medium": 3, 
+            "large": 5
+          }, 
           "id": 5552,
           "color": "Bright turquoise"
         },
         "#A32319": {
-          "sizes": [
-            {"small": 2}, 
-            {"large": 5}
-          ], 
+          "sizes": {
+            "small": 2, 
+            "large": 5
+          }, 
           "id": 5553,
           "color": "Tabasco"
         }

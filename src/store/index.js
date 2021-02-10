@@ -16,14 +16,14 @@ export default new Vuex.Store({
     },
     SET_PRODUCT(state, product) {
       const hexArr = [];
-      const sizesArr = [];
+      const sizesArr = {};
       for (let item of Object.keys(product.items)) {
         hexArr.push(item);
       }
       for (let color of hexArr) {
-        for (let size of product.items[color].sizes) {
-          if (!sizesArr.includes(Object.keys(size)[0])) {
-            sizesArr.push(Object.keys(size)[0]);
+        for (let size of Object.keys(product.items[color].sizes)) {
+          if (!sizesArr[size]) {
+            sizesArr[size] = product.items[color].sizes[size];
           }
         }
       }

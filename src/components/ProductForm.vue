@@ -30,7 +30,7 @@
       <b-col xs="6">
         <h4 class="text-left">Size</h4>
         <div class="d-flex flex-row">
-          <div v-for="size in product.sizes" :key="product.sizes.indexOf(size)">
+          <div v-for="size in Object.keys(product.sizes)" :key="size">
             <label
               :for="size"
               :class="[
@@ -60,11 +60,7 @@
           v-model.number="product.quantity"
           class="form-control"
         >
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+          <option v-for="n in maxQuantity" :key="n"> {{ n }}</option>
         </select>
       </b-col>
     </b-row>
@@ -107,13 +103,26 @@ export default {
   computed: {
     selectedColorSizes() {
       let currentColorSizes = {};
-      for (let size of this.$store.state.product.items[this.product.selectedHex]
-        .sizes) {
-        if (!currentColorSizes[Object.keys(size)[0]]) {
-          currentColorSizes[Object.keys(size)[0]] = size[Object.keys(size)[0]];
+      for (let size of Object.keys(
+        this.$store.state.product.items[this.product.selectedHex].sizes
+      )) {
+        if (!currentColorSizes[size]) {
+          currentColorSizes[size] = this.$store.state.product.items[
+            this.product.selectedHex
+          ].sizes[size];
         }
       }
       return currentColorSizes;
+    },
+    maxQuantity() {
+      let numberAvailable = this.$store.state.product.items[
+        this.product.selectedHex
+      ].sizes[this.product.selectedSize];
+      if (numberAvailable > 10) {
+        return 10;
+      } else {
+        return numberAvailable;
+      }
     }
   }
 };
