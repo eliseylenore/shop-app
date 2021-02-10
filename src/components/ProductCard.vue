@@ -40,7 +40,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 h4 {
   font-weight: normal;
   color: #000;
@@ -51,6 +51,9 @@ h4 {
   background-color: white;
   color: black;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  &:focus {
+    @include focus-glow;
+  }
 }
 
 .product-image {

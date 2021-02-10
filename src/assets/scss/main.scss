@@ -1,0 +1,16 @@
+$prussianBlue: #00264d;
+$midnightBlue: #003060;
+$chathamsBlue: #114170;
+$congressBlue: #014790;
+$scienceBlue: #015fc0;
+$coral: #ff744e;
+
+@mixin focus-glow($color: null) {
+  @if $color == null {
+    $color: $coral;
+  }
+  box-shadow: 0px 0px 4px 4px $color;
+  outline-width: 2px;
+  outline-style: dotted;
+  outline-color: transparent;
+}

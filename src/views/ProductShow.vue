@@ -95,6 +95,9 @@ button {
     padding: 0;
     color: #000;
   }
+  &:focus {
+    @include focus-glow;
+  }
 }
 
 .closed img {

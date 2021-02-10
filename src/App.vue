@@ -23,11 +23,6 @@ export default {
 </script>
 
 <style lang="scss">
-$prussianBlue: #00264d;
-$midnightBlue: #003060;
-$chathamsBlue: #114170;
-$congressBlue: #014790;
-$scienceBlue: #015fc0;
 body {
   font-family: "Myriad Pro", sans-serif !important;
 }
@@ -48,6 +43,9 @@ body {
 .nav {
   a.router-link-exact-active {
     background-color: $scienceBlue;
+  }
+  a:focus {
+    @include focus-glow;
   }
   .cart-item {
     position: relative;
@@ -75,6 +73,9 @@ button,
   border: none;
   color: white;
   padding: 0.5em 1.5em;
+  &:focus {
+    @include focus-glow;
+  }
 }
 button:hover,
 .button:hover {
