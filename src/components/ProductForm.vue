@@ -98,6 +98,7 @@ export default {
       for (let item of this.$store.state.cart) {
         if (
           item.productId === product.id &&
+          item.hex === product.selectedHex &&
           item.size === product.selectedSize
         ) {
           console.log("found same product in cart");

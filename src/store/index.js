@@ -74,6 +74,14 @@ export default new Vuex.Store({
     },
     SET_PRODUCT_SIZE(state, size) {
       state.product.selectedSize = size;
+    },
+    REMOVE_FROM_CART(state, product) {
+      state.cart = state.cart.filter(
+        item =>
+          item.id !== product.id ||
+          item.size !== product.size ||
+          item.hex !== product.hex
+      );
     }
   },
   actions: {
@@ -109,6 +117,9 @@ export default new Vuex.Store({
     },
     changeProductSelectedSize({ commit }, size) {
       commit("SET_PRODUCT_SIZE", size);
+    },
+    removeFromCart({ commit }, product) {
+      commit("REMOVE_FROM_CART", product);
     }
   },
   getters: {

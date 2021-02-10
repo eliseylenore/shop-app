@@ -31,7 +31,9 @@ export default {
     goToProduct: function() {
       this.$router.push({
         name: "ProductShow",
-        params: { id: this.product.id }
+        params: {
+          id: this.product.productId ? this.product.productId : this.product.id
+        }
       });
     }
   }
