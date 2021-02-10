@@ -4,7 +4,7 @@
       <b-row>
         <b-col xs="12" sm="5" offset="1" class="px-sm-5">
           <img
-            :src="'./../../' + product.img"
+            :src="'./../../img/' + product.img"
             alt=""
             class="w-100 product-img"
           />
@@ -14,7 +14,7 @@
             {{ product.title }}
           </h2>
           <p>${{ product.price }}</p>
-          <product-form :product="product"/>
+          <product-form :product="product" />
           <div class="my-4" :class="descriptionShowing ? 'closed' : 'open'">
             <button
               @click="toggleDescription"
@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       descriptionShowing: true,
-      materialsShowing: false,
+      materialsShowing: false
     };
   },
   methods: {

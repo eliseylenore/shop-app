@@ -36,11 +36,13 @@
               :class="[
                 'size-listing',
                 'pr-2',
-                product.selectedSize === size ? 'active' : ''
+                product.selectedSize === size ? 'active' : '',
+                selectedColorSizes[size] ? '' : 'disabled'
               ]"
             >
               <input
                 type="radio"
+                :disabled="!selectedColorSizes[size]"
                 :id="size"
                 :value="size"
                 style="display: none;"
@@ -89,15 +91,7 @@ export default {
   props: {
     product: {
       type: Object,
-      required: true,
-      validator: propValue => {
-        const isPNG = propValue.img.endsWith(".png");
-        const isJPG =
-          propValue.img.endsWith(".jpg") || propValue.img.endsWith(".jpeg");
-        const hasValidExtension = isPNG || isJPG;
-
-        return hasValidExtension;
-      }
+      required: true
     }
   },
   methods: {
@@ -108,6 +102,18 @@ export default {
       } else {
         this.errors.push("Size required");
       }
+    }
+  },
+  computed: {
+    selectedColorSizes() {
+      let currentColorSizes = {};
+      for (let size of this.$store.state.product.items[this.product.selectedHex]
+        .sizes) {
+        if (!currentColorSizes[Object.keys(size)[0]]) {
+          currentColorSizes[Object.keys(size)[0]] = size[Object.keys(size)[0]];
+        }
+      }
+      return currentColorSizes;
     }
   }
 };
@@ -127,6 +133,9 @@ h4 {
 }
 .color-swatch.active {
   border: 3px solid #ff744e;
+}
+label.disabled {
+  color: grey;
 }
 .size-listing {
   text-transform: capitalize;

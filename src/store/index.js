@@ -18,12 +18,12 @@ export default new Vuex.Store({
       const hexArr = [];
       const sizesArr = [];
       for (let item of Object.keys(product.items)) {
-        sizesArr.push(item);
+        hexArr.push(item);
       }
-      for (let size of sizesArr) {
-        for (let color of Object.keys(product.items[size])) {
-          if (!hexArr.includes(color)) {
-            hexArr.push(color);
+      for (let color of hexArr) {
+        for (let size of product.items[color].sizes) {
+          if (!sizesArr.includes(Object.keys(size)[0])) {
+            sizesArr.push(Object.keys(size)[0]);
           }
         }
       }
@@ -53,7 +53,7 @@ export default new Vuex.Store({
       }
       if (!matchFound) {
         const selectedProduct = {
-          ...state.product.items[product.selectedSize][product.selectedHex][0],
+          ...state.product.items[product.selectedHex],
           hex: product.selectedHex,
           size: product.selectedSize,
           title: product.title,
@@ -64,6 +64,12 @@ export default new Vuex.Store({
         };
         state.cart.push(selectedProduct);
       }
+      state.product = {
+        ...product,
+        selectedHex: state.product.colors[0],
+        selectedSize: "",
+        quantity: 1
+      };
     },
     SET_PRODUCT_COLOR(state, color) {
       state.product.selectedHex = color;

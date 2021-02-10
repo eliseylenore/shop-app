@@ -4,7 +4,7 @@
       <div
         class="product-image"
         :aria-label="product.alt"
-        :style="'background-image: url(' + product.img + ')'"
+        :style="'background-image: url(' + '/img/' + product.img + ')'"
       ></div>
       <slot></slot>
     </button>
