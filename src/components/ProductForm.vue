@@ -3,7 +3,7 @@
     <h4 class="text-left">Color</h4>
     <div class="d-flex flex-row">
       <div v-for="color in product.colors" :key="product.colors.indexOf(color)">
-        <label :for="color">
+        <label :for="color" class="mb-0">
           <input
             type="radio"
             :id="color"
@@ -26,6 +26,7 @@
         </label>
       </div>
     </div>
+    <p>{{ product.items[product.selectedHex].color }}</p>
     <b-row>
       <b-col xs="6">
         <h4 class="text-left">Size</h4>

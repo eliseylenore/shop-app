@@ -2,7 +2,7 @@
   <div class="about mt-5">
     <b-container>
       <h1>Your cart</h1>
-      <div v-if="!cart" class="d-flex justify-content-center">
+      <div v-if="cart.length < 1" class="d-flex justify-content-center">
         <p class="text-center mr-2">
           There's nothing in your cart yet!
         </p>
