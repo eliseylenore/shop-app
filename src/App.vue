@@ -39,13 +39,12 @@ body {
     background-color: $chathamsBlue;
   }
 }
-
+a:focus {
+  @include focus-glow;
+}
 .nav {
   a.router-link-exact-active {
     background-color: $scienceBlue;
-  }
-  a:focus {
-    @include focus-glow;
   }
   .cart-item {
     position: relative;

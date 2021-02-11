@@ -4,10 +4,11 @@ $chathamsBlue: #114170;
 $congressBlue: #014790;
 $scienceBlue: #015fc0;
 $coral: #ff744e;
+$persimmon: #FF5E5C;
 
 @mixin focus-glow($color: null) {
   @if $color == null {
-    $color: $coral;
+    $color: $persimmon;
   }
   box-shadow: 0px 0px 4px 4px $color;
   outline-width: 2px;

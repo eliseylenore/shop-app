@@ -1,22 +1,26 @@
 <template>
   <form @submit.prevent="addToCart(product)">
-    <h4 class="text-left">Color</h4>
-    <div class="d-flex flex-row">
+    <h4 class="text-left" id="color-title">Color</h4>
+    <div
+      class="d-flex flex-row"
+      role="radiogroup"
+      aria-labelledby="color-title"
+    >
       <div v-for="color in product.colors" :key="product.colors.indexOf(color)">
-        <label :for="color" class="mb-0">
-          <input
-            type="radio"
-            :id="color"
-            :value="color"
-            style="display: none;"
-            v-model="product.selectedHex"
-            class="color-swatch"
-          />
+        <input
+          type="radio"
+          :id="color"
+          :value="color"
+          name="color"
+          v-model="product.selectedHex"
+          class="color-swatch"
+          :aria-checked="product.selectedHex === color ? 'true' : 'false'"
+        />
+        <label :for="color" class="mb-0 mr-1">
           <div
             :style="'background-color: ' + color"
             :class="[
               'color-swatch',
-              'mr-1',
               product.selectedHex === color ? 'active' : ''
             ]"
           ></div>
@@ -29,18 +33,22 @@
     <p>{{ product.items[product.selectedHex].color }}</p>
     <b-row>
       <b-col xs="6">
-        <h4 class="text-left">Size</h4>
-        <div class="d-flex flex-row">
+        <h4 class="text-left" id="size-title">Size</h4>
+        <div
+          class="d-flex flex-row"
+          role="radiogroup"
+          aria-labelledby="size-title"
+        >
           <div v-for="size in product.sizes" :key="size">
+            <input
+              type="radio"
+              :disabled="!selectedColorSizes[size]"
+              :id="size"
+              :value="size"
+              v-model="product.selectedSize"
+              name="size"
+            />
             <label :for="size" :class="sizeClasses(size)">
-              <input
-                type="radio"
-                :disabled="!selectedColorSizes[size]"
-                :id="size"
-                :value="size"
-                style="display: none;"
-                v-model="product.selectedSize"
-              />
               {{ size }}
             </label>
           </div>
@@ -163,6 +171,14 @@ h4 {
 }
 .red-text {
   color: rgb(163, 35, 25);
+}
+
+input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+  &:focus + label {
+    @include focus-glow;
+  }
 }
 .color-swatch {
   height: 2em;
