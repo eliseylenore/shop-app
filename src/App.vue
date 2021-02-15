@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="d-flex flex-column h-100">
     <div class="container-fluid px-0" role="navigation">
       <b-nav align="center">
         <b-nav-item :to="{ name: 'Products' }" class="nav-item"
@@ -9,21 +9,26 @@
         <cart-button />
       </b-nav>
     </div>
-    <router-view />
+    <router-view class="flex-grow-1" />
+    <page-footer />
   </div>
 </template>
 
 <script>
 import CartButton from "@/components/CartButton.vue";
+import PageFooter from "@/components/PageFooter.vue";
 export default {
   components: {
-    CartButton
+    CartButton,
+    PageFooter
   }
 };
 </script>
 
 <style lang="scss">
+html,
 body {
+  height: 100%;
   font-family: "Myriad Pro", sans-serif !important;
 }
 .nav {

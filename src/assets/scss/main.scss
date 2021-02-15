@@ -5,6 +5,7 @@ $congressBlue: #014790;
 $scienceBlue: #015fc0;
 $coral: #ff744e;
 $persimmon: #FF5E5C;
+$silver: #CCCCCC;
 
 @mixin focus-glow($color: null) {
   @if $color == null {

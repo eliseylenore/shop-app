@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <div>
-      <h1 class="mt-md-5">Products</h1>
+      <h1 class="mt-5">Products</h1>
       <b-row>
         <b-col xs="12" md="4" v-for="product in products" :key="product.id">
           <product-card :product="product" class="my-4">
