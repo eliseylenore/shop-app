@@ -1,26 +1,18 @@
 <template>
   <div id="app" class="d-flex flex-column h-100">
-    <div class="container-fluid px-0" role="navigation">
-      <b-nav align="center">
-        <b-nav-item :to="{ name: 'Products' }" class="nav-item"
-          >Shop</b-nav-item
-        >
-        <b-nav-item :to="{ name: 'About' }" class="nav-item">About</b-nav-item>
-        <cart-button />
-      </b-nav>
-    </div>
+    <page-nav />
     <router-view class="flex-grow-1" />
     <page-footer />
   </div>
 </template>
 
 <script>
-import CartButton from "@/components/CartButton.vue";
+import PageNav from "@/components/PageNav.vue";
 import PageFooter from "@/components/PageFooter.vue";
 export default {
   components: {
-    CartButton,
-    PageFooter
+    PageFooter,
+    PageNav
   }
 };
 </script>
