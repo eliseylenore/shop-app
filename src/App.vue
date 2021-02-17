@@ -1,7 +1,9 @@
 <template>
   <div id="app" class="d-flex flex-column h-100">
     <page-nav />
-    <router-view class="flex-grow-1" />
+    <main class="flex-grow-1">
+      <router-view />
+    </main>
     <page-footer />
   </div>
 </template>

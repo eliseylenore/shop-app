@@ -33,11 +33,17 @@
     <p>{{ product.items[product.selectedHex].color }}</p>
     <b-row>
       <b-col xs="6">
-        <h4 class="text-left" id="size-title">Size</h4>
+        <h4 class="text-left" id="size-title">
+          Size
+        </h4>
+        <p class="red-text mb-0" id="size-error">
+          {{ errors.size ? errors.size : "" }}
+        </p>
         <div
           class="d-flex flex-row"
           role="radiogroup"
           aria-labelledby="size-title"
+          aria-describedby="size-error"
         >
           <div v-for="size in product.sizes" :key="size">
             <input
@@ -47,6 +53,7 @@
               :value="size"
               v-model="product.selectedSize"
               name="size"
+              aria-required="true"
             />
             <label :for="size" :class="sizeClasses(size)">
               {{ size }}
@@ -60,21 +67,18 @@
           id="quantity"
           v-model.number="product.quantity"
           class="form-control"
+          aria-describedby="quantity-error"
         >
           <option v-for="n in maxQuantity" :key="n"> {{ n }}</option>
         </select>
+        <p class="red-text mb-0" id="size-error">
+          {{ errors.quantity ? errors.quantity : "" }}
+        </p>
       </b-col>
     </b-row>
     <button type="submit">
       Add to cart
     </button>
-    <p
-      v-for="error in errors"
-      :key="errors.indexOf(error)"
-      class="red-text mt-2"
-    >
-      {{ error }}
-    </p>
   </form>
 </template>
 
@@ -82,7 +86,7 @@
 export default {
   data() {
     return {
-      errors: []
+      errors: {}
     };
   },
   props: {
@@ -111,13 +115,12 @@ export default {
       }
 
       if (quantityExceedsAvailable) {
-        this.errors.push(
+        this.errors.quantity = 
           "That quantity is not available. Please try a lower quantity."
-        );
       } else if (!this.product.selectedSize) {
-        this.errors.push("Size required");
+        this.errors.size = "Size required";
       } else if (!this.selectedColorSizes[this.product.selectedSize]) {
-        this.errors.push("Please select available size.");
+        this.errors.size = "Please select available size.";
       } else {
         this.$store.dispatch("addToCart", product);
       }
