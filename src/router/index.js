@@ -1,15 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import FileNotFound from "../views/FileNotFound.vue"
+import FileNotFound from "../views/FileNotFound.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home
+    redirect: { name: "Products" }
   },
   {
     path: "/about",
@@ -35,8 +33,7 @@ const routes = [
   {
     path: "/cart",
     name: "Cart",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Cart.vue")
+    component: () => import(/* webpackChunkName: "about" */ "../views/Cart.vue")
   },
   { path: "*", component: FileNotFound }
 ];

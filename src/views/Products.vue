@@ -1,19 +1,23 @@
 <template>
-  <b-container>
-    <div>
-      <h1 class="mt-5">Products</h1>
-      <b-row>
-        <b-col xs="12" md="4" v-for="product in products" :key="product.id">
-          <product-card :product="product" class="my-4">
-            <p class="mt-4 ml-4 mb-0 text-left">
-              <strong>{{ product.title }}</strong>
-            </p>
-            <p class="mb-4 ml-4 text-left">${{ price(product.price) }}</p>
-          </product-card>
-        </b-col>
-      </b-row>
-    </div>
-  </b-container>
+  <div>
+    <b-container fluid class="title py-4 px-0">
+      <h1 class="mb-0">Find what you're looking for.</h1>
+    </b-container>
+    <b-container>
+      <div>
+        <b-row>
+          <b-col xs="12" md="4" v-for="product in products" :key="product.id">
+            <product-card :product="product" class="my-4">
+              <p class="mt-4 ml-4 mb-0 text-left">
+                <strong>{{ product.title }}</strong>
+              </p>
+              <p class="mb-4 ml-4 text-left">${{ price(product.price) }}</p>
+            </product-card>
+          </b-col>
+        </b-row>
+      </div>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -30,7 +34,7 @@ export default {
     ...mapState({
       products: state => state.products
     })
-  }, 
+  },
   methods: {
     price(productPrice) {
       return parseFloat(productPrice)
@@ -40,3 +44,13 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.title {
+  background-color: $persimmon;
+  h1 {
+    color: white;
+    font-weight: bold;
+  }
+}
+</style>
