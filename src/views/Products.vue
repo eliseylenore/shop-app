@@ -1,12 +1,18 @@
 <template>
   <div>
-    <b-container fluid class="title py-4 px-0">
+    <header class="title py-4 mb-4 px-0 h-100">
       <h1 class="mb-0">Find what you're looking for.</h1>
-    </b-container>
+    </header>
     <b-container>
       <div>
         <b-row>
-          <b-col xs="12" md="4" v-for="product in products" :key="product.id">
+          <b-col
+            xs="12"
+            md="6"
+            lg="4"
+            v-for="product in products"
+            :key="product.id"
+          >
             <product-card :product="product" class="my-4">
               <p class="mt-4 ml-4 mb-0 text-left">
                 <strong>{{ product.title }}</strong>
@@ -24,6 +30,11 @@
 import ProductCard from "@/components/ProductCard.vue";
 import { mapState } from "vuex";
 export default {
+  data() {
+    return {
+      lastAddedProduct: {}
+    };
+  },
   components: {
     ProductCard
   },

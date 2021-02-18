@@ -41,7 +41,7 @@
             </product-card>
             <button class="remove" @click="removeItem(product)">
               <span class="sr-only">Remove item</span>
-              <span class="x">X</span>
+              <span class="x">x</span>
             </button>
           </b-col>
         </b-row>
@@ -84,8 +84,10 @@ button.remove {
   width: 2em;
   .x {
     position: absolute;
-    left: 36%;
-    top: 19%;
+    left: 33%;
+    top: 0;
+    font-weight: bold;
+    font-size: 1.5em;
   }
 }
 

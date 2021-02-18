@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent="addToCart(product)">
+    <modal :product="lastAddedProduct" />
     <h4 class="text-left" id="color-title">Color</h4>
     <div
       class="d-flex flex-row"
@@ -83,11 +84,15 @@
 </template>
 
 <script>
+import Modal from "@/components/Modal.vue";
 export default {
   data() {
     return {
       errors: {}
     };
+  },
+  components: {
+    Modal
   },
   props: {
     product: {
@@ -115,14 +120,16 @@ export default {
       }
 
       if (quantityExceedsAvailable) {
-        this.errors.quantity = 
-          "That quantity is not available. Please try a lower quantity."
+        this.errors.quantity =
+          "That quantity is not available. Please try a lower quantity.";
       } else if (!this.product.selectedSize) {
         this.errors.size = "Size required";
       } else if (!this.selectedColorSizes[this.product.selectedSize]) {
         this.errors.size = "Please select available size.";
       } else {
+        this.lastAddedProduct = product;
         this.$store.dispatch("addToCart", product);
+        this.$bvModal.show("modal-1");
       }
     },
     sizeClasses(size) {
