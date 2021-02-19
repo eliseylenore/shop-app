@@ -65,6 +65,10 @@ h4 {
   color: $prussianBlue;
 }
 
+header h1 {
+  font-weight: bold;
+}
+
 button,
 .button,
 button.close {
