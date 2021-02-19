@@ -66,7 +66,8 @@ h4 {
 }
 
 button,
-.button {
+.button,
+button.close {
   background-color: $scienceBlue;
   border: none;
   color: white;

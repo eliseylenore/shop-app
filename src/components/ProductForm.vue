@@ -88,7 +88,8 @@ import Modal from "@/components/Modal.vue";
 export default {
   data() {
     return {
-      errors: {}
+      errors: {},
+      lastAddedProduct: {}
     };
   },
   components: {
@@ -127,9 +128,9 @@ export default {
       } else if (!this.selectedColorSizes[this.product.selectedSize]) {
         this.errors.size = "Please select available size.";
       } else {
-        this.lastAddedProduct = product;
-        this.$store.dispatch("addToCart", product);
+        this.lastAddedProduct = this.product;
         this.$bvModal.show("modal-1");
+        this.$store.dispatch("addToCart", product);
       }
     },
     sizeClasses(size) {

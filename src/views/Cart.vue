@@ -16,6 +16,7 @@
             lg="4"
             v-for="product in cart"
             :key="product.id + product.size"
+            style="position: relative"
           >
             <product-card :product="product">
               <b-row>
@@ -39,9 +40,9 @@
                 </b-col>
               </b-row>
             </product-card>
-            <button class="remove" @click="removeItem(product)">
+            <button class="close" @click="removeItem(product)">
               <span class="sr-only">Remove item</span>
-              <span class="x">x</span>
+              ×
             </button>
           </b-col>
         </b-row>
@@ -73,24 +74,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-button.remove {
-  position: absolute;
-  top: -0.25em;
-  right: -0.15em;
-  border-radius: 100%;
-  padding: 0.35em 0.75em;
-  font-size: 1em;
-  height: 2em;
-  width: 2em;
-  .x {
-    position: absolute;
-    left: 33%;
-    top: 0;
-    font-weight: bold;
-    font-size: 1.5em;
-  }
-}
-
 product-cart {
   position: relative;
 }
