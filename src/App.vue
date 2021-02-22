@@ -81,11 +81,13 @@ button.close {
   }
 }
 button:hover,
+button.close:hover,
 .button:hover {
   background-color: $congressBlue;
 }
 
 button:active,
+button.close:active,
 .button:active {
   background-color: $midnightBlue;
 }

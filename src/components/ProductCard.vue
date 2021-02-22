@@ -3,7 +3,7 @@
     <button class="w-100 px-0" v-on:click="goToProduct">
       <div
         class="product-image"
-        :aria-label="product.alt"
+        :aria-label="product.alt ? product.alt : ''"
         :style="'background-image: url(' + '/img/' + product.img + ')'"
       ></div>
       <slot></slot>

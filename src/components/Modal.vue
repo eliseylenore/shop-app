@@ -1,6 +1,12 @@
 <template>
   <div>
-    <b-modal id="modal-1" ref="modal-1" title="Item added to cart" ok-only>
+    <b-modal
+      id="modal-1"
+      ref="modal-1"
+      :title="title"
+      :ok-only="okOnly"
+      @ok="$emit('modal-clicked')"
+    >
       <product-card
         v-if="product && Object.keys(product).length > 0"
         :product="product"
@@ -11,10 +17,14 @@
               <strong>{{ product.title }}</strong>
             </p>
             <p class="ml-4 mb-0 text-left">
-              {{ product.items[product.selectedHex].color }}
+              {{
+                product.items
+                  ? product.items[product.selectedHex].color
+                  : product.color
+              }}
             </p>
             <p class="ml-4 mb-0 text-left" style="text-transform: capitalize;">
-              {{ product.selectedSize }}
+              {{ product.selectedSize ? product.selectedSize : product.size }}
             </p>
             <p class="mb-4 ml-4 text-left">${{ price }}</p>
           </b-col>
@@ -38,6 +48,14 @@ export default {
   props: {
     product: {
       type: Object
+    },
+    title: {
+      type: String,
+      default: "Item added to cart"
+    },
+    okOnly: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {

@@ -1,5 +1,10 @@
 <template>
   <div class="cart mt-5">
+    <modal
+      :product="clickedProduct"
+      title="Are you sure you want to remove item?"
+      @modal-clicked="removeItem()"
+    />
     <b-container>
       <header>
         <h1>Your cart</h1>
@@ -15,6 +20,7 @@
           <b-col xs="12" md="4" order-md="2">
             <h2 class="text-left">Summary</h2>
             <p>Your total: ${{ cartTotal() }}</p>
+            <button>Check out</button>
           </b-col>
           <b-col xs="12" md="8">
             <b-row>
@@ -46,7 +52,7 @@
                     </p>
                   </div>
                 </product-card>
-                <button class="close" @click="removeItem(product)">
+                <button class="close" @click="showModal(product)">
                   <span class="sr-only">Remove item</span>
                   ×
                 </button>
@@ -62,9 +68,16 @@
 <script>
 import { mapState } from "vuex";
 import ProductCard from "@/components/ProductCard.vue";
+import Modal from "@/components/Modal.vue";
 export default {
   components: {
-    ProductCard
+    ProductCard,
+    Modal
+  },
+  data() {
+    return {
+      clickedProduct: {}
+    };
   },
   computed: mapState({
     cart: state => state.cart
@@ -80,8 +93,14 @@ export default {
         .toFixed(2)
         .replace(/\.0+$/, "");
     },
-    removeItem(product) {
-      this.$store.dispatch("removeFromCart", product);
+    showModal(product) {
+      this.clickedProduct = product;
+      this.$bvModal.show("modal-1");
+      // this.$store.dispatch("removeFromCart", product);
+    },
+    removeItem() {
+      console.log("removing");
+      this.$store.dispatch("removeFromCart", this.clickedProduct);
     }
   }
 };

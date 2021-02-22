@@ -127,10 +127,8 @@ export default new Vuex.Store({
       return state.products.find(product => product.id === id);
     },
     getCartTotal: state => {
-      console.log("calculating cart total");
       let cartTotal = 0;
       for (let item of state.cart) {
-        console.log(item);
         cartTotal += parseFloat(item.price) * item.quantity;
       }
       return cartTotal;
