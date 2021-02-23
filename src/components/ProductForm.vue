@@ -106,6 +106,16 @@ export default {
       this.errors = [];
       // check if quantity exceeds amount
       let quantityExceedsAvailable = false;
+      // checks database
+      if (
+        this.$store.state.product.items[product.selectedHex].sizes[
+          product.selectedSize
+        ] < product.quantity
+      ) {
+        this.errors.quantity = "Please select an available quantity.";
+        quantityExceedsAvailable = true;
+      }
+      //checks cart
       for (let item of this.$store.state.cart) {
         if (
           item.productId === product.id &&
@@ -115,26 +125,25 @@ export default {
           console.log("found same product in cart");
           let totalQuantity = item.quantity + product.quantity;
           if (totalQuantity > item.sizes[product.selectedSize]) {
+            this.errors.quantity =
+              "That quantity is not available. Please select a lower quantity.";
             quantityExceedsAvailable = true;
           }
         }
       }
 
-      if (quantityExceedsAvailable) {
-        this.errors.quantity =
-          "That quantity is not available. Please try a lower quantity.";
-      } else if (!this.product.selectedSize) {
+      if (!this.product.selectedSize) {
         this.errors.size = "Size required";
       } else if (!this.selectedColorSizes[this.product.selectedSize]) {
         this.errors.size = "Please select available size.";
-      } else {
+      } else if (!quantityExceedsAvailable) {
         this.lastAddedProduct = this.product;
         this.$bvModal.show("modal-1");
         this.$store.dispatch("addToCart", product);
       }
     },
     sizeClasses(size) {
-      let classes = ["size-listing", "pr-2"];
+      let classes = ["size-listing", "mr-2"];
       if (!this.selectedColorSizes[size]) {
         classes.push("disabled");
       } else if (this.product.selectedSize === size) {

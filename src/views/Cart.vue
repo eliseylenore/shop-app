@@ -22,11 +22,10 @@
             <p>Your total: ${{ cartTotal() }}</p>
             <button>Check out</button>
           </b-col>
-          <b-col xs="12" md="8">
-            <b-row>
-              <b-col
-                xs="12"
-                sm="6"
+          <div :class="cart.length < 2 ? 'col-md-4' : 'col-md-8'">
+            <b-row :class="cart.length < 2 ? 'justify-content-end' : ''">
+              <div
+                :class="cart.length < 2 ? 'col-12' : 'col-md-6'"
                 v-for="product in cart"
                 :key="product.id + product.size"
                 style="position: relative"
@@ -56,9 +55,9 @@
                   <span class="sr-only">Remove item</span>
                   ×
                 </button>
-              </b-col>
+              </div>
             </b-row>
-          </b-col>
+          </div>
         </b-row>
       </div>
     </b-container>
