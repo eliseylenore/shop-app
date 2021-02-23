@@ -4,7 +4,7 @@
       <b-row>
         <b-col xs="12" sm="5" offset="1" class="px-sm-5">
           <img
-            :src="'./../../img/' + product.img"
+            :src="'./../../img/' + product.items[product.selectedHex].img"
             alt=""
             class="w-100 product-img"
           />

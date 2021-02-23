@@ -56,7 +56,7 @@ export default new Vuex.Store({
           size: product.selectedSize,
           title: product.title,
           productId: product.id,
-          img: product.img,
+          img: product.items[product.selectedHex].img,
           price: product.price,
           quantity: product.quantity
         };

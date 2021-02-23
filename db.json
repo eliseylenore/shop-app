@@ -14,7 +14,8 @@
             "medium": 3
           }, 
           "id": 5551,
-          "color": "Navy blue"
+          "color": "Navy blue", 
+          "img": "product-scuba-navy.png"
         },
         "#0CD6D2": {
           "sizes": {
@@ -23,7 +24,8 @@
             "large": 5
           }, 
           "id": 5552,
-          "color": "Bright turquoise"
+          "color": "Bright turquoise", 
+          "img": "product-scuba.png"
         },
         "#A32319": {
           "sizes": {
@@ -31,7 +33,8 @@
             "large": 5
           }, 
           "id": 5553,
-          "color": "Tabasco"
+          "color": "Tabasco",
+          "img": "product-scuba-red.png"
         }
       }
     }
