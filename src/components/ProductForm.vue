@@ -188,6 +188,7 @@ export default {
 h4 {
   text-align: left;
   font-weight: bold;
+  font-size: 1rem;
 }
 .red-text {
   color: rgb(163, 35, 25);

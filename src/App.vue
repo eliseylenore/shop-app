@@ -65,6 +65,10 @@ h4 {
   color: $prussianBlue;
 }
 
+#app h2 {
+  font-size: 1.5rem;
+}
+
 header h1 {
   font-weight: bold;
 }

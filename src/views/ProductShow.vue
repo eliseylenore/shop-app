@@ -10,7 +10,7 @@
           />
         </b-col>
         <b-col xs="12" sm="5" class="text-left pt-5 pt-sm-0">
-          <h2>
+          <h2 class="mb-0">
             {{ product.title }}
           </h2>
           <p>${{ product.price }}</p>

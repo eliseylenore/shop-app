@@ -35,6 +35,12 @@
           </b-col>
         </b-row>
       </product-card>
+      <template #modal-footer="{ ok }">
+        <!-- Emulate built in modal footer ok and cancel button actions -->
+        <button @click="ok()">
+          OK
+        </button>
+      </template>
     </b-modal>
   </div>
 </template>
