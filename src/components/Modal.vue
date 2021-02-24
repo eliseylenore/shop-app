@@ -109,7 +109,7 @@ button.close {
   color: white;
 }
 .close:not(:disabled):not(.disabled):hover,
-.close:not(:disabled):not(.disabled):focus,
+.close:not(:disabled):not(.disabled):focus-visible,
 .close {
   opacity: 1;
 }

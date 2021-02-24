@@ -38,7 +38,7 @@ body {
     background-color: $chathamsBlue;
   }
 }
-a:focus {
+a:focus-visible {
   @include focus-glow;
 }
 .nav {
@@ -80,7 +80,7 @@ button.close {
   border: none;
   color: white;
   padding: 0.5em 1.5em;
-  &:focus {
+  &:focus-visible {
     @include focus-glow;
   }
 }
@@ -94,5 +94,32 @@ button:active,
 button.close:active,
 .button:active {
   background-color: $midnightBlue;
+}
+
+/* Form styles */
+input,
+select {
+  cursor: pointer;
+}
+input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+  &:focus-visible + label {
+    @include focus-glow;
+  }
+}
+.color-swatch {
+  height: 2em;
+  width: 2em;
+}
+.color-swatch.active {
+  border: 3px solid #ff744e;
+}
+label {
+  cursor: pointer;
+}
+label.disabled {
+  color: grey;
+  text-decoration: line-through;
 }
 </style>

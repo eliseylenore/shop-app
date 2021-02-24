@@ -194,27 +194,6 @@ h4 {
   color: rgb(163, 35, 25);
 }
 
-input[type="radio"] {
-  opacity: 0;
-  position: absolute;
-  &:focus + label {
-    @include focus-glow;
-  }
-}
-.color-swatch {
-  height: 2em;
-  width: 2em;
-}
-.color-swatch.active {
-  border: 3px solid #ff744e;
-}
-label {
-  cursor: pointer;
-}
-label.disabled {
-  color: grey;
-  text-decoration: line-through;
-}
 .size-listing {
   text-transform: capitalize;
   &.active:not(.disabled) {

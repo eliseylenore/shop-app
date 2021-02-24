@@ -4,10 +4,12 @@
       <div
         class="product-image"
         :aria-label="product.alt ? product.alt : ''"
-        :style="'background-image: url(' + '/img/' + product.img + ')'"
+        :style="{
+          backgroundImage: 'url(/img/' + image + ')'
+        }"
       ></div>
-      <slot></slot>
     </button>
+    <slot></slot>
   </div>
 </template>
 
@@ -36,6 +38,13 @@ export default {
         }
       });
     }
+  },
+  computed: {
+    image() {
+      return this.product.selectedHex
+        ? this.product.items[this.product.selectedHex].img
+        : this.product.img;
+    }
   }
 };
 </script>
@@ -51,7 +60,7 @@ h4 {
   background-color: white;
   color: black;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-  &:focus {
+  &:focus-visible {
     @include focus-glow($scienceBlue);
   }
 }

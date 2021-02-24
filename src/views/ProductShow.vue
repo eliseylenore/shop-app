@@ -95,7 +95,7 @@ button {
     padding: 0;
     color: #000;
   }
-  &:focus {
+  &:focus-visible {
     @include focus-glow;
   }
 }
