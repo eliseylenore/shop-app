@@ -3,7 +3,7 @@
     <modal
       :product="clickedProduct"
       title="Are you sure you want to remove item?"
-      @modal-clicked="removeItem()"
+      @modal-clicked="removeItem(clickedProduct)"
     />
     <b-container>
       <header>
@@ -19,7 +19,7 @@
         <b-row class="my-4">
           <b-col xs="12" md="4" order-md="2">
             <h2 class="text-left">Summary</h2>
-            <p>Your total: ${{ cartTotal() }}</p>
+            <p>Your total: ${{ getCartTotal }}</p>
             <button>Check out</button>
           </b-col>
           <div :class="cart.length < 2 ? 'col-md-4' : 'col-md-8'">
@@ -65,9 +65,20 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+// Framework related imports
+import { mapState, mapGetters } from "vuex";
+
+//Common imports
+import {getFormattedValue} from "../commons/utils";
+
+//store object
+import store from "../store"
+
+//Component level imports
 import ProductCard from "@/components/ProductCard.vue";
 import Modal from "@/components/Modal.vue";
+
+//style related imports
 export default {
   components: {
     ProductCard,
@@ -78,29 +89,19 @@ export default {
       clickedProduct: {}
     };
   },
-  computed: mapState({
-    cart: state => state.cart
-  }),
+  computed: {
+    ...mapState({
+      cart: state => state.cart
+    }),
+    ...mapGetters(["getCartTotal"])
+  },
   methods: {
-    price(productPrice) {
-      return parseFloat(productPrice)
-        .toFixed(2)
-        .replace(/\.0+$/, "");
-    },
-    cartTotal() {
-      return parseFloat(this.$store.getters.getCartTotal)
-        .toFixed(2)
-        .replace(/\.0+$/, "");
-    },
-    showModal(product) {
+    price: productPrice => getFormattedValue(productPrice, 2),
+    showModal (product) {
       this.clickedProduct = product;
       this.$bvModal.show("modal-1");
-      // this.$store.dispatch("removeFromCart", product);
     },
-    removeItem() {
-      console.log("removing");
-      this.$store.dispatch("removeFromCart", this.clickedProduct);
-    }
+    removeItem: clickedProduct => store.dispatch("removeFromCart", clickedProduct)
   }
 };
 </script>

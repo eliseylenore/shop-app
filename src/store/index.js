@@ -95,7 +95,7 @@ export default new Vuex.Store({
         });
     },
     fetchProduct({ commit }, id) {
-      var product = this.getters.getProductById(id);
+      const product = this.getters.getProductById(id);
 
       if (product) {
         commit("SET_PRODUCT", product);
@@ -112,7 +112,7 @@ export default new Vuex.Store({
     addToCart({ commit }, product) {
       commit("ADD_TO_CART", product);
     },
-    changeProductselectedHex({ commit }, color) {
+    changeProductSelectedHex({ commit }, color) {
       commit("SET_PRODUCT_COLOR", color);
     },
     changeProductSelectedSize({ commit }, size) {
