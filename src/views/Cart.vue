@@ -23,7 +23,7 @@
             <button>Check out</button>
           </b-col>
           <div :class="cart.length < 2 ? 'col-md-4' : 'col-md-8'">
-            <b-row :class="cart.length < 2 ? 'justify-content-end' : ''">
+            <div :class="cart.length < 2 ? 'justify-content-end' : ''">
               <div
                 :class="cart.length < 2 ? 'col-12' : 'col-md-6'"
                 v-for="product in cart"
@@ -32,31 +32,33 @@
                 class="mb-4"
               >
                 <product-card :product="product">
-                  <div class="mb-3">
-                    <p class="mt-4 ml-4 mb-0 text-left">
-                      <strong>{{ product.title }}</strong>
-                    </p>
-                    <p class="ml-4 mb-0 text-left">{{ product.color }}</p>
-                    <p
-                      class="ml-4 mb-0 text-left"
-                      style="text-transform: capitalize;"
-                    >
-                      {{ product.size }}
-                    </p>
-                    <p class="mb-4 ml-4 text-left">
-                      ${{ price(product.price) }}
-                    </p>
-                    <p class="mt-4 ml-4 mb-0 text-left">
-                      Quantity: {{ product.quantity }}
-                    </p>
-                  </div>
+                  <b-row class="mt-3 w-100">
+                    <b-col xs="6" class="mb-3">
+                      <p class="mb-0 text-left">
+                        <strong>{{ product.title }}</strong>
+                      </p>
+                      <p class="mb-0 text-left">{{ product.color }}</p>
+                      <p
+                        class="mb-0 text-left"
+                        style="text-transform: capitalize;"
+                      >
+                        {{ product.size }}
+                      </p>
+                      <p class="mb-4 text-left">${{ price(product.price) }}</p>
+                    </b-col>
+                    <b-col xs="6" class="mb-3">
+                      <p class="mb-0 text-left">
+                        Quantity: {{ product.quantity }}
+                      </p>
+                    </b-col>
+                  </b-row>
                 </product-card>
                 <button class="close" @click="showModal(product)">
                   <span class="sr-only">Remove item</span>
                   ×
                 </button>
               </div>
-            </b-row>
+            </div>
           </div>
         </b-row>
       </div>
