@@ -11,6 +11,7 @@
 <script>
 import PageNav from "@/components/PageNav.vue";
 import PageFooter from "@/components/PageFooter.vue";
+
 export default {
   components: {
     PageFooter,
@@ -25,6 +26,7 @@ body {
   height: 100%;
   font-family: "Myriad Pro", sans-serif !important;
 }
+
 .nav {
   background-color: $prussianBlue;
   padding: 0.7em 0;
@@ -33,22 +35,27 @@ body {
 .nav a {
   font-size: 1.4em;
   color: white;
+
   &:hover {
     color: white;
     background-color: $chathamsBlue;
   }
 }
+
 a:focus-visible {
   @include focus-glow;
 }
+
 .nav {
   a.router-link-exact-active {
     background-color: $scienceBlue;
   }
+
   .cart-item {
     position: relative;
   }
 }
+
 @media screen and (min-width: 992px) {
   .nav .cart-item {
     position: absolute;
@@ -80,10 +87,12 @@ button.close {
   border: none;
   color: white;
   padding: 0.5em 1.5em;
+
   &:focus-visible {
     @include focus-glow;
   }
 }
+
 button:hover,
 button.close:hover,
 .button:hover {
@@ -101,23 +110,29 @@ input,
 select {
   cursor: pointer;
 }
+
 input[type="radio"] {
   opacity: 0;
   position: absolute;
+
   &:focus-visible + label {
     @include focus-glow;
   }
 }
+
 .color-swatch {
   height: 2em;
   width: 2em;
 }
+
 .color-swatch.active {
   border: 3px solid #ff744e;
 }
+
 label {
   cursor: pointer;
 }
+
 label.disabled {
   color: grey;
   text-decoration: line-through;

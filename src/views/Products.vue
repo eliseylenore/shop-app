@@ -58,16 +58,19 @@
 </template>
 
 <script>
-import ProductCard from "@/components/ProductCard.vue";
 import { mapState } from "vuex";
+
+import { getFormattedValue } from "../commons/utils";
+import ProductCard from "@/components/ProductCard.vue";
+
 export default {
+  components: {
+    ProductCard
+  },
   data() {
     return {
       lastAddedProduct: {}
     };
-  },
-  components: {
-    ProductCard
   },
   created() {
     this.$store.dispatch("fetchProducts");
@@ -78,18 +81,16 @@ export default {
     })
   },
   methods: {
-    price(productPrice) {
-      return parseFloat(productPrice)
-        .toFixed(2)
-        .replace(/\.0+$/, "");
-    }
+    price : productPrice => getFormattedValue(productPrice, 2)
   }
 };
+//TODO: while looping good to have key or index
 </script>
 
 <style lang="scss" scoped>
 .title {
   background-color: $persimmon;
+
   h1 {
     color: white;
     font-weight: bold;

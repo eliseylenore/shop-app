@@ -56,14 +56,14 @@ export default {
   components: {
     ProductForm
   },
-  created() {
-    this.$store.dispatch("fetchProduct", this.$route.params.id);
-  },
   data() {
     return {
       descriptionShowing: true,
       materialsShowing: false
     };
+  },
+  created() {
+    this.$store.dispatch("fetchProduct", this.$route.params.id);
   },
   methods: {
     toggleDescription() {

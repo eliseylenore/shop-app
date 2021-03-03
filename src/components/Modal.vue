@@ -46,7 +46,9 @@
 </template>
 
 <script>
+import { getFormattedValue } from "../commons/utils";
 import ProductCard from "@/components/ProductCard.vue";
+
 export default {
   components: {
     ProductCard
@@ -66,9 +68,7 @@ export default {
   },
   computed: {
     price() {
-      return parseFloat(this.product.price)
-        .toFixed(2)
-        .replace(/\.0+$/, "");
+      return getFormattedValue(this.product.price);
     }
   }
 };
@@ -81,6 +81,7 @@ header.modal-header {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   justify-content: center;
+
   h5 {
     font-weight: bold;
     text-align: center;
@@ -105,9 +106,11 @@ button.close {
   font-weight: bold;
   font-size: 1.5em;
 }
+
 .close:hover {
   color: white;
 }
+
 .close:not(:disabled):not(.disabled):hover,
 .close:not(:disabled):not(.disabled):focus-visible,
 .close {
