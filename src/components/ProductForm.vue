@@ -31,7 +31,7 @@
         </label>
       </div>
     </div>
-    <p>{{ product.items[product.selectedHex].color }}</p>
+    <!-- <p>{{ product.items.find(obj => obj.hex === color).color }}</p> -->
     <b-row>
       <b-col xs="6">
         <h4 class="text-left" id="size-title">
@@ -104,14 +104,13 @@ export default {
   methods: {
     addToCart(product) {
       this.errors = [];
+      const selectedHexItem = this.$store.state.product.items.find(
+        obj => obj.hex === this.product.selectedHex
+      );
       // check if quantity exceeds amount
       let quantityExceedsAvailable = false;
       // checks database
-      if (
-        this.$store.state.product.items[product.selectedHex].sizes[
-          product.selectedSize
-        ] < product.quantity
-      ) {
+      if (selectedHexItem.sizes[product.selectedSize] < product.quantity) {
         this.errors.quantity = "Please select an available quantity.";
         quantityExceedsAvailable = true;
       }
@@ -122,7 +121,6 @@ export default {
           item.hex === product.selectedHex &&
           item.size === product.selectedSize
         ) {
-          console.log("found same product in cart");
           let totalQuantity = item.quantity + product.quantity;
           if (totalQuantity > item.sizes[product.selectedSize]) {
             this.errors.quantity =
@@ -155,22 +153,22 @@ export default {
   computed: {
     selectedColorSizes() {
       let currentColorSizes = {};
-      for (let size of Object.keys(
-        this.$store.state.product.items[this.product.selectedHex].sizes
-      )) {
+      const selectedHexItem = this.$store.state.product.items.find(
+        obj => obj.hex === this.product.selectedHex
+      );
+      for (let size of Object.keys(selectedHexItem.sizes)) {
         if (!currentColorSizes[size]) {
-          currentColorSizes[size] = this.$store.state.product.items[
-            this.product.selectedHex
-          ].sizes[size];
+          currentColorSizes[size] = selectedHexItem.sizes[size];
         }
       }
       return currentColorSizes;
     },
     maxQuantity() {
+      const selectedHexItem = this.$store.state.product.items.find(
+        obj => obj.hex === this.product.selectedHex
+      );
       if (this.product.selectedSize) {
-        let numberAvailable = this.$store.state.product.items[
-          this.product.selectedHex
-        ].sizes[this.product.selectedSize];
+        let numberAvailable = selectedHexItem.sizes[this.product.selectedSize];
         if (numberAvailable > 10) {
           return 10;
         } else {

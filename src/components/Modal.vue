@@ -16,13 +16,13 @@
             <p class="mt-4 ml-4 mb-0 text-left">
               <strong>{{ product.title }}</strong>
             </p>
-            <p class="ml-4 mb-0 text-left">
+            <!-- <p class="ml-4 mb-0 text-left">
               {{
                 product.items
                   ? product.items[product.selectedHex].color
                   : product.color
               }}
-            </p>
+            </p> -->
             <p class="ml-4 mb-0 text-left" style="text-transform: capitalize;">
               {{ product.selectedSize ? product.selectedSize : product.size }}
             </p>

@@ -34,16 +34,20 @@ export default {
       this.$router.push({
         name: "ProductShow",
         params: {
-          id: this.product.productId ? this.product.productId : this.product.id
+          id: this.product._id
         }
       });
     }
   },
   computed: {
     image() {
-      return this.product.selectedHex
-        ? this.product.items[this.product.selectedHex].img
-        : this.product.img;
+      if (this.product.items) {
+        const selectedColor = this.product.items.find(
+          element => element.hex === this.product.selectedHex
+        );
+        return selectedColor.img;
+      }
+      return this.product.img;
     }
   }
 };

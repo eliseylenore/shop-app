@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "db:start": "json-server --watch db.json",
+    "db:start": "node shop-app-api/server.js",
     "start:dev": "npm run serve"
   },
   "dependencies": {

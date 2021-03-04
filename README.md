@@ -7,7 +7,7 @@ npm install
 
 ### Starts mock database
 ```
-json-server --watch db.json
+npm run db:start
 ```
 
 ### Compiles and hot-reloads for development

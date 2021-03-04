@@ -4,7 +4,7 @@
       <b-row>
         <b-col xs="12" sm="5" offset="1" class="px-sm-5">
           <img
-            :src="'./../../img/' + product.items[product.selectedHex].img"
+            :src="'./../../img/' + selectedImg"
             alt=""
             class="w-100 product-img"
           />
@@ -73,9 +73,20 @@ export default {
       this.materialsShowing = !this.materialsShowing;
     }
   },
-  computed: mapState({
-    product: state => state.product
-  })
+  computed: {
+    selectedImg() {
+      if (this.product.items) {
+        const selectedColor = this.product.items.find(
+          element => element.hex === this.product.selectedHex
+        );
+        return selectedColor.img;
+      }
+      return this.product.img;
+    },
+    ...mapState({
+      product: state => state.product
+    })
+  }
 };
 </script>
 

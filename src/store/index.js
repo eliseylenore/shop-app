@@ -17,14 +17,15 @@ export default new Vuex.Store({
     SET_PRODUCT(state, product) {
       const hexArr = [];
       const sizesArr = {};
-      for (let item of Object.keys(product.items)) {
-        hexArr.push(item);
-      }
+      product.items.forEach(function(item) {
+        hexArr.push(item.hex);
+      });
+
       for (let color of hexArr) {
-        for (let size of Object.keys(product.items[color].sizes)) {
-          if (!sizesArr[size]) {
-            sizesArr[size] = product.items[color].sizes[size];
-          }
+        var colorItem = product.items.find(obj => obj.hex === color);
+
+        for (let size of Object.keys(colorItem.sizes)) {
+          sizesArr[size] = 1;
         }
       }
 
@@ -50,13 +51,16 @@ export default new Vuex.Store({
         }
       }
       if (!matchFound) {
+        const selectedItem = state.product.items.find(
+          obj => obj.hex === product.selectedHex
+        );
         const selectedProduct = {
-          ...state.product.items[product.selectedHex],
+          ...selectedItem,
           hex: product.selectedHex,
           size: product.selectedSize,
           title: product.title,
           productId: product.id,
-          img: product.items[product.selectedHex].img,
+          img: selectedItem.img,
           price: product.price,
           quantity: product.quantity
         };
