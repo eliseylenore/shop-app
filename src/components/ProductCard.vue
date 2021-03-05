@@ -41,11 +41,8 @@ export default {
   },
   computed: {
     image() {
-      if (this.product.items) {
-        const selectedColor = this.product.items.find(
-          element => element.hex === this.product.selectedHex
-        );
-        return selectedColor.img;
+      if (this.product.selectedItem) {
+        return this.product.selectedItem.img;
       }
       return this.product.img;
     }

@@ -29,13 +29,18 @@ export default new Vuex.Store({
         }
       }
 
+      const selectedItem = product.items.find(
+        element => element.hex === hexArr[0]
+      );
+
       state.product = {
         ...product,
         colors: hexArr,
         sizes: Object.keys(sizesArr),
         selectedHex: hexArr[0],
         selectedSize: "",
-        quantity: 1
+        quantity: 1,
+        selectedItem: selectedItem
       };
     },
     ADD_TO_CART(state, product) {
@@ -51,16 +56,11 @@ export default new Vuex.Store({
         }
       }
       if (!matchFound) {
-        const selectedItem = state.product.items.find(
-          obj => obj.hex === product.selectedHex
-        );
         const selectedProduct = {
-          ...selectedItem,
-          hex: product.selectedHex,
+          ...product.selectedItem,
           size: product.selectedSize,
           title: product.title,
-          productId: product.id,
-          img: selectedItem.img,
+          productId: product._id,
           price: product.price,
           quantity: product.quantity
         };
@@ -73,11 +73,8 @@ export default new Vuex.Store({
         quantity: 1
       };
     },
-    SET_PRODUCT_COLOR(state, color) {
-      state.product.selectedHex = color;
-    },
-    SET_PRODUCT_SIZE(state, size) {
-      state.product.selectedSize = size;
+    SET_PRODUCT_ITEM(state, item) {
+      state.product.selectedItem = item;
     },
     REMOVE_FROM_CART(state, product) {
       state.cart = state.cart.filter(
@@ -116,11 +113,8 @@ export default new Vuex.Store({
     addToCart({ commit }, product) {
       commit("ADD_TO_CART", product);
     },
-    changeProductSelectedHex({ commit }, color) {
-      commit("SET_PRODUCT_COLOR", color);
-    },
-    changeProductSelectedSize({ commit }, size) {
-      commit("SET_PRODUCT_SIZE", size);
+    changeProductSelectedItem({ commit }, item) {
+      commit("SET_PRODUCT_ITEM", item);
     },
     removeFromCart({ commit }, product) {
       commit("REMOVE_FROM_CART", product);

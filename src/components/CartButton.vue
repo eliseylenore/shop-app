@@ -2,10 +2,10 @@
   <b-nav-item :to="{ name: 'Cart' }" class="cart-item">
     <div v-if="cartLength > 0" class="cart-quantity">
       <p class="text-center mb-0 pb-0">
-        {{ cartLength }}
+        <span class="sr-only">Number of items in cart:</span>{{ cartLength }}
       </p>
     </div>
-    <img src="/img/cart.svg" alt=""  class="cart-icon"/>
+    <img src="/img/cart.svg" alt="shopping cart"  class="cart-icon"/>
   </b-nav-item>
 </template>
 

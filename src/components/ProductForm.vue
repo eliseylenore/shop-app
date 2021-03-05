@@ -14,6 +14,7 @@
           :value="color"
           name="color"
           v-model="product.selectedHex"
+          @click="changeSelectedItem(color)"
           class="color-swatch"
           :aria-checked="product.selectedHex === color ? 'true' : 'false'"
         />
@@ -104,13 +105,12 @@ export default {
   methods: {
     addToCart(product) {
       this.errors = [];
-      const selectedHexItem = this.$store.state.product.items.find(
-        obj => obj.hex === this.product.selectedHex
-      );
       // check if quantity exceeds amount
       let quantityExceedsAvailable = false;
       // checks database
-      if (selectedHexItem.sizes[product.selectedSize] < product.quantity) {
+      if (
+        this.product.selectedItem.sizes[product.selectedSize] < product.quantity
+      ) {
         this.errors.quantity = "Please select an available quantity.";
         quantityExceedsAvailable = true;
       }
@@ -148,27 +148,27 @@ export default {
         classes.push("active");
       }
       return classes;
+    },
+    changeSelectedItem(color) {
+      const selectedHexItem = this.product.items.find(obj => obj.hex === color);
+      this.$store.commit("SET_PRODUCT_ITEM", selectedHexItem);
     }
   },
   computed: {
     selectedColorSizes() {
       let currentColorSizes = {};
-      const selectedHexItem = this.$store.state.product.items.find(
-        obj => obj.hex === this.product.selectedHex
-      );
-      for (let size of Object.keys(selectedHexItem.sizes)) {
+      for (let size of Object.keys(this.product.selectedItem.sizes)) {
         if (!currentColorSizes[size]) {
-          currentColorSizes[size] = selectedHexItem.sizes[size];
+          currentColorSizes[size] = this.product.selectedItem.sizes[size];
         }
       }
       return currentColorSizes;
     },
     maxQuantity() {
-      const selectedHexItem = this.$store.state.product.items.find(
-        obj => obj.hex === this.product.selectedHex
-      );
       if (this.product.selectedSize) {
-        let numberAvailable = selectedHexItem.sizes[this.product.selectedSize];
+        let numberAvailable = this.product.selectedItem.sizes[
+          this.product.selectedSize
+        ];
         if (numberAvailable > 10) {
           return 10;
         } else {

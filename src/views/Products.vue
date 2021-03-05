@@ -11,7 +11,7 @@
             md="6"
             lg="4"
             v-for="product in products"
-            :key="product.id"
+            :key="product._id"
           >
             <product-card :product="product" class="my-4">
               <p class="mt-4 mb-0 text-left">
@@ -23,7 +23,7 @@
                 role="radiogroup"
                 aria-labelledby="color-title"
               >
-                <div v-for="item in Object.keys(product.items)" :key="item.key">
+                <div v-for="item in Object.keys(product.items)" :key="item.id">
                   <input
                     type="radio"
                     :id="item"
@@ -81,10 +81,9 @@ export default {
     })
   },
   methods: {
-    price : productPrice => getFormattedValue(productPrice, 2)
+    price: productPrice => getFormattedValue(productPrice, 2)
   }
 };
-//TODO: while looping good to have key or index
 </script>
 
 <style lang="scss" scoped>

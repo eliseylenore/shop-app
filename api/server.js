@@ -16,7 +16,7 @@ const e = require("express");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080; // set our port
+var port = process.env.PORT || 3000; // set our port
 
 mongoose
   .connect(uriCredentials, { useNewUrlParser: true })
@@ -34,7 +34,7 @@ router.use(function(req, res, next) {
   next(); // make sure we go to the next routes and don't stop here
 });
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+// test route to make sure everything is working (accessed at GET http://localhost:3000/api)
 router.get("/", function(req, res) {
   res.json({ message: "hooray! welcome to our api!" });
 });
@@ -45,7 +45,7 @@ router.get("/", function(req, res) {
 // -----------------------------------
 router
   .route("/products")
-  // create a product (accessed at POST http://localhost:8080/api/products)
+  // create a product (accessed at POST http://localhost:3000/api/products)
   .post(function(req, res) {
     var product = new Product(); // create a new instance of the product model
     product.title = req.body.title; // set the products title (comes from the request)
@@ -63,7 +63,7 @@ router
     });
   })
 
-  // get all the products (accessed at GET http://localhost:8080/api/products)
+  // get all the products (accessed at GET http://localhost:3000/api/products)
   .get(function(req, res) {
     Product.find(function(err, products) {
       if (err) res.send(err);
@@ -77,14 +77,14 @@ router
 router
   .route("/products/:product_id")
 
-  // get the product with that id (accessed at GET http://localhost:8080/api/products/:product_id)
+  // get the product with that id (accessed at GET http://localhost:3000/api/products/:product_id)
   .get(function(req, res) {
     Product.findById(req.params.product_id, function(err, product) {
       if (err) res.send(err);
       res.json(product);
     });
   })
-  // update the product with this id (accessed at PUT http://localhost:8080/api/products/:product_id)
+  // update the product with this id (accessed at PUT http://localhost:3000/api/products/:product_id)
   .put(function(req, res) {
     // use our product model to find the product we want
     Product.findById(req.params.product_id, function(err, product) {
@@ -101,7 +101,7 @@ router
     });
   })
 
-  // delete the product with this id (accessed at DELETE http://localhost:8080/api/products/:product_id)
+  // delete the product with this id (accessed at DELETE http://localhost:3000/api/products/:product_id)
   .delete(function(req, res) {
     Product.remove(
       {
