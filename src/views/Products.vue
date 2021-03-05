@@ -21,30 +21,30 @@
               <div
                 class="d-flex flex-row"
                 role="radiogroup"
-                aria-labelledby="color-title"
+                :aria-label="product.title + ' colors'"
               >
-                <div v-for="item in Object.keys(product.items)" :key="item.id">
+                <div v-for="item of product.items" :key="item.id">
                   <input
                     type="radio"
-                    :id="item"
-                    :value="item"
-                    name="color"
+                    :id="item.hex"
+                    :value="item.hex"
+                    :name="product.title + 'colors'"
                     v-model="product.selectedHex"
                     class="color-swatch"
                     :aria-checked="
-                      product.selectedHex === item ? 'true' : 'false'
+                      product.selectedHex === item.hex ? 'true' : 'false'
                     "
                   />
-                  <label :for="item" class="mb-0 mr-1">
+                  <label :for="item.hex" class="mb-0 mr-1">
                     <div
-                      :style="'background-color: ' + item"
+                      :style="'background-color: ' + item.hex"
                       :class="[
                         'color-swatch',
-                        product.selectedHex === item ? 'active' : ''
+                        product.selectedHex === item.hex ? 'active' : ''
                       ]"
                     ></div>
                     <span class="sr-only">
-                      {{ item }}
+                      {{ item.hex }}
                     </span>
                   </label>
                 </div>

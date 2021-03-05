@@ -55,14 +55,16 @@ h4 {
   font-weight: normal;
   color: #000;
 }
+.product-card {
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
 .product-card button {
   padding: 0;
   border: none;
   background-color: white;
   color: black;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   &:focus-visible {
-    @include focus-glow($scienceBlue);
+    @include focus-glow();
   }
 }
 

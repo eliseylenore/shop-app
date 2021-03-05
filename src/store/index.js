@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import ProductService from "@/services/ProductService.js";
-
+import { getFormattedValue } from "../commons/utils";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -129,7 +129,7 @@ export default new Vuex.Store({
       for (let item of state.cart) {
         cartTotal += parseFloat(item.price) * item.quantity;
       }
-      return cartTotal;
+      return getFormattedValue(cartTotal);
     }
   },
   modules: {}

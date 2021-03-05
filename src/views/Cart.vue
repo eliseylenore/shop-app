@@ -20,10 +20,10 @@
           <b-col xs="12" md="4" order-md="2">
             <h2 class="text-left">Summary</h2>
             <p>Your total: ${{ getCartTotal }}</p>
-            <button>Check out</button>
+            <button class="mb-4">Check out</button>
           </b-col>
           <div :class="cart.length < 2 ? 'col-md-4' : 'col-md-8'">
-            <div :class="cart.length < 2 ? 'justify-content-end' : ''">
+            <div :class="cart.length < 2 ? 'justify-content-end' : 'row'">
               <div
                 :class="cart.length < 2 ? 'col-12' : 'col-md-6'"
                 v-for="product in cart"
@@ -33,7 +33,7 @@
               >
                 <product-card :product="product">
                   <b-row class="mt-3 w-100">
-                    <b-col xs="6" class="mb-3">
+                    <b-col xs="6">
                       <p class="mb-0 text-left">
                         <strong>{{ product.title }}</strong>
                       </p>
@@ -46,7 +46,7 @@
                       </p>
                       <p class="mb-4 text-left">${{ price(product.price) }}</p>
                     </b-col>
-                    <b-col xs="6" class="mb-3">
+                    <b-col xs="6">
                       <p class="mb-0 text-left">
                         Quantity: {{ product.quantity }}
                       </p>
@@ -71,10 +71,10 @@
 import { mapState, mapGetters } from "vuex";
 
 //Common imports
-import {getFormattedValue} from "../commons/utils";
+import { getFormattedValue } from "../commons/utils";
 
 //store object
-import store from "../store"
+import store from "../store";
 
 //Component level imports
 import ProductCard from "@/components/ProductCard.vue";
@@ -99,11 +99,12 @@ export default {
   },
   methods: {
     price: productPrice => getFormattedValue(productPrice, 2),
-    showModal (product) {
+    showModal(product) {
       this.clickedProduct = product;
       this.$bvModal.show("modal-1");
     },
-    removeItem: clickedProduct => store.dispatch("removeFromCart", clickedProduct)
+    removeItem: clickedProduct =>
+      store.dispatch("removeFromCart", clickedProduct)
   }
 };
 </script>

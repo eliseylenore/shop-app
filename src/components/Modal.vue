@@ -10,30 +10,30 @@
       <product-card
         v-if="product && Object.keys(product).length > 0"
         :product="product"
+        class="mx-sm-5"
       >
-        <b-row>
-          <b-col xs="6">
-            <p class="mt-4 ml-4 mb-0 text-left">
-              <strong>{{ product.title }}</strong>
-            </p>
-            <!-- <p class="ml-4 mb-0 text-left">
-              {{
-                product.items
-                  ? product.items[product.selectedHex].color
-                  : product.color
-              }}
-            </p> -->
-            <p class="ml-4 mb-0 text-left" style="text-transform: capitalize;">
-              {{ product.selectedSize ? product.selectedSize : product.size }}
-            </p>
-            <p class="mb-4 ml-4 text-left">${{ price }}</p>
-          </b-col>
-          <b-col xs="6">
-            <p class="mt-4 ml-4 mb-0 text-left">
-              Quantity: {{ product.quantity }}
-            </p>
-          </b-col>
-        </b-row>
+        <b-container>
+          <b-row>
+            <b-col xs="6">
+              <p class="mt-4 ml-4 mb-0 text-left">
+                <strong>{{ product.title }}</strong
+                >,
+                <span
+                  >size
+                  {{
+                    product.selectedSize ? product.selectedSize : product.size
+                  }}</span
+                >
+              </p>
+              <p class="mb-4 ml-4 text-left">${{ price }}</p>
+            </b-col>
+            <b-col xs="6">
+              <p class="mt-4 ml-4 mb-0 text-left">
+                Quantity: {{ product.quantity }}
+              </p>
+            </b-col>
+          </b-row>
+        </b-container>
       </product-card>
       <template #modal-footer="{ ok }">
         <!-- Emulate built in modal footer ok and cancel button actions -->
