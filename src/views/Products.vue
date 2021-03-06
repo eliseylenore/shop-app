@@ -19,9 +19,9 @@
                 <p class="mt-4 mb-0 text-left">
                   <strong>{{ product.title }}</strong>
                 </p>
-                <p class="mb-4 text-left">${{ price(product.price) }}</p>
+                <p class="text-left">${{ price(product.price) }}</p>
                 <div
-                  class="d-flex flex-row"
+                  class="d-flex flex-row mb-3"
                   role="radiogroup"
                   :aria-label="product.title + ' colors'"
                 >

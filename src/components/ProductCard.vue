@@ -45,8 +45,11 @@ export default {
   },
   computed: {
     image() {
-      if (this.product.selectedItem) {
-        return this.product.selectedItem.img;
+      if (this.product.selectedHex) {
+        let selectedObj = this.product.items.find(
+          obj => obj.hex === this.product.selectedHex
+        );
+        return selectedObj.img;
       } else if (this.product.img) {
         return this.product.img;
       }

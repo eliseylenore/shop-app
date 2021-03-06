@@ -82,13 +82,18 @@ export default new Vuex.Store({
           item.size !== product.size ||
           item.hex !== product.hex
       );
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     }
   },
   actions: {
     fetchProducts({ commit }) {
       ProductService.getProducts()
         .then(response => {
-          commit("SET_PRODUCTS", response.data);
+          const productsWithSelectedColors = response.data.map(product => {
+            product.selectedHex = product.items[0].hex;
+            return product;
+          });
+          commit("SET_PRODUCTS", productsWithSelectedColors);
         })
         .catch(error => {
           console.log("There was an error:", error.response);
