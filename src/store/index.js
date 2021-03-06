@@ -68,8 +68,6 @@ export default new Vuex.Store({
       }
       state.product = {
         ...product,
-        selectedHex: state.product.colors[0],
-        selectedSize: "",
         quantity: 1
       };
     },

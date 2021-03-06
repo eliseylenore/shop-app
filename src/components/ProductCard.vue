@@ -9,7 +9,9 @@
         }"
       ></div>
     </button>
-    <slot></slot>
+    <div class="h-100">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -20,12 +22,14 @@ export default {
       type: Object,
       required: true,
       validator: propValue => {
-        const isPNG = propValue.img.endsWith(".png");
-        const isJPG =
-          propValue.img.endsWith(".jpg") || propValue.img.endsWith(".jpeg");
-        const hasValidExtension = isPNG || isJPG;
+        if (propValue.img !== undefined) {
+          const isPNG = propValue.img.endsWith(".png");
+          const isJPG =
+            propValue.img.endsWith(".jpg") || propValue.img.endsWith(".jpeg");
+          const hasValidExtension = isPNG || isJPG;
 
-        return hasValidExtension;
+          return hasValidExtension;
+        } else return false;
       }
     }
   },
@@ -43,8 +47,10 @@ export default {
     image() {
       if (this.product.selectedItem) {
         return this.product.selectedItem.img;
+      } else if (this.product.img) {
+        return this.product.img;
       }
-      return this.product.img;
+      return "no-image.png";
     }
   }
 };
