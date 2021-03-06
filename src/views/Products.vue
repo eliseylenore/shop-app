@@ -14,39 +14,42 @@
             :key="product._id"
           >
             <product-card :product="product" class="my-4">
-              <p class="mt-4 mb-0 text-left">
-                <strong>{{ product.title }}</strong>
-              </p>
-              <p class="mb-4 text-left">${{ price(product.price) }}</p>
-              <div
-                class="d-flex flex-row"
-                role="radiogroup"
-                :aria-label="product.title + ' colors'"
-              >
-                <div v-for="item of product.items" :key="item.id">
-                  <input
-                    type="radio"
-                    :id="item.hex"
-                    :value="item.hex"
-                    :name="product.title + 'colors'"
-                    v-model="product.selectedHex"
-                    class="color-swatch"
-                    :aria-checked="
-                      product.selectedHex === item.hex ? 'true' : 'false'
-                    "
-                  />
-                  <label :for="item.hex" class="mb-0 mr-1">
-                    <div
-                      :style="'background-color: ' + item.hex"
-                      :class="[
-                        'color-swatch',
-                        product.selectedHex === item.hex ? 'active' : ''
-                      ]"
-                    ></div>
-                    <span class="sr-only">
-                      {{ item.hex }}
-                    </span>
-                  </label>
+              <div class="d-flex flex-column align-items-center">
+
+                <p class="mt-4 mb-0 text-left">
+                  <strong>{{ product.title }}</strong>
+                </p>
+                <p class="mb-4 text-left">${{ price(product.price) }}</p>
+                <div
+                  class="d-flex flex-row"
+                  role="radiogroup"
+                  :aria-label="product.title + ' colors'"
+                >
+                  <div v-for="item of product.items" :key="item.id">
+                    <input
+                      type="radio"
+                      :id="item.hex"
+                      :value="item.hex"
+                      :name="product.title + 'colors'"
+                      v-model="product.selectedHex"
+                      class="color-swatch"
+                      :aria-checked="
+                        product.selectedHex === item.hex ? 'true' : 'false'
+                      "
+                    />
+                    <label :for="item.hex" class="mb-0 mr-1">
+                      <div
+                        :style="'background-color: ' + item.hex"
+                        :class="[
+                          'color-swatch',
+                          product.selectedHex === item.hex ? 'active' : ''
+                        ]"
+                      ></div>
+                      <span class="sr-only">
+                        {{ item.hex }}
+                      </span>
+                    </label>
+                  </div>
                 </div>
               </div>
             </product-card>

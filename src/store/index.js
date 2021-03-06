@@ -6,7 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    cart: [],
+    cart: JSON.parse(localStorage.getItem("cart")) || [],
     products: [],
     product: {}
   },
@@ -65,6 +65,7 @@ export default new Vuex.Store({
           quantity: product.quantity
         };
         state.cart.push(selectedProduct);
+        localStorage.setItem("cart", JSON.stringify(state.cart));
       }
       state.product = {
         ...product,
