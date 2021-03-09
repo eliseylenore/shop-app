@@ -32,15 +32,16 @@ body {
   padding: 0.7em 0;
 }
 
-.nav a {
+.nav a:not(.dropdown-item) {
   font-size: 1.4em;
   color: white;
   border-bottom: $prussianBlue 3px solid;
+}
 
-  &:hover {
-    color: white;
-    background-color: $chathamsBlue;
-  }
+.nav a:not(.dropdown-item):hover,
+.nav-item.active a {
+  color: white;
+  background-color: $chathamsBlue;
 }
 
 a:focus-visible {
@@ -48,7 +49,8 @@ a:focus-visible {
 }
 
 .nav {
-  a.router-link-exact-active {
+  a.router-link-exact-active:not(.dropdown-item),
+  .active .nav-item {
     background-color: $scienceBlue;
     border-bottom: white 3px solid;
   }
