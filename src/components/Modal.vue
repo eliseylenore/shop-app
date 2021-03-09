@@ -96,7 +96,7 @@ header.modal-header {
 
 button.close {
   position: absolute;
-  top: -0.1rem;
+  top: -1rem;
   right: -0.15rem;
   border-radius: 100%;
   font-size: 1em;
@@ -105,6 +105,10 @@ button.close {
   background-color: $scienceBlue;
   font-weight: bold;
   font-size: 1.5em;
+}
+
+.modal button.close {
+  top: -0.1rem;
 }
 
 .close:hover {

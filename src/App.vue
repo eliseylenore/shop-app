@@ -35,6 +35,7 @@ body {
 .nav a {
   font-size: 1.4em;
   color: white;
+  border-bottom: $prussianBlue 3px solid;
 
   &:hover {
     color: white;
@@ -49,6 +50,7 @@ a:focus-visible {
 .nav {
   a.router-link-exact-active {
     background-color: $scienceBlue;
+    border-bottom: white 3px solid;
   }
 
   .cart-item {

@@ -28,14 +28,14 @@ mongoose
 var router = express.Router(); // get an instance of the express Router
 
 // middleware to use for all requests
-router.use(function(req, res, next) {
+router.use((req, res, next) => {
   // do logging
   console.log("Something is happening.");
   next(); // make sure we go to the next routes and don't stop here
 });
 
 // test route to make sure everything is working (accessed at GET http://localhost:3000/api)
-router.get("/", function(req, res) {
+router.get("/", (req, res) => {
   res.json({ message: "hooray! welcome to our api!" });
 });
 
@@ -46,7 +46,7 @@ router.get("/", function(req, res) {
 router
   .route("/products")
   // create a product (accessed at POST http://localhost:3000/api/products)
-  .post(function(req, res) {
+  .post((req, res) => {
     var product = new Product(); // create a new instance of the product model
     product.title = req.body.title; // set the products title (comes from the request)
     product.img = req.body.img;
@@ -54,7 +54,7 @@ router
     product.description = req.body.description;
 
     // save the product and check for errors
-    product.save(function(err) {
+    product.save(err => {
       if (err) {
         res.send(err);
       } else {
@@ -64,7 +64,7 @@ router
   })
 
   // get all the products (accessed at GET http://localhost:3000/api/products)
-  .get(function(req, res) {
+  .get((req, res) => {
     Product.find(function(err, products) {
       if (err) res.send(err);
 
@@ -78,14 +78,14 @@ router
   .route("/products/:product_id")
 
   // get the product with that id (accessed at GET http://localhost:3000/api/products/:product_id)
-  .get(function(req, res) {
+  .get((req, res) => {
     Product.findById(req.params.product_id, function(err, product) {
       if (err) res.send(err);
       res.json(product);
     });
   })
   // update the product with this id (accessed at PUT http://localhost:3000/api/products/:product_id)
-  .put(function(req, res) {
+  .put((req, res) => {
     // use our product model to find the product we want
     Product.findById(req.params.product_id, function(err, product) {
       if (err) res.send(err);
@@ -102,12 +102,12 @@ router
   })
 
   // delete the product with this id (accessed at DELETE http://localhost:3000/api/products/:product_id)
-  .delete(function(req, res) {
+  .delete((req, res) => {
     Product.remove(
       {
         _id: req.params.product_id
       },
-      function(err, product) {
+      err => {
         if (err) res.send(err);
 
         res.json({ message: "Successfully deleted" });
