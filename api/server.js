@@ -47,17 +47,20 @@ router
   // create a product (accessed at POST http://localhost:3000/api/products)
   .post((req, res) => {
     let product = new Product(); // create a new instance of the product model
+
     product.title = req.body.title; // set the products title (comes from the request)
     product.img = req.body.img;
     product.price = req.body.price;
     product.description = req.body.description;
+    product.category = req.body.category;
+    product.items = req.body.items;
 
     // save the product and check for errors
     product.save(err => {
       if (err) {
         res.send(err);
       } else {
-        res.json({ message: "product created!" });
+        res.json({ message: "product created!", product });
       }
     });
   })
