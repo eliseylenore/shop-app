@@ -4,19 +4,18 @@ const { uriCredentials } = require("./uri");
 // =============================================================================
 
 // call the packages we need
-var express = require("express"); // call express
-var app = express(); // define our app using express
-var bodyParser = require("body-parser");
-var Product = require("./models/product");
-var mongoose = require("mongoose");
-const e = require("express");
+const express = require("express"); // call express
+const app = express(); // define our app using express
+const bodyParser = require("body-parser");
+const Product = require("./models/product");
+const mongoose = require("mongoose");
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 3000; // set our port
+const port = process.env.PORT || 3000; // set our port
 
 mongoose
   .connect(uriCredentials, { useNewUrlParser: true })
@@ -25,7 +24,7 @@ mongoose
 
 // ROUTES FOR OUR API
 // =============================================================================
-var router = express.Router(); // get an instance of the express Router
+const router = express.Router(); // get an instance of the express Router
 
 // middleware to use for all requests
 router.use((req, res, next) => {
@@ -47,7 +46,7 @@ router
   .route("/products")
   // create a product (accessed at POST http://localhost:3000/api/products)
   .post((req, res) => {
-    var product = new Product(); // create a new instance of the product model
+    let product = new Product(); // create a new instance of the product model
     product.title = req.body.title; // set the products title (comes from the request)
     product.img = req.body.img;
     product.price = req.body.price;
@@ -103,7 +102,7 @@ router
 
   // delete the product with this id (accessed at DELETE http://localhost:3000/api/products/:product_id)
   .delete((req, res) => {
-    Product.remove(
+    Product.deleteOne(
       {
         _id: req.params.product_id
       },
