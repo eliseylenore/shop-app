@@ -1,10 +1,7 @@
 <template>
   <div>
     <header class="title py-4 mb-4 px-0 h-100">
-      <h1 v-if="category === Products" class="mb-0">
-        Find what you're looking for.
-      </h1>
-      <h1 v-else class="mb-0">
+      <h1 class="mb-0">
         <!-- take route and convert  it to page name  -->
         {{ category }}
       </h1>
@@ -81,7 +78,14 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("fetchProducts");
+    if (this.$route.params.category !== undefined) {
+      this.$store.dispatch(
+        "fetchFilteredProducts",
+        this.$route.params.category
+      );
+    } else {
+      this.$store.dispatch("fetchProducts");
+    }
     console.log("route: ", this.$route);
   },
   computed: {
@@ -89,9 +93,19 @@ export default {
       products: state => state.products
     }),
     category() {
-      return (
-        this.$route.path.charAt(1).toUpperCase() + this.$route.path.slice(2)
-      );
+      return this.$route.params.category !== undefined
+        ? this.$route.params.category.charAt(0).toUpperCase() +
+            this.$route.params.category.slice(1)
+        : "Find what you're looking for.";
+    }
+  },
+  watch: {
+    $route(to) {
+      if (to.params.category !== undefined) {
+        this.$store.dispatch("fetchFilteredProducts", to.params.category);
+      } else {
+        this.$store.dispatch("fetchProducts");
+      }
     }
   },
   methods: {

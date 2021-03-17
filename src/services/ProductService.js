@@ -11,5 +11,7 @@ const apiClient = axios.create({
 
 export default {
   getProducts: () => apiClient.get("/products"),
-  getProduct: (id) => apiClient.get("/products/" + id)
+  getFilteredProducts: category =>
+    apiClient.get("/products/category/" + category),
+  getProduct: id => apiClient.get("/products/" + id)
 };

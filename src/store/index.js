@@ -99,6 +99,19 @@ export default new Vuex.Store({
           console.log("There was an error:", error.response);
         });
     },
+    fetchFilteredProducts({ commit }, category) {
+      ProductService.getFilteredProducts(category)
+        .then(response => {
+          const productsWithSelectedColors = response.data.map(product => {
+            product.selectedHex = product.items[0].hex;
+            return product;
+          });
+          commit("SET_PRODUCTS", productsWithSelectedColors);
+        })
+        .catch(error => {
+          console.log("There was an error:", error.response);
+        });
+    },
     fetchProduct({ commit }, id) {
       const product = this.getters.getProductById(id);
 

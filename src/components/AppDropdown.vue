@@ -5,7 +5,7 @@
       v-on-clickaway="away"
       :class="[
         active ? 'active' : '',
-        this.$route.name === 'Products' ? 'router-link-exact-active' : ''
+        this.$route.name === 'Products' || 'Category' ? 'router-link-exact-active' : ''
       ]"
       >Shop</b-nav-item
     >
@@ -19,21 +19,21 @@
           Shop all
         </router-link>
         <router-link
-          :to="'/outerwear'"
+          :to="{ name: 'Category', params: { category: 'outerwear' } }"
           exact-path-active-class="dropdown-item-active"
           class="dropdown-item"
         >
           Outerwear
         </router-link>
         <router-link
-          :to="'/swimwear'"
+          :to="{ name: 'Category', params: { category: 'swimwear' } }"
           exact-path-active-class="dropdown-item-active"
           class="dropdown-item"
         >
           Swimwear
         </router-link>
         <router-link
-          :to="'/accessories'"
+          :to="{ name: 'Category', params: { category: 'accessories' } }"
           exact-path-active-class="dropdown-item-active"
           class="dropdown-item"
         >

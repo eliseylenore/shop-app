@@ -74,6 +74,15 @@ router
     });
   });
 
+// find all products in category(accessed at GET http://localhost:3000/api/products/category/:category)
+router.route("/products/category/:category").get((req, res) => {
+  Product.find({ category: req.params.category }, function(err, products) {
+    if (err) res.send(err);
+
+    res.json(products);
+  });
+});
+
 // on routes that end in /products/:product_id
 // ----------------------------------------------------
 router
