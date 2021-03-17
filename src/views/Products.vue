@@ -1,7 +1,13 @@
 <template>
   <div>
     <header class="title py-4 mb-4 px-0 h-100">
-      <h1 class="mb-0">Find what you're looking for.</h1>
+      <h1 v-if="category === Products" class="mb-0">
+        Find what you're looking for.
+      </h1>
+      <h1 v-else class="mb-0">
+        <!-- take route and convert  it to page name  -->
+        {{ category }}
+      </h1>
     </header>
     <b-container>
       <div>
@@ -15,7 +21,6 @@
           >
             <product-card :product="product" class="my-4">
               <div class="d-flex flex-column align-items-center">
-
                 <p class="mt-4 mb-0 text-left">
                   <strong>{{ product.title }}</strong>
                 </p>
@@ -77,11 +82,17 @@ export default {
   },
   created() {
     this.$store.dispatch("fetchProducts");
+    console.log("route: ", this.$route);
   },
   computed: {
     ...mapState({
       products: state => state.products
-    })
+    }),
+    category() {
+      return (
+        this.$route.path.charAt(1).toUpperCase() + this.$route.path.slice(2)
+      );
+    }
   },
   methods: {
     price: productPrice => getFormattedValue(productPrice, 2)

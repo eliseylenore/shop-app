@@ -21,12 +21,7 @@ const routes = [
   {
     path: "/products",
     name: "Products",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Products.vue")
-  },
-  {
-    path: "/products/outerwear",
-    name: "Products",
+    alias: ["/outerwear", "/swimwear", "/accessories"],
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Products.vue")
   },

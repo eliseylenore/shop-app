@@ -50,6 +50,7 @@ a:focus-visible {
 
 .nav {
   a.router-link-exact-active:not(.dropdown-item),
+  .router-link-exact-active a,
   .active .nav-item {
     background-color: $scienceBlue;
     border-bottom: white 3px solid;
