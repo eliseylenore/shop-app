@@ -1,47 +1,94 @@
 <template>
-  <div>
+  <nav aria-label="Product categories menu">
     <b-nav-item
       @click="toggle"
       v-on-clickaway="away"
       :class="[
         active ? 'active' : '',
-        this.$route.name === 'Products' || 'Category' ? 'router-link-exact-active' : ''
+        this.$route.name === 'Products' || this.$route.name === 'Category'
+          ? 'router-link-exact-active'
+          : ''
       ]"
       >Shop</b-nav-item
     >
-    <div v-if="active" class="menu-container">
-      <div class="d-flex flex-column">
+    <ul v-if="active" class="menu-container">
+      <li :class="this.$route.name === 'Products' ? 'active' : ''">
         <router-link
           :to="{ name: 'Products' }"
           exact-path-active-class="dropdown-item-active"
           class="dropdown-item"
+          v-if="this.$route.name !== 'Products'"
         >
           Shop all
         </router-link>
+
+        <span v-if="this.$route.name === 'Products'" class="sr-only"
+          >Current page:
+        </span>
+        <span v-if="this.$route.name === 'Products'" class="dropdown-item"
+          >Shop all</span
+        >
+      </li>
+      <li :class="this.$route.params.category === 'outerwear' ? 'active' : ''">
         <router-link
           :to="{ name: 'Category', params: { category: 'outerwear' } }"
           exact-path-active-class="dropdown-item-active"
           class="dropdown-item"
+          v-if="this.$route.params.category !== 'outerwear'"
         >
           Outerwear
         </router-link>
+        <span v-if="this.$route.params.category === 'outerwear'" class="sr-only"
+          >Current page:
+        </span>
+        <span
+          v-if="this.$route.params.category === 'outerwear'"
+          class="dropdown-item"
+          >Outerwear</span
+        >
+      </li>
+      <li :class="this.$route.params.category === 'swimwear' ? 'active' : ''">
         <router-link
           :to="{ name: 'Category', params: { category: 'swimwear' } }"
           exact-path-active-class="dropdown-item-active"
           class="dropdown-item"
+          v-if="this.$route.params.category !== 'swimwear'"
         >
           Swimwear
         </router-link>
+        <span v-if="this.$route.params.category === 'swimwear'" class="sr-only"
+          >Current page:
+        </span>
+        <span
+          v-if="this.$route.params.category === 'swimwear'"
+          class="dropdown-item"
+          >Swimwear</span
+        >
+      </li>
+      <li
+        :class="this.$route.params.category === 'accessories' ? 'active' : ''"
+      >
         <router-link
           :to="{ name: 'Category', params: { category: 'accessories' } }"
           exact-path-active-class="dropdown-item-active"
           class="dropdown-item"
+          v-if="this.$route.params.category !== 'accessories'"
         >
           Accessories
         </router-link>
-      </div>
-    </div>
-  </div>
+        <span
+          v-if="this.$route.params.category === 'accessories'"
+          class="sr-only"
+          >Current page:
+        </span>
+        <span
+          v-if="this.$route.params.category === 'accessories'"
+          class="dropdown-item"
+          >Accessories</span
+        >
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script>
@@ -70,7 +117,7 @@ export default {
   border-left: $prussianBlue solid 1px;
   border-right: $prussianBlue solid 1px;
   border-top: $prussianBlue solid 1px;
-  a {
+  li {
     text-align: left;
     background-color: white;
     color: $prussianBlue;
@@ -81,6 +128,16 @@ export default {
     &:active {
       color: $prussianBlue;
     }
+    &.active {
+      .dropdown-item {
+        color: white;
+        background-color: $scienceBlue;
+      }
+    }
   }
+}
+ul ul.menu-container {
+  padding-inline-start: 0;
+  list-style-type: none !important;
 }
 </style>
