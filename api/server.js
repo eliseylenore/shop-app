@@ -7,7 +7,10 @@ const { uriCredentials } = require("./uri");
 const express = require("express"); // call express
 const app = express(); // define our app using express
 const bodyParser = require("body-parser");
+const passport = require("passport");
+
 const Product = require("./models/product");
+const users = require("./routes/api/users");
 const mongoose = require("mongoose");
 
 // configure app to use bodyParser()
@@ -35,10 +38,19 @@ router.use((req, res, next) => {
 
 // test route to make sure everything is working (accessed at GET http://localhost:3000/api)
 router.get("/", (req, res) => {
-  res.json({ message: "hooray! welcome to our api!" });
+  res.json({ message: "Yippee! welcome to our api!" });
 });
 
 // more routes for our API will happen here
+
+// authentication routes
+// -----------------------------------
+// Passport middleware
+app.use(passport.initialize());
+// Passport config
+require("./passport")(passport);
+// Routes
+app.use("/api/users", users);
 
 // on routes that end in /products
 // -----------------------------------
