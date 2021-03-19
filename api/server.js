@@ -1,4 +1,4 @@
-const { uriCredentials } = require("./uri");
+const { uriCredentials } = require("./keys");
 
 // BASE SETUP
 // =============================================================================

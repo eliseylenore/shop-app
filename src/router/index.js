@@ -19,6 +19,18 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
+    path: "/register",
+    name: "Register",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/RegisterUser.vue")
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Dashboard.vue")
+  },
+  {
     path: "/products",
     name: "Products",
     alias: ["/outerwear", "/swimwear", "/accessories"],

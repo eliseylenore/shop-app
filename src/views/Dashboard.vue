@@ -1,8 +1,12 @@
 <template>
-  <div>
-    <h1>
-      Your dashboard
-    </h1>
+  <div class="mt-5">
+    <b-container>
+      <header>
+        <h1>
+          Your dashboard
+        </h1>
+      </header>
+    </b-container>
   </div>
 </template>
 

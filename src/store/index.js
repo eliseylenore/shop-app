@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
 import ProductService from "@/services/ProductService.js";
 import { getFormattedValue } from "../commons/utils";
 Vue.use(Vuex);
@@ -8,9 +9,17 @@ export default new Vuex.Store({
   state: {
     cart: JSON.parse(localStorage.getItem("cart")) || [],
     products: [],
-    product: {}
+    product: {},
+    user: null
   },
   mutations: {
+    SET_USER_DATA(state, userData) {
+      state.user = userData;
+      localStorage.setItem("user", JSON.stringify(userData));
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${userData.token}`;
+    },
     SET_PRODUCTS(state, products) {
       state.products = products;
     },
@@ -86,6 +95,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    registerUser({ commit }, credentials) {
+      ProductService.registerUser(credentials).then(({ data }) => {
+        console.log("user data is", data);
+        commit("SET_USER_DATA", data);
+      });
+    },
     fetchProducts({ commit }) {
       ProductService.getProducts()
         .then(response => {

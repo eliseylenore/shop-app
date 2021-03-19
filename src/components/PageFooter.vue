@@ -13,7 +13,9 @@
           <p class="mb-0"><strong>Account</strong></p>
           <ul class="mb-0">
             <li>
-              <a href="#">Manage your account</a>
+              <router-link :to="{ name: 'Dashboard' }"
+                >Manage your account</router-link
+              >
             </li>
             <li>
               <a href="#">Saved items</a>
