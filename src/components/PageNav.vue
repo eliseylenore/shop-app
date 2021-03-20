@@ -7,6 +7,9 @@
         <b-nav-item :to="{ name: 'Login' }" v-if="!$store.getters.loggedIn"
           >Login</b-nav-item
         >
+        <b-nav-item @click="logout" v-if="$store.getters.loggedIn"
+          >Logout</b-nav-item
+        >
         <b-nav-item :to="{ name: 'Dashboard' }" v-if="$store.getters.loggedIn"
           >Your account</b-nav-item
         >
@@ -28,6 +31,11 @@ export default {
   },
   computed: {
     ...mapGetters(["loggedIn"])
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    }
   }
 };
 </script>

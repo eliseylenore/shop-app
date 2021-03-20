@@ -14,12 +14,6 @@
 <script>
 import { mapState } from "vuex";
 export default {
-  created() {
-    console.log("loggedIn ? " + this.$store.getters.loggedIn);
-    if (!this.$store.getters.loggedIn) {
-      this.$router.push({ name: "Login" });
-    }
-  },
   computed: {
     ...mapState({ user: state => state.user })
   }

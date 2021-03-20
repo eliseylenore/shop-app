@@ -20,6 +20,12 @@ export default new Vuex.Store({
         "Authorization"
       ] = `Bearer ${userData.token}`;
     },
+    LOGOUT() {
+      localStorage.removeItem("user");
+      localStorage.removeItem("cart");
+      // clearing out the Vuex State and axios header
+      location.reload();
+    },
     SET_PRODUCTS(state, products) {
       state.products = products;
     },
@@ -105,6 +111,9 @@ export default new Vuex.Store({
         console.log("user data is", data);
         commit("SET_USER_DATA", data);
       });
+    },
+    logout({ commit }) {
+      commit("LOGOUT");
     },
     fetchProducts({ commit }) {
       ProductService.getProducts()
