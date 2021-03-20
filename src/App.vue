@@ -55,14 +55,10 @@ a:focus-visible {
     background-color: $scienceBlue;
     border-bottom: white 3px solid;
   }
-
-  .cart-item {
-    position: relative;
-  }
 }
 
 @media screen and (min-width: 992px) {
-  .nav .cart-item {
+  .nav .right-items {
     position: absolute;
     right: 2em;
   }

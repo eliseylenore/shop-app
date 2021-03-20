@@ -1,11 +1,15 @@
 <template class="cart-button">
-  <b-nav-item :to="{ name: 'Cart' }" class="cart-item">
+  <b-nav-item
+    :to="{ name: 'Cart' }"
+    class="cart-item"
+    style="position: relative"
+  >
     <div v-if="cartLength > 0" class="cart-quantity">
       <p class="text-center mb-0 pb-0">
         <span class="sr-only">Number of items in cart:</span>{{ cartLength }}
       </p>
     </div>
-    <img src="/img/cart.svg" alt="shopping cart"  class="cart-icon"/>
+    <img src="/img/cart.svg" alt="shopping cart" class="cart-icon" />
   </b-nav-item>
 </template>
 

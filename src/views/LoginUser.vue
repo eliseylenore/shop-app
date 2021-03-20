@@ -3,24 +3,12 @@
     <b-container>
       <header>
         <h1>
-          Register
+          Login
         </h1>
       </header>
       <b-row>
         <b-col xs="12" md="8" offset-md="2">
-          <b-form @submit.prevent="register">
-            <b-form-group>
-              <label for="name">
-                Name:
-              </label>
-              <b-form-input
-                v-model="name"
-                type="text"
-                name="name"
-                autocomplete="name"
-                value
-              ></b-form-input>
-            </b-form-group>
+          <b-form @submit.prevent="login">
             <b-form-group>
               <label for="email">
                 Email:
@@ -42,28 +30,16 @@
                 type="password"
                 name="password"
                 value
-                autocomplete="new-password"
-              ></b-form-input>
-            </b-form-group>
-            <b-form-group>
-              <label for="password">
-                Re-type your password:
-              </label>
-              <b-form-input
-                v-model="password2"
-                type="password"
-                name="password2"
-                value
-                autocomplete="new-password"
+                autocomplete="current-password"
               ></b-form-input>
             </b-form-group>
             <button type="submit" name="button">
-              Register
+              Login
             </button>
           </b-form>
           <div class="mt-4 d-flex">
-            <p class="mr-2">Already have an account?</p>
-            <router-link :to="{ name: 'Login' }">Login</router-link>
+            <p class="mr-2">Don't have an account yet?</p>
+            <router-link :to="{ name: 'Register' }">Register</router-link>
           </div>
         </b-col>
       </b-row>
@@ -72,6 +48,9 @@
 </template>
 
 <script>
+// Framework related imports
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
@@ -81,14 +60,22 @@ export default {
       password2: ""
     };
   },
+  computed: {
+    ...mapGetters(["loggedIn"])
+  },
+  watch: {
+    loggedIn(newValue, oldValue) {
+      if (newValue && !oldValue) {
+        this.$router.push({ name: "Dashboard" });
+      }
+    }
+  },
   methods: {
-    register() {
+    login() {
       this.$store
-        .dispatch("registerUser", {
-          name: this.name,
+        .dispatch("loginUser", {
           email: this.email,
-          password: this.password,
-          password2: this.password2
+          password: this.password
         })
         .then(() => {
           this.$router.push({ name: "Dashboard" });

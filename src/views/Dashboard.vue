@@ -1,17 +1,29 @@
 <template>
   <div class="mt-5">
-    <b-container>
+    <b-container v-if="this.$store.getters.loggedIn">
       <header>
         <h1>
           Your dashboard
         </h1>
+        <p class="text-center">{{ user.email }}</p>
       </header>
     </b-container>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+  created() {
+    console.log("loggedIn ? " + this.$store.getters.loggedIn);
+    if (!this.$store.getters.loggedIn) {
+      this.$router.push({ name: "Login" });
+    }
+  },
+  computed: {
+    ...mapState({ user: state => state.user })
+  }
+};
 </script>
 
 <style lang="scss" scoped></style>

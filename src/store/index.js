@@ -97,6 +97,11 @@ export default new Vuex.Store({
   actions: {
     registerUser({ commit }, credentials) {
       ProductService.registerUser(credentials).then(({ data }) => {
+        commit("SET_USER_DATA", data);
+      });
+    },
+    loginUser({ commit }, credentials) {
+      ProductService.loginUser(credentials).then(({ data }) => {
         console.log("user data is", data);
         commit("SET_USER_DATA", data);
       });
@@ -153,6 +158,10 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    loggedIn: state => {
+      // !! syntax helps us determine the truthiness or falsiness of the value
+      return !!state.user;
+    },
     getProductById: state => id => {
       return state.products.find(product => product.id === id);
     },
