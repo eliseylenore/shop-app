@@ -10,7 +10,9 @@ export default new Vuex.Store({
     cart: JSON.parse(localStorage.getItem("cart")) || [],
     products: [],
     product: {},
-    user: null
+    user: null,
+    loginError: null,
+    registerError: null
   },
   mutations: {
     SET_USER_DATA(state, userData) {
@@ -19,6 +21,14 @@ export default new Vuex.Store({
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${userData.token}`;
+      state.loginError = null;
+      state.registerError = null;
+    },
+    SET_LOGIN_ERR(state, error) {
+      state.loginError = error;
+    },
+    SET_REGISTER_ERR(state, error) {
+      state.registerError = error;
     },
     LOGOUT() {
       localStorage.removeItem("user");
@@ -102,15 +112,23 @@ export default new Vuex.Store({
   },
   actions: {
     registerUser({ commit }, credentials) {
-      ProductService.registerUser(credentials).then(({ data }) => {
-        commit("SET_USER_DATA", data);
-      });
+      ProductService.registerUser(credentials)
+        .then(({ data }) => {
+          commit("SET_USER_DATA", data);
+        })
+        .catch(err => {
+          commit("SET_REGISTER_ERR", err.response.data);
+        });
     },
     loginUser({ commit }, credentials) {
-      ProductService.loginUser(credentials).then(({ data }) => {
-        console.log("user data is", data);
-        commit("SET_USER_DATA", data);
-      });
+      ProductService.loginUser(credentials)
+        .then(({ data }) => {
+          console.log("user data is", data);
+          commit("SET_USER_DATA", data);
+        })
+        .catch(err => {
+          commit("SET_LOGIN_ERR", err.response.data);
+        });
     },
     logout({ commit }) {
       commit("LOGOUT");

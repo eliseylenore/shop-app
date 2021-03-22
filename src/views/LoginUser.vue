@@ -36,6 +36,11 @@
             <button type="submit" name="button">
               Login
             </button>
+            <div v-if="loginError">
+              <p v-for="err in loginError" :key="err" class="mt-3 red-text">
+                {{ err }}
+              </p>
+            </div>
           </b-form>
           <div class="mt-4 d-flex">
             <p class="mr-2">Don't have an account yet?</p>
@@ -49,7 +54,7 @@
 
 <script>
 // Framework related imports
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   data() {
@@ -61,7 +66,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["loggedIn"])
+    ...mapGetters(["loggedIn"]),
+    ...mapState(["loginError"])
   },
   watch: {
     loggedIn(newValue, oldValue) {
@@ -78,8 +84,11 @@ export default {
           password: this.password
         })
         .then(() => {
-          this.$router.push({ name: "Dashboard" });
-        });
+          if (!this.loginError) this.$router.push({ name: "Dashboard" });
+        })
+        .catch(err => {
+          console.log("error in login ", err);
+        })
     }
   }
 };

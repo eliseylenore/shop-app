@@ -60,6 +60,11 @@
             <button type="submit" name="button">
               Register
             </button>
+            <div v-if="registerError">
+              <p v-for="err in registerError" :key="err" class="mt-3 red-text">
+                {{ err }}
+              </p>
+            </div>
           </b-form>
           <div class="mt-4 d-flex">
             <p class="mr-2">Already have an account?</p>
@@ -72,6 +77,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -80,6 +86,9 @@ export default {
       password: "",
       password2: ""
     };
+  },
+  computed: {
+    ...mapState(["registerError"])
   },
   methods: {
     register() {
@@ -91,7 +100,7 @@ export default {
           password2: this.password2
         })
         .then(() => {
-          this.$router.push({ name: "Dashboard" });
+          if (!this.registerError) this.$router.push({ name: "Dashboard" });
         });
     }
   }
