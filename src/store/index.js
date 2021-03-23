@@ -18,11 +18,12 @@ export default new Vuex.Store({
     SET_USER_DATA(state, userData) {
       state.user = userData;
       localStorage.setItem("user", JSON.stringify(userData));
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${userData.token}`;
+      axios.defaults.headers.common["Authorization"] = `${userData.token}`;
       state.loginError = null;
       state.registerError = null;
+    },
+    SET_EXTRA_USER_DATA(state, userData) {
+      state.user = userData;
     },
     SET_LOGIN_ERR(state, error) {
       state.loginError = error;
@@ -123,11 +124,19 @@ export default new Vuex.Store({
     loginUser({ commit }, credentials) {
       ProductService.loginUser(credentials)
         .then(({ data }) => {
-          console.log("user data is", data);
           commit("SET_USER_DATA", data);
         })
         .catch(err => {
           commit("SET_LOGIN_ERR", err.response.data);
+        });
+    },
+    fetchUserInfo({ commit }) {
+      ProductService.getUser(this.state.user.email)
+        .then(({ data }) => {
+          commit("SET_EXTRA_USER_DATA", data);
+        })
+        .catch(err => {
+          console.log(err);
         });
     },
     logout({ commit }) {
