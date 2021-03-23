@@ -14,7 +14,4 @@ export default {
   getFilteredProducts: category =>
     apiClient.get("/products/category/" + category),
   getProduct: id => apiClient.get("/products/" + id),
-  registerUser: credentials => apiClient.post("/users/register/", credentials),
-  loginUser: credentials => apiClient.post("/users/login/", credentials),
-  getUser: email => axios.get("http://localhost:3000/api/users/" + email)
 };

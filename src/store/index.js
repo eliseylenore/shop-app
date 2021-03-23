@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import ProductService from "@/services/ProductService.js";
+import UserService from "@/services/UserService.js";
 import { getFormattedValue } from "../commons/utils";
 Vue.use(Vuex);
 
@@ -113,7 +114,7 @@ export default new Vuex.Store({
   },
   actions: {
     registerUser({ commit }, credentials) {
-      ProductService.registerUser(credentials)
+      UserService.registerUser(credentials)
         .then(({ data }) => {
           commit("SET_USER_DATA", data);
         })
@@ -122,7 +123,7 @@ export default new Vuex.Store({
         });
     },
     loginUser({ commit }, credentials) {
-      ProductService.loginUser(credentials)
+      UserService.loginUser(credentials)
         .then(({ data }) => {
           commit("SET_USER_DATA", data);
         })
@@ -131,7 +132,7 @@ export default new Vuex.Store({
         });
     },
     fetchUserInfo({ commit }) {
-      ProductService.getUser(this.state.user.email)
+      UserService.getUser(this.state.user.email)
         .then(({ data }) => {
           commit("SET_EXTRA_USER_DATA", data);
         })
