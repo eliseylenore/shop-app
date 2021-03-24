@@ -13,6 +13,5 @@ export default {
   registerUser: credentials =>
     axios.post("/users/register/", credentials, config),
   loginUser: credentials => axios.post("/users/login/", credentials, config),
-  getUser: email =>
-    axios.get("http://localhost:3000/api/users/" + email, config)
+  getUser: email => axios.get("/users/" + email, config)
 };

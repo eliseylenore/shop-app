@@ -7,11 +7,17 @@
         <b-nav-item :to="{ name: 'Login' }" v-if="!$store.getters.loggedIn"
           >Login</b-nav-item
         >
+        <b-nav-item :to="{ name: 'Dashboard' }" v-if="$store.getters.loggedIn">
+          <img
+            src="/img/profile.svg"
+            alt=""
+            class="cart-icon"
+            title="Your account"
+          />
+          <span class="sr-only">Your account</span>
+        </b-nav-item>
         <b-nav-item @click="logout" v-if="$store.getters.loggedIn"
           >Logout</b-nav-item
-        >
-        <b-nav-item :to="{ name: 'Dashboard' }" v-if="$store.getters.loggedIn"
-          >Your account</b-nav-item
         >
         <cart-button />
       </div>

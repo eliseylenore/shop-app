@@ -34,7 +34,6 @@ new Vue({
     axios.interceptors.response.use(
       response => response, // simply return the response
       error => {
-        console.log("err", error.response);
         if (error.response.status === 401) {
           console.log("HEY");
           // if we catch a 401 error

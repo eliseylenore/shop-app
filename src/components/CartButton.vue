@@ -9,7 +9,12 @@
         <span class="sr-only">Number of items in cart:</span>{{ cartLength }}
       </p>
     </div>
-    <img src="/img/cart.svg" alt="shopping cart" class="cart-icon" />
+    <img
+      src="/img/cart.svg"
+      alt="shopping cart"
+      class="cart-icon"
+      title="Your cart"
+    />
   </b-nav-item>
 </template>
 

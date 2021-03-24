@@ -33,9 +33,9 @@ body {
 }
 
 .nav a:not(.dropdown-item) {
-  font-size: 1.4em;
+  font-size: 1em;
   color: white;
-  border-bottom: $prussianBlue 3px solid;
+  border-bottom: $prussianBlue 1px solid;
 }
 
 .nav a:not(.dropdown-item):hover,
@@ -53,7 +53,7 @@ a:focus-visible {
   .router-link-exact-active a,
   .active .nav-item {
     background-color: $scienceBlue;
-    border-bottom: white 3px solid;
+    border-bottom: white 1px solid;
   }
 }
 

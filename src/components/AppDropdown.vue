@@ -155,6 +155,9 @@ export default {
 </script>
 
 <style lang="scss">
+.dropdown-item {
+  font-size: 1em;
+}
 .menu-container {
   position: absolute;
   border-left: $prussianBlue solid 1px;
