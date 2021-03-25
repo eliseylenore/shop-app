@@ -26,7 +26,9 @@ body {
   height: 100%;
   font-family: "Myriad Pro", sans-serif !important;
 }
-
+.white {
+  color: white!important;
+}
 .nav {
   background-color: $prussianBlue;
   padding: 0.7em 0;
@@ -63,22 +65,18 @@ a:focus-visible {
     right: 2em;
   }
 }
-
-h1,
-h2,
-h3,
-h4 {
-  font-weight: bold;
-  text-align: center;
-  color: $prussianBlue;
-}
-
-#app h2 {
-  font-size: 1.5rem;
-}
-
-header h1 {
-  font-weight: bold;
+#app {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: bold;
+    text-align: center;
+    color: $prussianBlue;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
 }
 
 button,
