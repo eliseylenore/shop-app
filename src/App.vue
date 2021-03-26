@@ -27,7 +27,7 @@ body {
   font-family: "Myriad Pro", sans-serif !important;
 }
 .white {
-  color: white!important;
+  color: white !important;
 }
 .nav {
   background-color: $prussianBlue;
@@ -41,7 +41,7 @@ body {
 }
 
 .nav a:not(.dropdown-item):hover,
-.nav-item.active a {
+.nav-item.active a{
   color: white;
   background-color: $chathamsBlue;
 }
@@ -76,6 +76,13 @@ a:focus-visible {
   }
   h2 {
     font-size: 1.5rem;
+  }
+}
+
+button a {
+  color: white;
+  &:hover {
+    text-decoration: none;
   }
 }
 

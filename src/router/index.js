@@ -38,6 +38,13 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Dashboard.vue")
   },
   {
+    path: "/editprofile",
+    name: "EditProfile",
+    meta: { requiresAuth: true },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/EditProfile.vue")
+  },
+  {
     path: "/products",
     name: "Products",
     alias: ["/outerwear", "/swimwear", "/accessories"],

@@ -7,7 +7,7 @@
         </h1>
       </header>
       <b-row>
-        <b-col xs="12" md="8" offset-md="2">
+        <b-col xs="12" md="8" lg="4" offset-md="2" offset-lg="4">
           <b-form @submit.prevent="login">
             <b-form-group>
               <label for="email">
@@ -88,7 +88,7 @@ export default {
         })
         .catch(err => {
           console.log("error in login ", err);
-        })
+        });
     }
   }
 };

@@ -25,7 +25,6 @@ export default {
   created() {
     if (!this.$store.state.user.name) {
       this.$store.dispatch("fetchUserInfo");
-      console.log("fetching");
     }
   },
   computed: {

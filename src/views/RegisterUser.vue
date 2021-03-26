@@ -7,7 +7,7 @@
         </h1>
       </header>
       <b-row>
-        <b-col xs="12" md="8" offset-md="2">
+        <b-col xs="12" md="8" lg="4" offset-md="2" offset-lg="4">
           <b-form @submit.prevent="register">
             <b-form-group>
               <label for="name">
@@ -19,6 +19,7 @@
                 name="name"
                 autocomplete="name"
                 value
+                required
               ></b-form-input>
             </b-form-group>
             <b-form-group>
@@ -31,6 +32,7 @@
                 name="email"
                 autocomplete="email"
                 value
+                required
               ></b-form-input>
             </b-form-group>
             <b-form-group>
@@ -43,6 +45,7 @@
                 name="password"
                 value
                 autocomplete="new-password"
+                required
               ></b-form-input>
             </b-form-group>
             <b-form-group>
@@ -55,6 +58,7 @@
                 name="password2"
                 value
                 autocomplete="new-password"
+                required
               ></b-form-input>
             </b-form-group>
             <button type="submit" name="button">

@@ -18,40 +18,26 @@
         <b-tr>
           <b-td>Name</b-td>
           <b-td>{{ user.name }}</b-td>
-          <b-td>
-            <router-link :to="{ name: 'Dashboard' }">Edit</router-link>
-          </b-td>
         </b-tr>
         <b-tr>
           <b-td>Email</b-td>
           <b-td>{{ user.email }}</b-td>
-          <b-td>
-            <router-link :to="{ name: 'Dashboard' }">Edit</router-link>
-          </b-td>
         </b-tr>
         <b-tr>
           <b-td>Password</b-td>
           <b-td>Last changed: {{ formattedDate }}</b-td>
-          <b-td>
-            <router-link :to="{ name: 'Dashboard' }">Edit</router-link>
-          </b-td>
         </b-tr>
       </b-tbody>
     </b-table-simple>
+    <router-link :to="{ name: 'EditProfile' }"
+      >Edit your information</router-link
+    >
   </div>
 </template>
 
 <script>
 import moment from "moment";
 export default {
-  data() {
-    return {
-      items: [
-        { property: "Name", value: "Glenda Rose", edit: "" },
-        { property: "Password", value: "Last changed: 06/15/1992", edit: "" }
-      ]
-    };
-  },
   props: {
     user: {
       type: Object,
@@ -81,8 +67,6 @@ td:first-child {
   color: #666666;
 }
 .table td {
-  // @include respond-above(sm) {
-  //   padding-right: 4em;
-  // }
+  padding-right: 4em;
 }
 </style>
