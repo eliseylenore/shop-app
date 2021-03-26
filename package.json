@@ -16,6 +16,8 @@
     "bootstrap-vue": "^2.21.2",
     "concurrently": "^6.0.0",
     "core-js": "^3.8.3",
+    "jquery": "^3.6.0",
+    "moment": "^2.29.1",
     "vue": "^2.6.12",
     "vue-clickaway": "^2.2.2",
     "vue-router": "^3.4.9",

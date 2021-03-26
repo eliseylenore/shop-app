@@ -5,14 +5,14 @@
 npm install
 ```
 
-### Starts mock database
+### Starts api
 ```
 npm run db:start
 ```
 
-### Compiles and hot-reloads for development
+### Concurrently starts api and compiles and hot-reloads for development
 ```
-npm run serve
+npm run start
 ```
 
 ### Compiles and minifies for production
