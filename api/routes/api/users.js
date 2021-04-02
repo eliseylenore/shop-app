@@ -67,6 +67,7 @@ router.post("/login", (req, res) => {
     console.log("password " + password);
     console.log("user.password " + user.password);
 
+    // After editing my password, the compare function always returns false
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         // User matched
@@ -110,6 +111,10 @@ router
       res.json(user);
     });
   })
+
+  // @route PUT api/users/:email
+  // @desc Edit user information
+  // @access private
   .put(passport.authenticate("jwt", { session: false }), (req, res) => {
     // Form validation
     const { errors, isValid } = validateEditProfileInput(req.body);
@@ -154,6 +159,7 @@ router
           } else {
             console.log("No match!");
             // Hash password before saving in database
+            // After this hash the password doesn't work when I try to log in
             bcrypt.genSalt(10, (err, salt) => {
               console.log("salt: ", salt);
               bcrypt.hash(user.password, salt, (err, hash) => {
