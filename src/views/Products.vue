@@ -86,7 +86,6 @@ export default {
     } else {
       this.$store.dispatch("fetchProducts");
     }
-    console.log("route: ", this.$route);
   },
   computed: {
     ...mapState({

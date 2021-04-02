@@ -61,11 +61,11 @@
           <button type="submit" name="button">
             Save
           </button>
-          <div v-if="registerError">
+          <!-- <div v-if="registerError">
             <p v-for="err in registerError" :key="err" class="mt-3 red-text">
               {{ err }}
             </p>
-          </div>
+          </div> -->
         </b-form>
       </b-col>
     </b-row>

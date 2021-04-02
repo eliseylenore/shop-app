@@ -24,7 +24,6 @@ export default new Vuex.Store({
       state.registerError = null;
     },
     SET_EXTRA_USER_DATA(state, userData) {
-      console.log("userData", userData)
       state.user = userData;
     },
     SET_LOGIN_ERR(state, error) {

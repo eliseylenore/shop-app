@@ -11,12 +11,14 @@ module.exports = function validateEditProfileInput(data) {
   if (!Validator.isEmail(data.email)) {
     errors.email = "Email is invalid";
   }
-  // Password checks
-  if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-    errors.password = "Password must be at least 6 characters";
-  }
-  if (!Validator.equals(data.password, data.password2)) {
-    errors.password2 = "Passwords must match";
+  if (data.password !== "") {
+    // Password checks
+    if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
+      errors.password = "Password must be at least 6 characters";
+    }
+    if (!Validator.equals(data.password, data.password2)) {
+      errors.password2 = "Passwords must match";
+    }
   }
   return {
     errors,
