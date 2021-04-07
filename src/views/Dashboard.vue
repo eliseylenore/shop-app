@@ -6,10 +6,14 @@
         <p class="text-center">Hi, {{ user.name }}</p>
       </header>
       <div>
-        <h3 class="text-left">
-          Profile review
-        </h3>
-        <user-info-table :user="user" />
+        <b-row>
+          <b-col xs="12" md="8" lg="6" offset-md="2" offset-lg="3">
+            <h3 class="text-left">
+              Profile review
+            </h3>
+            <user-info-table :user="user" />
+          </b-col>
+        </b-row>
       </div>
     </b-container>
   </div>

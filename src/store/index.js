@@ -13,7 +13,8 @@ export default new Vuex.Store({
     product: {},
     user: null,
     loginError: null,
-    registerError: null
+    registerError: null,
+    editError: null
   },
   mutations: {
     SET_USER_DATA(state, userData) {
@@ -23,6 +24,12 @@ export default new Vuex.Store({
       state.loginError = null;
       state.registerError = null;
     },
+    EDIT_USER_DATA(state, userData) {
+      const { name, email } = userData;
+      state.user.name = name;
+      state.user.email = email;
+      state.editError = null;
+    },
     SET_EXTRA_USER_DATA(state, userData) {
       state.user = userData;
     },
@@ -31,6 +38,9 @@ export default new Vuex.Store({
     },
     SET_REGISTER_ERR(state, error) {
       state.registerError = error;
+    },
+    SET_EDIT_ERR(state, error) {
+      state.editError = error;
     },
     LOGOUT() {
       localStorage.removeItem("user");
@@ -129,6 +139,15 @@ export default new Vuex.Store({
         })
         .catch(err => {
           commit("SET_LOGIN_ERR", err.response.data);
+        });
+    },
+    editUser({ commit }, userInfo) {
+      UserService.editUser(this.state.user.email, userInfo)
+        .then(({ data }) => {
+          commit("EDIT_USER_DATA", data);
+        })
+        .catch(err => {
+          commit("SET_EDIT_ERR", err.response.data);
         });
     },
     fetchUserInfo({ commit }) {

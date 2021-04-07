@@ -64,13 +64,10 @@ router.post("/login", (req, res) => {
       return res.status(404).json({ emailnotfound: "Email not found" });
     }
     // Check password
-    console.log("password " + password);
-    console.log("user.password " + user.password);
 
     // After editing my password, the compare function always returns false
 
     bcrypt.hash(password, user.password).then(isMatch => {
-      console.log("Is match: ", isMatch);
       if (isMatch) {
         // User matched
         // Create JWT Payload
@@ -123,7 +120,6 @@ router
     if (!isValid) {
       return res.status(400).json(errors);
     }
-
     const { email, name, password } = req.body;
     User.findOne({ email: req.params.email }, function(err, user) {
       if (!user) {
@@ -153,19 +149,13 @@ router
         bcrypt.compare(password, user.password).then(isMatch => {
           if (isMatch) {
             // User matched
-            console.log("You matched!");
             return res
               .status(400)
               .json({ password: "You entered the same password!" });
           } else {
-            console.log("No match!");
-            // Hash password before saving in database
-            // After this hash the password doesn't work when I try to log in
             bcrypt.genSalt(10, (err, salt) => {
-              console.log("salt: ", salt);
               bcrypt.hash(user.password, salt, (err, hash) => {
                 if (err) throw err;
-                console.log("hash: ", hash);
 
                 user.password = hash;
                 user

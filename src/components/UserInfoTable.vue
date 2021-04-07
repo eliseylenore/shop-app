@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-table-simple
-      table-class="w-auto"
+      table-class="w-100"
       thead-class="hidden_header"
       tbody-tr-class="no-border-top"
       borderless

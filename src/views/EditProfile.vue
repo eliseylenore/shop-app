@@ -41,7 +41,7 @@
               New password
             </label>
             <b-form-input
-              v-model="password"
+              v-model="password1"
               type="password"
               name="password"
               value
@@ -61,11 +61,11 @@
           <button type="submit" name="button">
             Save
           </button>
-          <!-- <div v-if="registerError">
-            <p v-for="err in registerError" :key="err" class="mt-3 red-text">
+          <div v-if="editError">
+            <p v-for="err in editError" :key="err" class="mt-3 red-text">
               {{ err }}
             </p>
-          </div> -->
+          </div>
         </b-form>
       </b-col>
     </b-row>
@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       showPasswordForm: false,
-      password: "",
+      password1: "",
       password2: ""
     };
   },
@@ -88,24 +88,26 @@ export default {
     }
   },
   computed: {
-    ...mapState({ user: state => state.user })
+    ...mapState(["user", "editError"])
   },
   methods: {
     togglePasswordForm() {
       this.showPasswordForm = !this.showPasswordForm;
     },
-    register() {
-      console.log("registering!");
-      // this.$store
-      //   .dispatch("registerUser", {
-      //     name: this.name,
-      //     email: this.email,
-      //     password: this.password,
-      //     password2: this.password2
-      //   })
-      //   .then(() => {
-      //     if (!this.registerError) this.$router.push({ name: "Dashboard" });
-      //   });
+    edit() {
+      const editedUser = {
+        name: this.user.name,
+        email: this.user.email
+      };
+      if (this.password1) {
+        editedUser.password1 = this.password;
+      }
+      if (this.password2) {
+        editedUser.password = this.password2;
+      }
+      this.$store.dispatch("editUser", editedUser).then(() => {
+        if (!this.editError) this.$router.push({ name: "Dashboard" });
+      });
     }
   }
 };
