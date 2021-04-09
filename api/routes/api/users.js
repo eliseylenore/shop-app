@@ -10,6 +10,7 @@ const validateEditProfileInput = require("../../validation/editProfile");
 const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/user");
+const Item = require("../../models/item");
 
 // @route POST api/users / register
 // @desc Register user
@@ -66,7 +67,7 @@ router.post("/login", (req, res) => {
     // Check password
 
     // After editing my password, the compare function always returns false
-
+    // Using hash function to compare instead
     bcrypt.hash(password, user.password).then(isMatch => {
       if (isMatch) {
         // User matched
@@ -86,7 +87,8 @@ router.post("/login", (req, res) => {
             res.json({
               success: true,
               token: "Bearer " + token,
-              email
+              email,
+              user
             });
           }
         );
@@ -98,6 +100,7 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
 // @route GET api/users/:email
 // @desc Login user and return JWT token
 // @access private
@@ -173,6 +176,28 @@ router
           .then(user => res.json(user))
           .catch(err => console.log(err));
       }
+    });
+  });
+
+// @route POST api/users/cart/:email
+// @desc Add item to user's cart
+// @access private
+router
+  .route("/cart/:email")
+  .post(passport.authenticate("jwt", { session: false }), (req, res) => {
+    // get user
+    User.findOne({ email: req.params.email }, function(err, user) {
+      if (!user) {
+        return res.status(400).json({ email: "No email found" });
+      }
+      if (err) res.send(err);
+      // to-do: check if this product/item exists? has all the right qualities?
+      let newItem = req.body;
+      user.cart.push(newItem);
+      user
+        .save()
+        .then(user => res.json(user))
+        .catch(err => console.log(err));
     });
   });
 

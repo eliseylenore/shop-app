@@ -19,6 +19,9 @@ export default new Vuex.Store({
   mutations: {
     SET_USER_DATA(state, userData) {
       state.user = userData;
+      if (userData.cart !== undefined && userData.cart.length > 0) {
+        state.cart = userData.cart;
+      }
       localStorage.setItem("user", JSON.stringify(userData));
       axios.defaults.headers.common["Authorization"] = `${userData.token}`;
       state.loginError = null;
@@ -32,6 +35,9 @@ export default new Vuex.Store({
     },
     SET_EXTRA_USER_DATA(state, userData) {
       state.user = userData;
+      if (userData.cart !== undefined) {
+        state.cart = userData.cart;
+      }
     },
     SET_LOGIN_ERR(state, error) {
       state.loginError = error;

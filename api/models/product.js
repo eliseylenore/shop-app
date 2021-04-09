@@ -8,6 +8,7 @@ var ProductSchema = new Schema({
   description: String,
   category: String,
   items: [
+    // to do: change this to Item schema
     {
       sizes: Object,
       hex: String,

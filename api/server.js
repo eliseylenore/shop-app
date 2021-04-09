@@ -8,6 +8,7 @@ const express = require("express"); // call express
 const app = express(); // define our app using express
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const cors = require("cors");
 
 const Product = require("./models/product");
 const users = require("./routes/api/users");
@@ -17,6 +18,7 @@ const mongoose = require("mongoose");
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors())
 
 const port = process.env.PORT || 3000; // set our port
 
