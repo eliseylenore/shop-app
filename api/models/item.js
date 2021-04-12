@@ -5,6 +5,7 @@ var ItemSchema = new Schema({
   productId: Schema.ObjectId,
   hex: String,
   color: String,
+  size: String,
   img: String,
   quantity: Number,
   title: String,

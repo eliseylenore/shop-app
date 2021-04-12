@@ -37,7 +37,9 @@ export default {
   bottom: 27px;
   background-color: red;
   border-radius: 50%;
-  padding: 0 7px;
+  padding: 4px 7px 0;
+  height: 2em;
+  width: 2em;
   font-size: 0.6em;
 }
 .cart-icon {
