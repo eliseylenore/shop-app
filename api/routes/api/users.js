@@ -68,7 +68,6 @@ router.post("/login", (req, res) => {
     // After editing my password, the compare function always returns false
     // Using hash function to compare instead
     bcrypt.compare(password, user.password).then(isMatch => {
-      console.log("isMatch ", isMatch);
       if (isMatch) {
         // User matched
         // Create JWT Payload
@@ -157,7 +156,6 @@ router
               .json({ password: "You entered the same password!" });
           } else {
             bcrypt.genSalt(10, (err, salt) => {
-              console.log("unhashed password ", password);
               bcrypt.hash(password, salt, (err, hash) => {
                 if (err) throw err;
 

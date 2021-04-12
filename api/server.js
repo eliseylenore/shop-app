@@ -18,12 +18,16 @@ const mongoose = require("mongoose");
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
 
 const port = process.env.PORT || 3000; // set our port
 
 mongoose
-  .connect(uriCredentials, { useNewUrlParser: true })
+  .connect(uriCredentials, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  })
   .then(() => console.log("Mongo db connected"))
   .catch(err => console.log(err));
 
