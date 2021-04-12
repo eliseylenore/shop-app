@@ -10,7 +10,6 @@ const validateEditProfileInput = require("../../validation/editProfile");
 const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/user");
-const Item = require("../../models/item");
 
 // @route POST api/users / register
 // @desc Register user
@@ -68,9 +67,7 @@ router.post("/login", (req, res) => {
 
     // After editing my password, the compare function always returns false
     // Using hash function to compare instead
-    bcrypt.hash(password, user.password).then(isMatch => {
-      console.log("password ", password);
-      console.log("user.password ", user.password);
+    bcrypt.compare(password, user.password).then(isMatch => {
       console.log("isMatch ", isMatch);
       if (isMatch) {
         // User matched
@@ -160,7 +157,8 @@ router
               .json({ password: "You entered the same password!" });
           } else {
             bcrypt.genSalt(10, (err, salt) => {
-              bcrypt.hash(user.password, salt, (err, hash) => {
+              console.log("unhashed password ", password);
+              bcrypt.hash(password, salt, (err, hash) => {
                 if (err) throw err;
 
                 user.password = hash;
