@@ -86,30 +86,10 @@ export default new Vuex.Store({
         selectedItem: selectedItem
       };
     },
-    ADD_TO_CART(state, product) {
-      // iterate through items to see if already have one in there
-      let matchFound = false;
-      for (let item of state.cart) {
-        if (
-          item.hex === product.selectedHex &&
-          item.size === product.selectedSize
-        ) {
-          item.quantity += product.quantity;
-          matchFound = true;
-        }
-      }
-      if (!matchFound) {
-        const selectedProduct = {
-          ...product.selectedItem,
-          size: product.selectedSize,
-          title: product.title,
-          productId: product._id,
-          price: product.price,
-          quantity: product.quantity
-        };
-        state.cart.push(selectedProduct);
-        localStorage.setItem("cart", JSON.stringify(state.cart));
-      }
+    ADD_TO_CART(state, payload) {
+      const { product, selectedProduct } = payload;
+      state.cart.push(selectedProduct);
+      localStorage.setItem("cart", JSON.stringify(state.cart));
       state.product = {
         ...product,
         quantity: 1
@@ -209,8 +189,16 @@ export default new Vuex.Store({
           });
       }
     },
-    addToCart({ commit }, product) {
-      commit("ADD_TO_CART", product);
+    // TO-DO: Test this method to make sure it works.
+    addToCart({ commit, state }, payload) {
+      const { product, selectedProduct } = payload;
+      if (state.user.email) {
+        UserService.addToCart(state.user.email, selectedProduct)
+          .then(() => commit("ADD_TO_CART", payload))
+          .catch(err => console.log(err));
+      } else {
+        commit("ADD_TO_CART", product, selectedProduct);
+      }
     },
     changeProductSelectedItem({ commit }, item) {
       commit("SET_PRODUCT_ITEM", item);

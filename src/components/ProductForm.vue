@@ -135,9 +135,45 @@ export default {
       } else if (!this.selectedColorSizes[this.product.selectedSize]) {
         this.errors.size = "Please select available size.";
       } else if (!quantityExceedsAvailable) {
+        // iterate through items to see if already have one in there
+        let matchFound = false;
+        let selectedProduct = {};
+        for (let item of this.$store.state.cart) {
+          if (
+            item.hex === product.selectedHex &&
+            item.size === product.selectedSize
+          ) {
+            matchFound = true;
+          }
+        }
+        if (!matchFound) {
+          let {
+            selectedItem,
+            title,
+            selectedSize,
+            price,
+            quantity,
+            _id
+          } = product;
+          selectedProduct = {
+            color: selectedItem.color,
+            hex: selectedItem.hex,
+            img: selectedItem.img,
+            size: selectedSize,
+            title: title,
+            productId: _id,
+            price: price,
+            quantity: quantity
+          };
+          console.log("selectedProduct ", selectedProduct);
+          this.$store.dispatch("addToCart", { product, selectedProduct });
+        } else {
+          // TO-DO: create this action
+          this.$store.dispatch("addToItemQuantity", product);
+        }
+
         this.lastAddedProduct = this.product;
         this.$bvModal.show("modal-1");
-        this.$store.dispatch("addToCart", product);
       }
     },
     sizeClasses(size) {

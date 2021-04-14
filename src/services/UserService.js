@@ -14,5 +14,6 @@ export default {
     axios.post("/users/register/", credentials, config),
   loginUser: credentials => axios.post("/users/login/", credentials, config),
   getUser: email => axios.get("/users/" + email, config),
-  editUser: (email, userInfo) => axios.put("/users/" + email, userInfo, config)
+  editUser: (email, userInfo) => axios.put("/users/" + email, userInfo, config),
+  addToCart: (email, item) => axios.post("/users/cart/" + email, item, config)
 };
