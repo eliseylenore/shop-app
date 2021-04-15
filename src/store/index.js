@@ -95,6 +95,15 @@ export default new Vuex.Store({
         quantity: 1
       };
     },
+    ADD_TO_CART_ITEM_QUANTITY(state, payload) {
+      const { _id, quantity } = payload;
+      let foundItem = state.cart.find(item => item._id === _id)
+      if (foundItem) {
+        foundItem.quantity += quantity;
+      } else {
+        console.log("No found item.")
+      }
+    },
     SET_PRODUCT_ITEM(state, item) {
       state.product.selectedItem = item;
     },
@@ -189,7 +198,6 @@ export default new Vuex.Store({
           });
       }
     },
-    // TO-DO: Test this method to make sure it works.
     addToCart({ commit, state }, payload) {
       const { product, selectedProduct } = payload;
       if (state.user.email) {
@@ -199,6 +207,11 @@ export default new Vuex.Store({
       } else {
         commit("ADD_TO_CART", product, selectedProduct);
       }
+    },
+    addToItemQuantity({ commit, state }, payload) {
+      UserService.addToItemQuantity(state.user.email, payload)
+        .then(() => commit("ADD_TO_CART_ITEM_QUANTITY", payload))
+        .catch(err => console.log(err));
     },
     changeProductSelectedItem({ commit }, item) {
       commit("SET_PRODUCT_ITEM", item);

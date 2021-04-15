@@ -200,4 +200,25 @@ router
     });
   });
 
+router
+  .route("/cart/:email/addToCartItemQuantity")
+  .put(passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findOne({ email: req.params.email }, function(err, user) {
+      if (err) res.send(err);
+      console.log("req.body", req.body);
+      const { _id, quantity } = req.body;
+
+      const foundItem = user.cart.find(item => {
+        if (item !== undefined && item._id !== undefined) {
+          return item._id.toString() === _id;
+        }
+      });
+      foundItem.quantity = foundItem.quantity + parseInt(quantity);
+      user
+        .save()
+        .then(user => res.json(user))
+        .catch(err => console.log(err));
+    });
+  });
+
 module.exports = router;

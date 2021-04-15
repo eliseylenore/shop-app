@@ -137,6 +137,7 @@ export default {
       } else if (!quantityExceedsAvailable) {
         // iterate through items to see if already have one in there
         let matchFound = false;
+        let itemId;
         let selectedProduct = {};
         for (let item of this.$store.state.cart) {
           if (
@@ -144,6 +145,7 @@ export default {
             item.size === product.selectedSize
           ) {
             matchFound = true;
+            itemId = item._id;
           }
         }
         if (!matchFound) {
@@ -168,8 +170,12 @@ export default {
           console.log("selectedProduct ", selectedProduct);
           this.$store.dispatch("addToCart", { product, selectedProduct });
         } else {
+          let { quantity } = product;
           // TO-DO: create this action
-          this.$store.dispatch("addToItemQuantity", product);
+          this.$store.dispatch("addToItemQuantity", {
+            _id: itemId,
+            quantity
+          });
         }
 
         this.lastAddedProduct = this.product;
