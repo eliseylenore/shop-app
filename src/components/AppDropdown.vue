@@ -185,5 +185,6 @@ export default {
 ul ul.menu-container {
   padding-inline-start: 0;
   list-style-type: none !important;
+  z-index: 20;
 }
 </style>

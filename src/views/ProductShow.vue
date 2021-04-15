@@ -63,6 +63,7 @@ export default {
     };
   },
   created() {
+    console.log("this.$route.params.id ", this.$route.params.id);
     this.$store.dispatch("fetchProduct", this.$route.params.id);
   },
   methods: {

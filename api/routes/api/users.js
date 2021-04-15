@@ -205,7 +205,6 @@ router
   .put(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
       if (err) res.send(err);
-      console.log("req.body", req.body);
       const { _id, quantity } = req.body;
 
       const foundItem = user.cart.find(item => {

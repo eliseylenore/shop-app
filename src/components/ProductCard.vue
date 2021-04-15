@@ -35,10 +35,17 @@ export default {
   },
   methods: {
     goToProduct: function() {
+      let productId;
+      if (this.product.productId) {
+        productId = this.product.productId;
+      } else {
+        productId = this.product._id;
+      }
+      console.log("productId ", productId);
       this.$router.push({
         name: "ProductShow",
         params: {
-          id: this.product._id
+          id: productId
         }
       });
     }
