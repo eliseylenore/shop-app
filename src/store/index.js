@@ -97,11 +97,11 @@ export default new Vuex.Store({
     },
     ADD_TO_CART_ITEM_QUANTITY(state, payload) {
       const { _id, quantity } = payload;
-      let foundItem = state.cart.find(item => item._id === _id)
+      let foundItem = state.cart.find(item => item._id === _id);
       if (foundItem) {
         foundItem.quantity += quantity;
       } else {
-        console.log("No found item.")
+        console.log("No found item.");
       }
     },
     SET_PRODUCT_ITEM(state, item) {
@@ -216,8 +216,10 @@ export default new Vuex.Store({
     changeProductSelectedItem({ commit }, item) {
       commit("SET_PRODUCT_ITEM", item);
     },
-    removeFromCart({ commit }, product) {
-      commit("REMOVE_FROM_CART", product);
+    removeFromCart({ commit, state }, product) {
+      UserService.removeItemFromCart(state.user.email, { _id: product._id })
+        .then(() => commit("REMOVE_FROM_CART", product))
+        .catch(err => console.log(err));
     }
   },
   getters: {

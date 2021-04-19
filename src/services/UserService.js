@@ -21,5 +21,10 @@ export default {
       "/users/cart/" + email + "/addToCartItemQuantity",
       payload,
       config
-    )
+    ),
+  removeItemFromCart: (email, payload) =>
+    axios.delete("/users/cart/" + email + "/deleteItem", {
+      data: payload,
+      ...config
+    })
 };
