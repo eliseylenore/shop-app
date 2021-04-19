@@ -167,7 +167,6 @@ export default {
             price: price,
             quantity: quantity
           };
-          console.log("selectedProduct ", selectedProduct);
           this.$store.dispatch("addToCart", { product, selectedProduct });
         } else {
           let { quantity } = product;

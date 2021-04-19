@@ -199,13 +199,13 @@ export default new Vuex.Store({
       }
     },
     addToCart({ commit, state }, payload) {
-      const { product, selectedProduct } = payload;
-      if (state.user.email) {
+      const { selectedProduct } = payload;
+      if (state.user !== null) {
         UserService.addToCart(state.user.email, selectedProduct)
           .then(() => commit("ADD_TO_CART", payload))
           .catch(err => console.log(err));
       } else {
-        commit("ADD_TO_CART", product, selectedProduct);
+        commit("ADD_TO_CART", payload);
       }
     },
     addToItemQuantity({ commit, state }, payload) {
@@ -217,9 +217,13 @@ export default new Vuex.Store({
       commit("SET_PRODUCT_ITEM", item);
     },
     removeFromCart({ commit, state }, product) {
-      UserService.removeItemFromCart(state.user.email, { _id: product._id })
-        .then(() => commit("REMOVE_FROM_CART", product))
-        .catch(err => console.log(err));
+      if (state.user === null) {
+        commit("REMOVE_FROM_CART", product);
+      } else {
+        UserService.removeItemFromCart(state.user.email, { _id: product._id })
+          .then(() => commit("REMOVE_FROM_CART", product))
+          .catch(err => console.log(err));
+      }
     }
   },
   getters: {
