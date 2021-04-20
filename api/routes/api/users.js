@@ -147,7 +147,7 @@ router
         }
       }
       // Check password
-      if (password !== undefined) {
+      if (password) {
         bcrypt.compare(password, user.password).then(isMatch => {
           if (isMatch) {
             // User matched

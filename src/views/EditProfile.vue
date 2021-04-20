@@ -100,10 +100,10 @@ export default {
         email: this.user.email
       };
       if (this.password1) {
-        editedUser.password1 = this.password;
+        editedUser.password = this.password1;
       }
       if (this.password2) {
-        editedUser.password = this.password2;
+        editedUser.password2 = this.password2;
       }
       this.$store.dispatch("editUser", editedUser).then(() => {
         if (!this.editError) this.$router.push({ name: "Dashboard" });

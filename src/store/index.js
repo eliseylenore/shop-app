@@ -19,8 +19,8 @@ export default new Vuex.Store({
   mutations: {
     SET_USER_DATA(state, userData) {
       state.user = userData;
-      if (userData.cart !== undefined && userData.cart.length > 0) {
-        state.cart = userData.cart;
+      if (userData.user.cart !== undefined && userData.user.cart.length > 0) {
+        state.cart = userData.user.cart;
       }
       localStorage.setItem("user", JSON.stringify(userData));
       axios.defaults.headers.common["Authorization"] = `${userData.token}`;
@@ -209,9 +209,13 @@ export default new Vuex.Store({
       }
     },
     addToItemQuantity({ commit, state }, payload) {
-      UserService.addToItemQuantity(state.user.email, payload)
-        .then(() => commit("ADD_TO_CART_ITEM_QUANTITY", payload))
-        .catch(err => console.log(err));
+      if (state.user !== null) {
+        UserService.addToItemQuantity(state.user.email, payload)
+          .then(() => commit("ADD_TO_CART_ITEM_QUANTITY", payload))
+          .catch(err => console.log(err));
+      } else {
+        commit("ADD_TO_CART_ITEM_QUANTITY", payload);
+      }
     },
     changeProductSelectedItem({ commit }, item) {
       commit("SET_PRODUCT_ITEM", item);
