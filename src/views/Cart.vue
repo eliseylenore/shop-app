@@ -20,14 +20,16 @@
           <b-col xs="12" md="4" order-md="2">
             <h2 class="text-left">Summary</h2>
             <p>Your total: ${{ getCartTotal }}</p>
-            <button class="mb-4">Check out</button>
+            <button class="mb-4" @click="$store.dispatch('checkoutCart')">
+              Check out
+            </button>
           </b-col>
           <div :class="cart.length < 2 ? 'col-md-4' : 'col-md-8'">
             <div :class="cart.length < 2 ? 'justify-content-end' : 'row'">
               <div
                 :class="cart.length < 2 ? 'col-12' : 'col-md-6'"
                 v-for="product in cart"
-                :key="product.id + product.size"
+                :key="product._id + product.size"
                 style="position: relative"
                 class="mb-4"
               >

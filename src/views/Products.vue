@@ -27,7 +27,7 @@
                   role="radiogroup"
                   :aria-label="product.title + ' colors'"
                 >
-                  <div v-for="item of product.items" :key="item.id">
+                  <div v-for="item of product.items" :key="item._id">
                     <input
                       type="radio"
                       :id="item.hex"

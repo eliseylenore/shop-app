@@ -4,12 +4,15 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { secretOrKey } = require("../../keys");
 const passport = require("passport");
+const mongoose = require("mongoose");
+
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateEditProfileInput = require("../../validation/editProfile");
 const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/user");
+const Product = require("../../models/product");
 
 // @route POST api/users / register
 // @desc Register user
@@ -192,6 +195,7 @@ router
       if (err) res.send(err);
       // to-do: check if this product/item exists? has all the right qualities?
       let newItem = req.body;
+      console.log("req.body", req.body);
       user.cart.push(newItem);
       user
         .save()
@@ -237,6 +241,58 @@ router
         .save()
         .then(user => res.json(user.cart))
         .catch(err => console.log(err));
+    });
+  });
+
+router
+  .route("/cart/:email/checkoutCart")
+  .delete(passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findOne({ email: req.params.email }, function(err, user) {
+      if (err) res.send(err);
+      const errors = {};
+      for (let item of user.cart) {
+        // lookup product, then item within product (by itemId)
+        Product.findById(mongoose.Types.ObjectId(item.productId), function(
+          err,
+          product
+        ) {
+          console.log("err", err);
+          // check to make sure the size & quantity is available
+          let foundItem = product.items.find(productItem => {
+            if (productItem && productItem.toObject().id) {
+              return (
+                productItem.toObject().id.toString() === item.itemId.toString()
+              );
+            }
+          });
+          if (foundItem) {
+            let newSizes = foundItem.toObject().sizes;
+            // decrease item quantity by one
+            if (newSizes[item.size] >= item.quantity) {
+              newSizes[item.size] -= item.quantity;
+              foundItem.sizes[item.size] = newSizes;
+              product
+                .save()
+                .then(product => console.log(product))
+                .catch(err => console.log(err));
+            } else {
+              errors.quantity = "There are no longer enough of " + item.title;
+              res.json(errors);
+            }
+          }
+
+          // delete item from cart (eventually move it into pending orders)
+
+          // return success message if item was successfully deleted
+        });
+      }
+      // user.cart = {};
+      // user
+      //   .save()
+      //   .then(user =>
+      //     Object.keys(errors).length === 0 ? res.json(user.cart) : errors
+      //   )
+      //   .catch(err => console.log(err));
     });
   });
 

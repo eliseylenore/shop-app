@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var ItemSchema = new Schema({
   productId: Schema.ObjectId,
+  itemId: Schema.ObjectId,
   hex: String,
   color: String,
   size: String,

@@ -67,8 +67,8 @@ export default new Vuex.Store({
       for (let color of hexArr) {
         var colorItem = product.items.find(obj => obj.hex === color);
 
-        for (let size of Object.keys(colorItem.sizes)) {
-          sizesArr[size] = 1;
+        for (let size of colorItem.sizes) {
+          sizesArr[size.size] = 1;
         }
       }
 
@@ -115,6 +115,10 @@ export default new Vuex.Store({
           item.hex !== product.hex
       );
       localStorage.setItem("cart", JSON.stringify(state.cart));
+    },
+    EMPTY_CART(state) {
+      state.cart = [];
+      localStorage.removeItem("cart");
     }
   },
   actions: {
@@ -128,7 +132,7 @@ export default new Vuex.Store({
         });
     },
     loginUser({ commit }, credentials) {
-      UserService.loginUser(credentials)
+      return UserService.loginUser(credentials)
         .then(({ data }) => {
           commit("SET_USER_DATA", data);
         })
@@ -137,7 +141,7 @@ export default new Vuex.Store({
         });
     },
     editUser({ commit }, userInfo) {
-      UserService.editUser(this.state.user.email, userInfo)
+      return UserService.editUser(this.state.user.email, userInfo)
         .then(({ data }) => {
           commit("EDIT_USER_DATA", data);
         })
@@ -202,7 +206,12 @@ export default new Vuex.Store({
       const { selectedProduct } = payload;
       if (state.user !== null) {
         UserService.addToCart(state.user.email, selectedProduct)
-          .then(() => commit("ADD_TO_CART", payload))
+          .then(({ data }) => {
+            let newPayload = payload;
+            newPayload.selectedProduct._id =
+              data.cart[data.cart.length - 1]._id;
+            commit("ADD_TO_CART", newPayload);
+          })
           .catch(err => console.log(err));
       } else {
         commit("ADD_TO_CART", payload);
@@ -211,7 +220,9 @@ export default new Vuex.Store({
     addToItemQuantity({ commit, state }, payload) {
       if (state.user !== null) {
         UserService.addToItemQuantity(state.user.email, payload)
-          .then(() => commit("ADD_TO_CART_ITEM_QUANTITY", payload))
+          .then(() => {
+            commit("ADD_TO_CART_ITEM_QUANTITY", payload);
+          })
           .catch(err => console.log(err));
       } else {
         commit("ADD_TO_CART_ITEM_QUANTITY", payload);
@@ -228,6 +239,9 @@ export default new Vuex.Store({
           .then(() => commit("REMOVE_FROM_CART", product))
           .catch(err => console.log(err));
       }
+    },
+    checkoutCart({ commit, state }) {
+      commit("EMPTY_CART", state);
     }
   },
   getters: {
@@ -236,7 +250,7 @@ export default new Vuex.Store({
       return !!state.user;
     },
     getProductById: state => id => {
-      return state.products.find(product => product.id === id);
+      return state.products.find(product => product._id === id);
     },
     getCartTotal: state => {
       let cartTotal = 0;

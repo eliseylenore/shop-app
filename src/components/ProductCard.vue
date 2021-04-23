@@ -41,7 +41,6 @@ export default {
       } else {
         productId = this.product._id;
       }
-      console.log("productId ", productId);
       this.$router.push({
         name: "ProductShow",
         params: {

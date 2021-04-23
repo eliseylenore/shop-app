@@ -163,6 +163,7 @@ export default {
             img: selectedItem.img,
             size: selectedSize,
             title: title,
+            itemId: selectedItem._id,
             productId: _id,
             price: price,
             quantity: quantity
@@ -198,18 +199,20 @@ export default {
   computed: {
     selectedColorSizes() {
       let currentColorSizes = {};
-      for (let size of Object.keys(this.product.selectedItem.sizes)) {
-        if (!currentColorSizes[size]) {
-          currentColorSizes[size] = this.product.selectedItem.sizes[size];
+      for (let currentSize of this.product.selectedItem.sizes) {
+        if (!currentColorSizes[currentSize.size]) {
+          currentColorSizes[currentSize.size] = currentSize.quantity;
         }
       }
       return currentColorSizes;
     },
     maxQuantity() {
       if (this.product.selectedSize) {
-        let numberAvailable = this.product.selectedItem.sizes[
-          this.product.selectedSize
-        ];
+        let productSize = this.product.selectedItem.sizes.find(
+          element => element.size === this.product.selectedSize
+        );
+        let numberAvailable = productSize.quantity;
+        console.log("numberAvailable ", numberAvailable > 10);
         if (numberAvailable > 10) {
           return 10;
         } else {
