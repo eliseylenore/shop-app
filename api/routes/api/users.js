@@ -258,28 +258,23 @@ router
         ) {
           console.log("err", err);
 
-          // check to make sure the size & quantity is available
           let foundItem = product.items.find(productItem => {
-            if (productItem && productItem.toObject()._id) {
-              return (
-                productItem.toObject()._id.toString() === item.itemId.toString()
-              );
+            if (productItem && productItem._id) {
+              return productItem._id.toString() === item.itemId.toString();
             }
           });
           if (foundItem) {
-            console.log("foundItem: " + foundItem)
             let productSize = foundItem
               .toObject()
               .sizes.find(currentSize => currentSize.size === item.size);
-            console.log("productSize: ", productSize);
-            // decrease item quantity by one
+            // can this be simplified? There's some code that should be take out around this spot
             if (productSize.quantity >= item.quantity) {
-              for (let thing of foundItem.sizes) {
-                if (thing.size === item.size) {
-                  thing.quantity -= item.quantity;
+              // couldn't change productSize.quantity directly, or else it wouldn't save to mongodb
+              for (let foundItemSize of foundItem.sizes) {
+                if (foundItemSize.size === item.size) {
+                  foundItemSize.quantity -= item.quantity;
                 }
               }
-
               product
                 .save()
                 .then(product => console.log(product))
@@ -288,6 +283,10 @@ router
               errors.quantity = "There are no longer enough of " + item.title;
               res.json(errors);
             }
+          } else {
+            errors.noItemFound =
+              "Was not able to find a matching item in database";
+            res.send(errors);
           }
 
           // delete item from cart (eventually move it into pending orders)
@@ -295,6 +294,7 @@ router
           // return success message if item was successfully deleted
         });
       }
+      user.pendingOrders = user.cart;
       user.cart = [];
       user
         .save()
@@ -302,6 +302,36 @@ router
           Object.keys(errors).length === 0 ? res.json(user.cart) : errors
         )
         .catch(err => console.log(err));
+    });
+  });
+
+router
+  .route("/orders/:email/fulfillOrder")
+  .put(passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findOne({ email: req.params.email }, function(err, user) {
+      if (err) res.send(err);
+      const { _id } = req.body;
+
+      const foundItem = user.pendingOrders.find(item => {
+        if (item !== undefined && item._id !== undefined) {
+          return item._id.toString() === _id;
+        }
+      });
+      if (foundItem) {
+        user.fulfilledOrders.push(foundItem);
+        const newPendingOrders = user.pendingOrders.filter(item => {
+          if (item !== undefined && item._id !== undefined) {
+            return item._id.toString() !== _id;
+          }
+        });
+        user.pendingOrders = newPendingOrders;
+        user
+          .save()
+          .then(user => res.json(user))
+          .catch(err => console.log(err));
+      } else {
+        res.send({ itemNotFound: "No item found to fulfill" });
+      }
     });
   });
 

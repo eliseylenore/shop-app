@@ -21,7 +21,9 @@ var UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  cart: [Item]
+  cart: [Item],
+  pendingOrders: [Item],
+  fulfilledOrders: [Item]
 });
 
 module.exports = mongoose.model("User", UserSchema);
