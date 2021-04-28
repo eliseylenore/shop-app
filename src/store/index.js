@@ -241,7 +241,9 @@ export default new Vuex.Store({
       }
     },
     checkoutCart({ commit, state }) {
-      commit("EMPTY_CART", state);
+      UserService.checkoutCart(state.user.email)
+        .then(() => commit("EMPTY_CART", state))
+        .catch(err => console.log(err));
     }
   },
   getters: {

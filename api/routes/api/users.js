@@ -257,20 +257,29 @@ router
           product
         ) {
           console.log("err", err);
+
           // check to make sure the size & quantity is available
           let foundItem = product.items.find(productItem => {
-            if (productItem && productItem.toObject().id) {
+            if (productItem && productItem.toObject()._id) {
               return (
-                productItem.toObject().id.toString() === item.itemId.toString()
+                productItem.toObject()._id.toString() === item.itemId.toString()
               );
             }
           });
           if (foundItem) {
-            let newSizes = foundItem.toObject().sizes;
+            console.log("foundItem: " + foundItem)
+            let productSize = foundItem
+              .toObject()
+              .sizes.find(currentSize => currentSize.size === item.size);
+            console.log("productSize: ", productSize);
             // decrease item quantity by one
-            if (newSizes[item.size] >= item.quantity) {
-              newSizes[item.size] -= item.quantity;
-              foundItem.sizes[item.size] = newSizes;
+            if (productSize.quantity >= item.quantity) {
+              for (let thing of foundItem.sizes) {
+                if (thing.size === item.size) {
+                  thing.quantity -= item.quantity;
+                }
+              }
+
               product
                 .save()
                 .then(product => console.log(product))
@@ -286,13 +295,13 @@ router
           // return success message if item was successfully deleted
         });
       }
-      // user.cart = {};
-      // user
-      //   .save()
-      //   .then(user =>
-      //     Object.keys(errors).length === 0 ? res.json(user.cart) : errors
-      //   )
-      //   .catch(err => console.log(err));
+      user.cart = [];
+      user
+        .save()
+        .then(user =>
+          Object.keys(errors).length === 0 ? res.json(user.cart) : errors
+        )
+        .catch(err => console.log(err));
     });
   });
 

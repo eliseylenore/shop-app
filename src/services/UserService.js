@@ -26,5 +26,7 @@ export default {
     axios.delete("/users/cart/" + email + "/deleteItem", {
       data: payload,
       ...config
-    })
+    }),
+  checkoutCart: email =>
+    axios.delete("/users/cart/" + email + "/checkoutCart", config)
 };
