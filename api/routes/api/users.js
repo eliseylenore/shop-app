@@ -335,4 +335,14 @@ router
     });
   });
 
+// get user's open orders (accessed at GET http://localhost:3000/api/users/:email/openOrders/)
+router
+  .route("/:email/openOrders")
+  .get(passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findOne({ email: req.params.email }, function(err, user) {
+      if (err) res.send(err);
+      res.json(user.pendingOrders);
+    });
+  });
+
 module.exports = router;

@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     cart: JSON.parse(localStorage.getItem("cart")) || [],
     products: [],
+    openOrders: [],
     product: {},
     user: null,
     loginError: null,
@@ -56,6 +57,9 @@ export default new Vuex.Store({
     },
     SET_PRODUCTS(state, products) {
       state.products = products;
+    },
+    SET_OPEN_ORDERS(state, openOrders) {
+      state.openOrders = openOrders;
     },
     SET_PRODUCT(state, product) {
       const hexArr = [];
@@ -169,6 +173,15 @@ export default new Vuex.Store({
             return product;
           });
           commit("SET_PRODUCTS", productsWithSelectedColors);
+        })
+        .catch(error => {
+          console.log("There was an error:", error.response);
+        });
+    },
+    fetchOpenOrders({ commit, state }) {
+      UserService.getOpenOrders(state.user.email)
+        .then(response => {
+          commit("SET_OPEN_ORDERS", response.data);
         })
         .catch(error => {
           console.log("There was an error:", error.response);
