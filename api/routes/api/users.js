@@ -294,7 +294,11 @@ router
           // return success message if item was successfully deleted
         });
       }
-      user.pendingOrders = user.cart;
+      for (let cartItem of user.cart) {
+        console.log("adding item: ", cartItem);
+
+        user.pendingOrders.push(cartItem);
+      }
       user.cart = [];
       user
         .save()

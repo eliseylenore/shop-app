@@ -5,7 +5,6 @@
         <h1>Your profile</h1>
         <p class="text-center">Hi, {{ user.name }}</p>
       </header>
-      <open-orders />
       <b-row>
         <b-col xs="12" md="8" lg="6" offset-md="2" offset-lg="3">
           <h3 class="text-left">
@@ -14,6 +13,7 @@
           <user-info-table :user="user" />
         </b-col>
       </b-row>
+      <open-orders />
     </b-container>
   </div>
 </template>

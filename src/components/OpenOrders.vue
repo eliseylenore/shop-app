@@ -1,35 +1,35 @@
 <template>
   <div class="open-orders mt-5">
-    <b-container>
-      <header>
-        <h2>Your open orders</h2>
-      </header>
-      <div class="row">
-        <div
-          class="col-md-6 mb-4"
-          v-for="product in openOrders"
-          :key="product._id + product.size"
-          style="position: relative"
-        >
-          <product-card :product="product">
-            <b-row class="mt-3 mx-3 w-100">
-              <b-col xs="12">
-                <p class="mb-0 text-left">
-                  <strong>{{ product.title }}</strong
-                  >, size
-                  <span style="text-transform: capitalize">{{
-                    product.size
-                  }}</span>
-                </p>
-                <p class="mb-0 text-left">{{ product.color }}</p>
-                <p class="mb-0 text-left">${{ price(product.price) }}</p>
-                <p class="mb-4 text-left">Quantity: {{ product.quantity }}</p>
-              </b-col>
-            </b-row>
-          </product-card>
-        </div>
+    <b-col xs="12" md="8" lg="6" offset-md="2" offset-lg="3">
+      <h3 class="text-left">
+        Your open order<span v-if="openOrders.length > 1">s</span>
+      </h3>
+    </b-col>
+    <b-row>
+      <div
+        class="mb-4 col-xs-12 col-md-8 col-md-8 col-lg-6 offset-md-2 offset-lg-3"
+        v-for="product in openOrders"
+        :key="product._id + product.size"
+        style="position: relative"
+      >
+        <product-card :product="product">
+          <b-row class="mt-3 mx-3 w-100">
+            <b-col xs="12">
+              <p class="mb-0 text-left">
+                <strong>{{ product.title }}</strong
+                >, size
+                <span style="text-transform: capitalize">{{
+                  product.size
+                }}</span>
+              </p>
+              <p class="mb-0 text-left">{{ product.color }}</p>
+              <p class="mb-0 text-left">${{ price(product.price) }}</p>
+              <p class="mb-4 text-left">Quantity: {{ product.quantity }}</p>
+            </b-col>
+          </b-row>
+        </product-card>
       </div>
-    </b-container>
+    </b-row>
   </div>
 </template>
 
