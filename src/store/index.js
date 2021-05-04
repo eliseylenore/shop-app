@@ -10,7 +10,6 @@ export default new Vuex.Store({
   state: {
     cart: JSON.parse(localStorage.getItem("cart")) || [],
     products: [],
-    openOrders: [],
     product: {},
     user: null,
     loginError: null,
@@ -59,7 +58,7 @@ export default new Vuex.Store({
       state.products = products;
     },
     SET_OPEN_ORDERS(state, openOrders) {
-      state.openOrders = openOrders;
+      state.users.openOrders = openOrders;
     },
     SET_PRODUCT(state, product) {
       const hexArr = [];
@@ -119,6 +118,11 @@ export default new Vuex.Store({
           item.hex !== product.hex
       );
       localStorage.setItem("cart", JSON.stringify(state.cart));
+    },
+    MARK_ORDER_FILLED(state, item) {
+      state.user.pendingOrders = state.user.pendingOrders.filter(
+        product => product._id !== item._id
+      );
     },
     EMPTY_CART(state) {
       state.cart = [];
@@ -256,6 +260,11 @@ export default new Vuex.Store({
     checkoutCart({ commit, state }) {
       UserService.checkoutCart(state.user.email)
         .then(() => commit("EMPTY_CART", state))
+        .catch(err => console.log(err));
+    },
+    markOrderFilled({ commit, state }, item) {
+      UserService.markOrderFilled(state.user.email, { _id: item._id })
+        .then(() => commit("MARK_ORDER_FILLED", item))
         .catch(err => console.log(err));
     }
   },

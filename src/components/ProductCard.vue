@@ -1,6 +1,6 @@
 <template>
   <div class="product-card d-flex flex-column align-items-center">
-    <button class="w-100 px-0" v-on:click="goToProduct">
+    <button class="plain-btn w-100 px-0" v-on:click="goToProduct">
       <div
         class="product-image"
         :aria-label="product.alt ? product.alt : ''"
@@ -73,7 +73,7 @@ h4 {
 .product-card {
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
-.product-card button {
+.product-card button.plain-btn {
   padding: 0;
   border: none;
   background-color: white;

@@ -13,7 +13,7 @@
           <user-info-table :user="user" />
         </b-col>
       </b-row>
-      <open-orders />
+      <open-orders v-if="user.pendingOrders.length > 0" />
     </b-container>
   </div>
 </template>

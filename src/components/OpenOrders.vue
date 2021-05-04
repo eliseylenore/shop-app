@@ -14,7 +14,7 @@
       >
         <product-card :product="product">
           <b-row class="mt-3 mx-3 w-100">
-            <b-col xs="12">
+            <b-col xs="8">
               <p class="mb-0 text-left">
                 <strong>{{ product.title }}</strong
                 >, size
@@ -25,6 +25,11 @@
               <p class="mb-0 text-left">{{ product.color }}</p>
               <p class="mb-0 text-left">${{ price(product.price) }}</p>
               <p class="mb-4 text-left">Quantity: {{ product.quantity }}</p>
+            </b-col>
+            <b-col xs="4">
+              <button @click="$store.dispatch('markOrderFilled', product)">
+                Mark fulfilled
+              </button>
             </b-col>
           </b-row>
         </product-card>
@@ -58,7 +63,7 @@ export default {
   },
   computed: {
     ...mapState({
-      openOrders: state => state.openOrders
+      openOrders: state => state.user.pendingOrders
     })
   },
   methods: {

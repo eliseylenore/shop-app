@@ -29,5 +29,7 @@ export default {
     }),
   checkoutCart: email =>
     axios.delete("/users/cart/" + email + "/checkoutCart", config),
-  getOpenOrders: email => axios.get("/users/" + email + "/openOrders", config)
+  getOpenOrders: email => axios.get("/users/" + email + "/openOrders", config),
+  markOrderFilled: (email, payload) =>
+    axios.put("/users/orders/" + email + "/fulfillOrder", payload, config)
 };
