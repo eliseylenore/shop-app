@@ -68,6 +68,12 @@ const routes = [
     name: "Cart",
     component: () => import(/* webpackChunkName: "about" */ "../views/Cart.vue")
   },
+  {
+    path: "/previousorders",
+    name: "PreviousOrders",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/PreviousOrders.vue")
+  },
   { path: "*", component: FileNotFound }
 ];
 

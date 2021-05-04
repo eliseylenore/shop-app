@@ -123,8 +123,12 @@ export default new Vuex.Store({
       state.user.pendingOrders = state.user.pendingOrders.filter(
         product => product._id !== item._id
       );
+      state.user.fulfilledOrders.push(item);
     },
     EMPTY_CART(state) {
+      for (let item of state.cart) {
+        state.user.pendingOrders.push(item);
+      }
       state.cart = [];
       localStorage.removeItem("cart");
     }
@@ -264,7 +268,9 @@ export default new Vuex.Store({
     },
     markOrderFilled({ commit, state }, item) {
       UserService.markOrderFilled(state.user.email, { _id: item._id })
-        .then(() => commit("MARK_ORDER_FILLED", item))
+        .then(() => {
+          commit("MARK_ORDER_FILLED", item);
+        })
         .catch(err => console.log(err));
     }
   },
