@@ -15,39 +15,28 @@
       </div>
       <div v-else>
         <b-row class="my-4">
-          <div :class="fulfilledOrders.length < 2 ? 'col-md-4' : 'col-md-8'">
-            <div
-              :class="
-                fulfilledOrders.length < 2 ? 'justify-content-end' : 'row'
-              "
-            >
-              <div
-                :class="fulfilledOrders.length < 2 ? 'col-12' : 'col-md-6'"
-                v-for="product in fulfilledOrders"
-                :key="product._id + product.size"
-                style="position: relative"
-                class="mb-4"
-              >
-                <product-card :product="product">
-                  <b-row class="mt-3 mx-3 w-100">
-                    <b-col xs="12">
-                      <p class="mb-0 text-left">
-                        <strong>{{ product.title }}</strong
-                        >, size
-                        <span style="text-transform: capitalize">{{
-                          product.size
-                        }}</span>
-                      </p>
-                      <p class="mb-0 text-left">{{ product.color }}</p>
-                      <p class="mb-0 text-left">${{ price(product.price) }}</p>
-                      <p class="mb-4 text-left">
-                        Quantity: {{ product.quantity }}
-                      </p>
-                    </b-col>
-                  </b-row>
-                </product-card>
-              </div>
-            </div>
+          <div
+            class="mb-4 col-xs-12 col-md-8 col-lg-4"
+            v-for="product in fulfilledOrders"
+            :key="product._id + product.size"
+            style="position: relative"
+          >
+            <product-card :product="product">
+              <b-row class="mt-3 mx-3 w-100">
+                <b-col xs="12">
+                  <p class="mb-0 text-left">
+                    <strong>{{ product.title }}</strong
+                    >, size
+                    <span style="text-transform: capitalize">{{
+                      product.size
+                    }}</span>
+                  </p>
+                  <p class="mb-0 text-left">{{ product.color }}</p>
+                  <p class="mb-0 text-left">${{ price(product.price) }}</p>
+                  <p class="mb-4 text-left">Quantity: {{ product.quantity }}</p>
+                </b-col>
+              </b-row>
+            </product-card>
           </div>
         </b-row>
       </div>
@@ -74,6 +63,11 @@ export default {
     return {
       clickedProduct: {}
     };
+  },
+  created() {
+    if (!this.$store.getters.fulfilledOrders) {
+      this.$store.dispatch("fetchFulfilledOrders");
+    }
   },
   computed: {
     ...mapState({

@@ -41,7 +41,7 @@ body {
 }
 
 .nav a:not(.dropdown-item):hover,
-.nav-item.active a{
+.nav-item.active a {
   color: white;
   background-color: $chathamsBlue;
 }
@@ -90,6 +90,15 @@ button,
 .button,
 button.close {
   background-color: $scienceBlue;
+  &.cancel-btn {
+    background-color: orangered;
+    &:hover {
+      background-color: red;
+    }
+    &:active {
+      background-color: yellow;
+    }
+  }
   border: none;
   color: white;
   padding: 0.5em 1.5em;

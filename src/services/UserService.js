@@ -27,9 +27,16 @@ export default {
       data: payload,
       ...config
     }),
+  cancelOrder: (email, payload) =>
+    axios.delete("/users/" + email + "/cancelOrder", {
+      data: payload,
+      ...config
+    }),
   checkoutCart: email =>
     axios.delete("/users/cart/" + email + "/checkoutCart", config),
   getOpenOrders: email => axios.get("/users/" + email + "/openOrders", config),
+  getFulfilledOrders: email =>
+    axios.get("/users/" + email + "/fulfilledOrders", config),
   markOrderFilled: (email, payload) =>
     axios.put("/users/orders/" + email + "/fulfillOrder", payload, config)
 };

@@ -57,8 +57,11 @@ export default new Vuex.Store({
     SET_PRODUCTS(state, products) {
       state.products = products;
     },
-    SET_OPEN_ORDERS(state, openOrders) {
-      state.users.openOrders = openOrders;
+    SET_OPEN_ORDERS(state, pendingOrders) {
+      state.user.pendingOrders = pendingOrders;
+    },
+    SET_FULFILLED_ORDERS(state, fulfilledOrders) {
+      state.user.fulfilledOrders = fulfilledOrders;
     },
     SET_PRODUCT(state, product) {
       const hexArr = [];
@@ -124,6 +127,11 @@ export default new Vuex.Store({
         product => product._id !== item._id
       );
       state.user.fulfilledOrders.push(item);
+    },
+    CANCEL_ORDER(state, item) {
+      state.user.pendingOrders = state.user.pendingOrders.filter(
+        product => product._id !== item._id
+      );
     },
     EMPTY_CART(state) {
       for (let item of state.cart) {
@@ -195,6 +203,16 @@ export default new Vuex.Store({
           console.log("There was an error:", error.response);
         });
     },
+    fetchFulfilledOrders({ commit, state }) {
+      UserService.getFulfilledOrders(state.user.email)
+        .then(response => {
+          commit("SET_FULFILLED_ORDERS", response.data);
+        })
+        .catch(error => {
+          console.log("There was an error:", error.response);
+        });
+    },
+
     fetchFilteredProducts({ commit }, category) {
       ProductService.getFilteredProducts(category)
         .then(response => {
@@ -264,6 +282,13 @@ export default new Vuex.Store({
     checkoutCart({ commit, state }) {
       UserService.checkoutCart(state.user.email)
         .then(() => commit("EMPTY_CART", state))
+        .catch(err => console.log(err));
+    },
+    cancelOrder({ commit, state }, item) {
+      UserService.cancelOrder(state.user.email, item)
+        .then(() => {
+          commit("CANCEL_ORDER", item);
+        })
         .catch(err => console.log(err));
     },
     markOrderFilled({ commit, state }, item) {

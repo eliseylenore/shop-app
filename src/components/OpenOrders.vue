@@ -27,9 +27,19 @@
               <p class="mb-4 text-left">Quantity: {{ product.quantity }}</p>
             </b-col>
             <b-col xs="4">
-              <button @click="$store.dispatch('markOrderFilled', product)">
-                Mark fulfilled
-              </button>
+              <div class="mb-3">
+                <button @click="$store.dispatch('markOrderFilled', product)">
+                  Mark fulfilled
+                </button>
+              </div>
+              <div>
+                <button
+                  class="cancel-btn"
+                  @click="$store.dispatch('cancelOrder', product)"
+                >
+                  Cancel
+                </button>
+              </div>
             </b-col>
           </b-row>
         </product-card>
