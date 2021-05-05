@@ -182,11 +182,11 @@ router
     });
   });
 
-// @route POST api/users/cart/:email
+// @route POST api/users/:email/cart
 // @desc Add item to user's cart
 // @access private
 router
-  .route("/cart/:email")
+  .route("/:email/cart")
   .post(passport.authenticate("jwt", { session: false }), (req, res) => {
     // get user
     User.findOne({ email: req.params.email }, function(err, user) {
@@ -268,7 +268,7 @@ router
   });
 
 router
-  .route("/cart/:email/itemQuantity")
+  .route("/:email/cart/itemQuantity")
   .put(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
       if (err) res.send(err);
@@ -288,7 +288,7 @@ router
   });
 
 router
-  .route("/cart/:email/item")
+  .route("/:email/cart/item")
   .delete(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
       if (err) res.send(err);
@@ -307,8 +307,11 @@ router
     });
   });
 
+// @route PUT api/users/:email/orders
+// @desc mark order filled (take from pending, move to fulfilled)
+// @access private
 router
-  .route("/orders/:email/fulfillOrder")
+  .route("/:email/orders")
   .put(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
       if (err) res.send(err);
@@ -335,30 +338,11 @@ router
         res.send({ itemNotFound: "No item found to fulfill" });
       }
     });
-  });
-
-// get user's open orders (accessed at GET http://localhost:3000/api/users/:email/openOrders/)
-router
-  .route("/:email/openOrders")
-  .get(passport.authenticate("jwt", { session: false }), (req, res) => {
-    User.findOne({ email: req.params.email }, function(err, user) {
-      if (err) res.send(err);
-      res.json(user.pendingOrders);
-    });
-  });
-
-// get user's fulfilled orders (accessed at GET http://localhost:3000/api/users/:email/fulfilledOrders/)
-router
-  .route("/fulfilledOrders/:email")
-  .get(passport.authenticate("jwt", { session: false }), (req, res) => {
-    User.findOne({ email: req.params.email }, function(err, user) {
-      if (err) res.send(err);
-      res.json(user.fulfilledOrders);
-    });
-  });
-
-router
-  .route("/:email/cancelOrder")
+  })
+  // @route DELETE api/users/:email/orders
+  // @desc cancel a pending order
+  // @access private
+  // cancel order
   .delete(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
       if (err) res.send(err);
@@ -414,6 +398,26 @@ router
         .save()
         .then(user => res.json(user.cart))
         .catch(err => console.log(err));
+    });
+  });
+
+// get user's open orders (accessed at GET http://localhost:3000/api/users/:email/openOrders/)
+router
+  .route("/:email/openOrders")
+  .get(passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findOne({ email: req.params.email }, function(err, user) {
+      if (err) res.send(err);
+      res.json(user.pendingOrders);
+    });
+  });
+
+// get user's fulfilled orders (accessed at GET http://localhost:3000/api/users/:email/fulfilledOrders/)
+router
+  .route("/:email/fulfilledOrders")
+  .get(passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findOne({ email: req.params.email }, function(err, user) {
+      if (err) res.send(err);
+      res.json(user.fulfilledOrders);
     });
   });
 
