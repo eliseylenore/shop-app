@@ -31,6 +31,9 @@
                       product.size
                     }}</span>
                   </p>
+                  <p class="mb-0 text-left">
+                    Order date {{ getDate(product.orderDate) }}
+                  </p>
                   <p class="mb-0 text-left">{{ product.color }}</p>
                   <p class="mb-0 text-left">${{ price(product.price) }}</p>
                   <p class="mb-4 text-left">Quantity: {{ product.quantity }}</p>
@@ -47,6 +50,7 @@
 <script>
 // Framework related imports
 import { mapState } from "vuex";
+import moment from "moment";
 
 //Common imports
 import { getFormattedValue } from "../commons/utils";
@@ -75,7 +79,8 @@ export default {
     })
   },
   methods: {
-    price: productPrice => getFormattedValue(productPrice, 2)
+    price: productPrice => getFormattedValue(productPrice, 2),
+    getDate: orderDate => moment(orderDate).format("l")
   }
 };
 </script>

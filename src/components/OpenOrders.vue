@@ -8,7 +8,7 @@
     <b-row>
       <div
         class="mb-4 col-xs-12 col-md-8 col-md-8 col-lg-6 offset-md-2 offset-lg-3"
-        v-for="product in openOrders"
+        v-for="product in openOrders.slice().reverse()"
         :key="product._id + product.size"
         style="position: relative"
       >
@@ -21,6 +21,9 @@
                 <span style="text-transform: capitalize">{{
                   product.size
                 }}</span>
+              </p>
+              <p class="mb-0 text-left">
+                Order date {{ getDate(product.orderDate) }}
               </p>
               <p class="mb-0 text-left">{{ product.color }}</p>
               <p class="mb-0 text-left">${{ price(product.price) }}</p>
@@ -51,6 +54,7 @@
 <script>
 // Framework related imports
 import { mapState } from "vuex";
+import moment from "moment";
 
 //Common imports
 import { getFormattedValue } from "../commons/utils";
@@ -77,6 +81,7 @@ export default {
     })
   },
   methods: {
+    getDate: orderDate => moment(orderDate).format("l"),
     price: productPrice => getFormattedValue(productPrice, 2)
   }
 };

@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const { secretOrKey } = require("../../keys");
 const passport = require("passport");
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
@@ -194,7 +195,7 @@ router
       }
       if (err) res.send(err);
       // to-do: check if this product/item exists? has all the right qualities?
-      let newItem = req.body;
+      let newItem = { orderDate: moment().format("l"), ...req.body };
       console.log("req.body", req.body);
       user.cart.push(newItem);
       user
