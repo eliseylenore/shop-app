@@ -111,7 +111,7 @@ router
   .route("/:email")
   .get(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
-      if (err) res.send(err);
+      if (err) res.status(400).json(err);
       res.json(user);
     });
   })
@@ -131,7 +131,7 @@ router
       if (!user) {
         return res.status(400).json({ email: "No email found" });
       }
-      if (err) res.send(err);
+      if (err) res.status(400).json(err);
       // if email is different
       user.name = name;
       if (email !== req.params.email) {
@@ -193,7 +193,7 @@ router
       if (!user) {
         return res.status(400).json({ email: "No email found" });
       }
-      if (err) res.send(err);
+      if (err) res.status(400).json(err);
       // to-do: check if this product/item exists? has all the right qualities?
       let newItem = { orderDate: moment().format("l"), ...req.body };
       console.log("req.body", req.body);
@@ -210,7 +210,7 @@ router
   // @access private
   .delete(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
-      if (err) res.send(err);
+      if (err) res.status(400).json(err);
       const errors = {};
       for (let item of user.cart) {
         // lookup product, then item within product (by itemId)
@@ -248,7 +248,7 @@ router
           } else {
             errors.noItemFound =
               "Was not able to find a matching item in database";
-            res.send(errors);
+            return res.status(400).json(errors);
           }
         });
       }
@@ -271,7 +271,7 @@ router
   .route("/:email/cart/itemQuantity")
   .put(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
-      if (err) res.send(err);
+      if (err) res.status(400).json(err);
       const { _id, quantity } = req.body;
 
       const foundItem = user.cart.find(item => {
@@ -291,7 +291,7 @@ router
   .route("/:email/cart/item")
   .delete(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
-      if (err) res.send(err);
+      if (err) res.status(400).json(err);
       const { _id } = req.body;
 
       const newCart = user.cart.filter(item => {
@@ -314,7 +314,7 @@ router
   .route("/:email/orders")
   .put(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
-      if (err) res.send(err);
+      if (err) res.status(400).json(err);
       const { _id } = req.body;
 
       const foundItem = user.pendingOrders.find(item => {
@@ -335,7 +335,9 @@ router
           .then(user => res.json(user))
           .catch(err => console.log(err));
       } else {
-        res.send({ itemNotFound: "No item found to fulfill" });
+        return res
+          .status(400)
+          .json({ itemNotFound: "No item found to fulfill" });
       }
     });
   })
@@ -345,7 +347,7 @@ router
   // cancel order
   .delete(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
-      if (err) res.send(err);
+      if (err) res.status(400).json(err);
       const { _id, productId, itemId, quantity, size, title } = req.body;
 
       // lookup product, then item within product (by itemId)
@@ -384,7 +386,7 @@ router
         } else {
           errors.noItemFound =
             "Was not able to find a matching item in database";
-          return res.send(errors);
+          return res.status(400).json(errors);
         }
       });
 
@@ -406,7 +408,7 @@ router
   .route("/:email/openOrders")
   .get(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
-      if (err) res.send(err);
+      if (err) res.status(400).json(err);
       res.json(user.pendingOrders);
     });
   });
@@ -416,7 +418,7 @@ router
   .route("/:email/fulfilledOrders")
   .get(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
-      if (err) res.send(err);
+      if (err) res.status(400).json(err);
       res.json(user.fulfilledOrders);
     });
   });
