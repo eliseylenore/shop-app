@@ -11,19 +11,15 @@ const config = {
 
 export default {
   registerUser: credentials =>
-    axios.post("/users/register/", credentials, config),
+    axios.post("/users/registration/", credentials, config),
   loginUser: credentials => axios.post("/users/login/", credentials, config),
   getUser: email => axios.get("/users/" + email, config),
   editUser: (email, userInfo) => axios.put("/users/" + email, userInfo, config),
   addToCart: (email, item) => axios.post("/users/cart/" + email, item, config),
   addToItemQuantity: (email, payload) =>
-    axios.put(
-      "/users/cart/" + email + "/addToCartItemQuantity",
-      payload,
-      config
-    ),
+    axios.put("/users/cart/" + email + "/itemQuantity", payload, config),
   removeItemFromCart: (email, payload) =>
-    axios.delete("/users/cart/" + email + "/deleteItem", {
+    axios.delete("/users/cart/" + email + "/item", {
       data: payload,
       ...config
     }),
@@ -32,11 +28,10 @@ export default {
       data: payload,
       ...config
     }),
-  checkoutCart: email =>
-    axios.delete("/users/cart/" + email + "/checkoutCart", config),
+  checkoutCart: email => axios.delete("/users/cart/" + email, config),
   getOpenOrders: email => axios.get("/users/" + email + "/openOrders", config),
   getFulfilledOrders: email =>
-    axios.get("/users/" + email + "/fulfilledOrders", config),
+    axios.get("/users/fulfilledOrders" + email, config),
   markOrderFilled: (email, payload) =>
     axios.put("/users/orders/" + email + "/fulfillOrder", payload, config)
 };

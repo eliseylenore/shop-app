@@ -18,7 +18,7 @@ const Product = require("../../models/product");
 // @route POST api/users / register
 // @desc Register user
 // @access Public
-router.post("/register", (req, res) => {
+router.post("/registration", (req, res) => {
   // Form validation
   const { errors, isValid } = validateRegisterInput(req.body);
   // Check validation
@@ -105,7 +105,7 @@ router.post("/login", (req, res) => {
 });
 
 // @route GET api/users/:email
-// @desc Login user and return JWT token
+// @desc Get user and send information back
 // @access private
 router
   .route("/:email")
@@ -203,50 +203,11 @@ router
         .then(user => res.json(user))
         .catch(err => console.log(err));
     });
-  });
+  })
 
-router
-  .route("/cart/:email/addToCartItemQuantity")
-  .put(passport.authenticate("jwt", { session: false }), (req, res) => {
-    User.findOne({ email: req.params.email }, function(err, user) {
-      if (err) res.send(err);
-      const { _id, quantity } = req.body;
-
-      const foundItem = user.cart.find(item => {
-        if (item !== undefined && item._id !== undefined) {
-          return item._id.toString() === _id;
-        }
-      });
-      foundItem.quantity = foundItem.quantity + parseInt(quantity);
-      user
-        .save()
-        .then(user => res.json(user))
-        .catch(err => console.log(err));
-    });
-  });
-
-router
-  .route("/cart/:email/deleteItem")
-  .delete(passport.authenticate("jwt", { session: false }), (req, res) => {
-    User.findOne({ email: req.params.email }, function(err, user) {
-      if (err) res.send(err);
-      const { _id } = req.body;
-
-      const newCart = user.cart.filter(item => {
-        if (item !== undefined && item._id !== undefined) {
-          return item._id.toString() !== _id;
-        }
-      });
-      user.cart = newCart;
-      user
-        .save()
-        .then(user => res.json(user.cart))
-        .catch(err => console.log(err));
-    });
-  });
-
-router
-  .route("/cart/:email/checkoutCart")
+  // @route DELETE api/users/cart/:email
+  // @desc Checkout user's cart (adds to open orders)
+  // @access private
   .delete(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
       if (err) res.send(err);
@@ -307,6 +268,46 @@ router
   });
 
 router
+  .route("/cart/:email/itemQuantity")
+  .put(passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findOne({ email: req.params.email }, function(err, user) {
+      if (err) res.send(err);
+      const { _id, quantity } = req.body;
+
+      const foundItem = user.cart.find(item => {
+        if (item !== undefined && item._id !== undefined) {
+          return item._id.toString() === _id;
+        }
+      });
+      foundItem.quantity = foundItem.quantity + parseInt(quantity);
+      user
+        .save()
+        .then(user => res.json(user))
+        .catch(err => console.log(err));
+    });
+  });
+
+router
+  .route("/cart/:email/item")
+  .delete(passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findOne({ email: req.params.email }, function(err, user) {
+      if (err) res.send(err);
+      const { _id } = req.body;
+
+      const newCart = user.cart.filter(item => {
+        if (item !== undefined && item._id !== undefined) {
+          return item._id.toString() !== _id;
+        }
+      });
+      user.cart = newCart;
+      user
+        .save()
+        .then(user => res.json(user.cart))
+        .catch(err => console.log(err));
+    });
+  });
+
+router
   .route("/orders/:email/fulfillOrder")
   .put(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
@@ -348,7 +349,7 @@ router
 
 // get user's fulfilled orders (accessed at GET http://localhost:3000/api/users/:email/fulfilledOrders/)
 router
-  .route("/:email/fulfilledOrders")
+  .route("/fulfilledOrders/:email")
   .get(passport.authenticate("jwt", { session: false }), (req, res) => {
     User.findOne({ email: req.params.email }, function(err, user) {
       if (err) res.send(err);
