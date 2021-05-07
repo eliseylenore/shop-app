@@ -10,8 +10,8 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const cors = require("cors");
 
-const Product = require("./models/product");
-const users = require("./routes/api/users");
+const users = require("./routes/users/");
+const products = require("./routes/products/");
 const mongoose = require("mongoose");
 
 // configure app to use bodyParser()
@@ -58,90 +58,7 @@ require("./passport")(passport);
 // Routes
 app.use("/api/users", users);
 
-// on routes that end in /products
-// -----------------------------------
-router
-  .route("/products")
-  // create a product (accessed at POST http://localhost:3000/api/products)
-  .post((req, res) => {
-    let product = new Product(); // create a new instance of the product model
-
-    product.title = req.body.title; // set the products title (comes from the request)
-    product.img = req.body.img;
-    product.price = req.body.price;
-    product.description = req.body.description;
-    product.category = req.body.category;
-    product.items = req.body.items;
-
-    // save the product and check for errors
-    product.save(err => {
-      if (err) {
-        res.send(err);
-      } else {
-        res.json({ message: "product created!", product });
-      }
-    });
-  })
-
-  // get all the products (accessed at GET http://localhost:3000/api/products)
-  .get((req, res) => {
-    Product.find(function(err, products) {
-      if (err) res.send(err);
-      res.json(products);
-    });
-  });
-
-// find all products in category(accessed at GET http://localhost:3000/api/products/category/:category)
-router.route("/products/category/:category").get((req, res) => {
-  Product.find({ category: req.params.category }, function(err, products) {
-    if (err) res.send(err);
-
-    res.json(products);
-  });
-});
-
-// on routes that end in /products/:product_id
-// ----------------------------------------------------
-router
-  .route("/products/:product_id")
-
-  // get the product with that id (accessed at GET http://localhost:3000/api/products/:product_id)
-  .get((req, res) => {
-    Product.findById(req.params.product_id, function(err, product) {
-      if (err) res.send(err);
-      res.json(product);
-    });
-  })
-  // update the product with this id (accessed at PUT http://localhost:3000/api/products/:product_id)
-  .put((req, res) => {
-    // use our product model to find the product we want
-    Product.findById(req.params.product_id, function(err, product) {
-      if (err) res.send(err);
-
-      product.title = req.body.title; // update the products info
-
-      // save the product
-      product.save(function(err) {
-        if (err) res.send(err);
-
-        res.json({ product });
-      });
-    });
-  })
-
-  // delete the product with this id (accessed at DELETE http://localhost:3000/api/products/:product_id)
-  .delete((req, res) => {
-    Product.deleteOne(
-      {
-        _id: req.params.product_id
-      },
-      err => {
-        if (err) res.send(err);
-
-        res.json({ message: "Successfully deleted" });
-      }
-    );
-  });
+app.use("/api/products", products);
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
