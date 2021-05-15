@@ -47,17 +47,14 @@ router.get("/", (req, res) => {
   res.json({ message: "Yippee! welcome to our api!" });
 });
 
-// more routes for our API will happen here
-
-// authentication routes
-// -----------------------------------
 // Passport middleware
 app.use(passport.initialize());
 // Passport config
 require("./passport")(passport);
-// Routes
-app.use("/api/users", users);
 
+// Routes
+// -----------------------------------
+app.use("/api/users", users);
 app.use("/api/products", products);
 
 // REGISTER OUR ROUTES -------------------------------

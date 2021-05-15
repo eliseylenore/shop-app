@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-const Item = require("./item").schema;
+const { Item } = require("./item");
 var Schema = mongoose.Schema;
 
 // set up user schema and authentication with help of this tutorial: https://blog.bitsrc.io/build-a-login-auth-app-with-mern-stack-part-1-c405048e3669
@@ -21,9 +21,9 @@ var UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  cart: [Item],
-  pendingOrders: [Item],
-  fulfilledOrders: [Item]
+  cart: [Item.schema],
+  pendingOrders: [Item.schema],
+  fulfilledOrders: [Item.schema]
 });
 
 module.exports = mongoose.model("User", UserSchema);

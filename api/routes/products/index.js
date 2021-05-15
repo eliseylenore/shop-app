@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const Product = require("../../models/product");
-
 // on routes that end in /products
 // -----------------------------------
 router

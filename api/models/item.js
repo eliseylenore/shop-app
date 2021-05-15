@@ -16,4 +16,7 @@ var ItemSchema = new Schema({
   category: String
 });
 
-module.exports = mongoose.model("Item", ItemSchema);
+const PendingOrder = mongoose.model("pendingOrder", ItemSchema);
+const FilledOrder = mongoose.model("filledOrder", ItemSchema);
+const Item = mongoose.model("item", ItemSchema);
+module.exports = { PendingOrder, FilledOrder, Item };

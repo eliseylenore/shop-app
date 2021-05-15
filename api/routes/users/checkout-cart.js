@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 // Load User model
 const User = require("../../models/user");
 const Product = require("../../models/product");
+const { PendingOrder } = require("../../models/item");
 
 module.exports = (req, res) => {
   User.findOne({ email: req.params.email }, function(err, user) {
@@ -14,7 +15,7 @@ module.exports = (req, res) => {
         err,
         product
       ) {
-        console.log("err", err);
+        if (err) console.log("err", err);
         if (!product) {
           res.status(400).json({ "No product found": "No product Found" });
         }
@@ -35,10 +36,7 @@ module.exports = (req, res) => {
                 foundItemSize.quantity -= item.quantity;
               }
             }
-            product
-              .save()
-              .then(product => console.log(product))
-              .catch(err => console.log(err));
+            product.save().catch(err => console.log(err));
           } else {
             errors.quantity = "There are no longer enough of " + item.title;
             res.json(errors);
@@ -51,9 +49,23 @@ module.exports = (req, res) => {
       });
     }
     for (let cartItem of user.cart) {
-      console.log("adding item: ", cartItem);
-
       user.pendingOrders.push(cartItem);
+      let newItem = new PendingOrder({
+        _id: cartItem._id,
+        productId: cartItem.productId,
+        itemId: cartItem.itemId,
+        orderDate: cartItem.orderDate,
+        hex: cartItem.hex,
+        color: cartItem.color,
+        size: cartItem.size,
+        img: cartItem.img,
+        quantity: cartItem.quantity,
+        title: cartItem.title,
+        price: cartItem.price,
+        description: cartItem.description,
+        category: cartItem.category
+      });
+      newItem.save().catch(err => console.log(err));
     }
     user.cart = [];
     user
