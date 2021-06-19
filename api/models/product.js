@@ -6,7 +6,10 @@ var ProductSchema = new Schema({
   img: String,
   price: Number,
   description: String,
-  category: String,
+  category: {
+    type: String,
+    enum: ["swimwear", "outerwear", "accessories"]
+  },
   items: [
     // to do: change this to Item schema
     {

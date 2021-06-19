@@ -1,40 +1,13 @@
 <template>
   <div>
     <b-modal
-      id="modal-1"
+      :id="id"
       ref="modal-1"
       :title="title"
       :ok-only="okOnly"
       @ok="$emit('modal-clicked')"
     >
-      <product-card
-        v-if="product && Object.keys(product).length > 0"
-        :product="product"
-        class="mx-sm-5"
-      >
-        <b-container>
-          <b-row>
-            <b-col xs="6">
-              <p class="mt-4 ml-4 mb-0 text-left">
-                <strong>{{ product.title }}</strong
-                >,
-                <span
-                  >size
-                  {{
-                    product.selectedSize ? product.selectedSize : product.size
-                  }}</span
-                >
-              </p>
-              <p class="mb-4 ml-4 text-left">${{ price }}</p>
-            </b-col>
-            <b-col xs="6">
-              <p class="mt-4 ml-4 mb-0 text-left">
-                Quantity: {{ product.quantity }}
-              </p>
-            </b-col>
-          </b-row>
-        </b-container>
-      </product-card>
+      <slot></slot>
       <template #modal-footer="{ ok }">
         <!-- Emulate built in modal footer ok and cancel button actions -->
         <button @click="ok()">
@@ -46,16 +19,11 @@
 </template>
 
 <script>
-import { getFormattedValue } from "../commons/utils";
-import ProductCard from "@/components/ProductCard.vue";
 
 export default {
-  components: {
-    ProductCard
-  },
   props: {
-    product: {
-      type: Object
+    id: {
+      type: String
     },
     title: {
       type: String,
@@ -64,11 +32,6 @@ export default {
     okOnly: {
       type: Boolean,
       default: true
-    }
-  },
-  computed: {
-    price() {
-      return getFormattedValue(this.product.price);
     }
   }
 };

@@ -37,7 +37,7 @@ module.exports = (req, res) => {
       newItem.save().catch(err => console.log(err));
       const newPendingOrders = user.pendingOrders.filter(item => {
         if (item !== undefined && item._id !== undefined) {
-          return item._id.toString() !== _id;
+          return item._id.toString() !== _id.toString();
         }
       });
       user.pendingOrders = newPendingOrders;

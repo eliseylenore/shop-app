@@ -1,10 +1,43 @@
 <template>
   <div class="cart mt-5">
     <modal
-      :product="clickedProduct"
+      id="modal-1"
       title="Are you sure you want to remove item?"
       @modal-clicked="removeItem(clickedProduct)"
-    />
+    >
+      <product-card
+        v-if="clickedProduct && Object.keys(clickedProduct).length > 0"
+        :product="clickedProduct"
+        class="mx-sm-5"
+      >
+        <b-container>
+          <b-row>
+            <b-col xs="6">
+              <p class="mt-4 ml-4 mb-0 text-left">
+                <strong>{{ clickedProduct.title }}</strong
+                >,
+                <span
+                  >size
+                  {{
+                    clickedProduct.selectedSize
+                      ? clickedProduct.selectedSize
+                      : clickedProduct.size
+                  }}</span
+                >
+              </p>
+              <p class="mb-4 ml-4 text-left">
+                ${{ price(clickedProduct.price) }}
+              </p>
+            </b-col>
+            <b-col xs="6">
+              <p class="mt-4 ml-4 mb-0 text-left">
+                Quantity: {{ clickedProduct.quantity }}
+              </p>
+            </b-col>
+          </b-row>
+        </b-container>
+      </product-card>
+    </modal>
     <b-container>
       <header>
         <h1>Your cart</h1>

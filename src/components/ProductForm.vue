@@ -1,6 +1,39 @@
 <template>
   <form @submit.prevent="addToCart(product)">
-    <modal :product="lastAddedProduct" />
+    <modal ref="modal-2" id="modal-2">
+      <product-card
+        v-if="lastAddedProduct && Object.keys(lastAddedProduct).length > 0"
+        :product="lastAddedProduct"
+        class="mx-sm-5"
+      >
+        <b-container>
+          <b-row>
+            <b-col xs="6">
+              <p class="mt-4 ml-4 mb-0 text-left">
+                <strong>{{ lastAddedProduct.title }}</strong
+                >,
+                <span
+                  >size
+                  {{
+                    lastAddedProduct.selectedSize
+                      ? lastAddedProduct.selectedSize
+                      : lastAddedProduct.size
+                  }}</span
+                >
+              </p>
+              <p class="mb-4 ml-4 text-left">
+                ${{ price(lastAddedProduct.price) }}
+              </p>
+            </b-col>
+            <b-col xs="6">
+              <p class="mt-4 ml-4 mb-0 text-left">
+                Quantity: {{ lastAddedProduct.quantity }}
+              </p>
+            </b-col>
+          </b-row>
+        </b-container>
+      </product-card>
+    </modal>
     <h4 class="text-left" id="color-title">Color</h4>
     <div
       class="d-flex flex-row"
@@ -85,7 +118,9 @@
 </template>
 
 <script>
+import { getFormattedValue } from "../commons/utils";
 import Modal from "@/components/Modal.vue";
+import ProductCard from "@/components/ProductCard.vue";
 export default {
   data() {
     return {
@@ -94,7 +129,8 @@ export default {
     };
   },
   components: {
-    Modal
+    Modal,
+    ProductCard
   },
   props: {
     product: {
@@ -103,6 +139,7 @@ export default {
     }
   },
   methods: {
+    price: productPrice => getFormattedValue(productPrice, 2),
     addToCart(product) {
       this.errors = [];
       // check if quantity exceeds amount
@@ -179,7 +216,7 @@ export default {
         }
 
         this.lastAddedProduct = this.product;
-        this.$bvModal.show("modal-1");
+        this.$bvModal.show("modal-2");
       }
     },
     sizeClasses(size) {

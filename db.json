@@ -1,42 +1,87 @@
 {
-  "products": [
+  "_id": {
+    "$oid": "60ce37e8cc8e9727c7d130fa"
+  },
+  "title": "Baseline scuba set",
+  "img": "product-scuba.png",
+  "price": "28.50",
+  "description": "Goggles, swim cap, oxygen set up",
+  "category": "swimwear",
+  "items": [
     {
-      "id": 1,
-      "title": "Baseline scuba set",
-      "img": "product-scuba.png",
-      "price": "28.50",
-      "description": "Goggles, swim cap, oxygen set up",
-      "items":         
-      {
-        "#003366": {
-          "sizes": {
-            "small": 2, 
-            "medium": 3
-          }, 
-          "id": 5551,
-          "color": "Navy blue", 
-          "img": "product-scuba-navy.png"
+      "sizes": [
+        {
+          "size": "small",
+          "quantity": {
+            "$numberInt": "10"
+          }
         },
-        "#0CD6D2": {
-          "sizes": {
-            "small": 2, 
-            "medium": 3, 
-            "large": 5
-          }, 
-          "id": 5552,
-          "color": "Bright turquoise", 
-          "img": "product-scuba.png"
-        },
-        "#A32319": {
-          "sizes": {
-            "small": 2, 
-            "large": 5
-          }, 
-          "id": 5553,
-          "color": "Tabasco",
-          "img": "product-scuba-red.png"
+        {
+          "size": "medium",
+          "quantity": {
+            "$numberInt": "10"
+          }
         }
-      }
+        {
+          "size": "large",
+          "quantity": {
+            "$numberInt": "10"
+          }
+        }
+      ],
+      "hex": "#003366",
+      "color": "Navy blue",
+      "img": "product-scuba-navy.png"
+    },
+    {
+      "sizes": [
+        {
+          "size": "small",
+          "quantity": {
+            "$numberInt": "10"
+          }
+        },
+        {
+          "size": "medium",
+          "quantity": {
+            "$numberInt": "10"
+          }
+        }
+        {
+          "size": "large",
+          "quantity": {
+            "$numberInt": "10"
+          }
+        }
+      ],
+      "hex": "#0CD6D2",
+      "color": "Bright turquoise",
+      "img": "product-scuba.png"
+    },
+    {
+      "sizes": [
+        {
+          "size": "small",
+          "quantity": {
+            "$numberInt": "10"
+          }
+        },
+        {
+          "size": "medium",
+          "quantity": {
+            "$numberInt": "10"
+          }
+        }
+        {
+          "size": "large",
+          "quantity": {
+            "$numberInt": "10"
+          }
+        }
+      ],
+      "hex": "#A32319",
+      "color": "Tabasco",
+      "img": "product-scuba-red.png"
     }
   ]
 }
