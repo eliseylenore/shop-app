@@ -7,7 +7,7 @@
         </h1>
       </header>
       <b-row>
-        <b-col xs="12" md="8" lg="4" offset-md="2" offset-lg="4">
+        <b-col xs="12" md="7" xl="6" offset-xl="1">
           <b-form @submit.prevent="">
             <b-form-group>
               <label for="address-line1">
@@ -125,6 +125,9 @@
             <router-link :to="{ name: 'Login' }">Login</router-link>
           </div>
         </b-col>
+        <b-col xs="12" md="5">
+          <cart-summary/>
+        </b-col>
       </b-row>
     </b-container>
   </div>
@@ -133,7 +136,13 @@
 <script>
 import { mapState } from "vuex";
 import { stateAbbreviations } from "../commons/utils";
+
+import CartSummary from "@/components/CartSummary.vue";;
+
 export default {
+  components: {
+    CartSummary
+  },
   data() {
     return {
       name: "",

@@ -53,9 +53,9 @@
           <b-col xs="12" md="4" order-md="2">
             <h2 class="text-left">Summary</h2>
             <p>Your total: ${{ getCartTotal }}</p>
-            <button class="mb-4" @click="checkoutCart">
+            <router-link class="mb-4" :to="{ name: 'Shipping' }">
               Check out
-            </button>
+            </router-link>
           </b-col>
           <div :class="cart.length < 2 ? 'col-md-4' : 'col-md-8'">
             <div :class="cart.length < 2 ? 'justify-content-end' : 'row'">
@@ -138,13 +138,6 @@ export default {
     showModal(product) {
       this.clickedProduct = product;
       this.$bvModal.show("modal-1");
-    },
-    checkoutCart() {
-      if (this.user) {
-        this.$store.dispatch("checkoutCart");
-      } else {
-        alert("No user! Please log in first.")
-      }
     },
     removeItem: clickedProduct =>
       store.dispatch("removeFromCart", clickedProduct),

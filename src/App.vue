@@ -77,6 +77,11 @@ a:focus-visible {
   h2 {
     font-size: 1.5rem;
   }
+  h4 {
+    text-align: left;
+    font-weight: bold;
+    font-size: 1rem;
+  }
 }
 
 button a {
