@@ -53,7 +53,7 @@
           <b-col xs="12" md="4" order-md="2">
             <h2 class="text-left">Summary</h2>
             <p>Your total: ${{ getCartTotal }}</p>
-            <button class="mb-4" @click="$store.dispatch('checkoutCart')">
+            <button class="mb-4" @click="checkoutCart">
               Check out
             </button>
           </b-col>
@@ -128,7 +128,8 @@ export default {
   },
   computed: {
     ...mapState({
-      cart: state => state.cart
+      cart: state => state.cart,
+      user: state => state.user
     }),
     ...mapGetters(["getCartTotal"])
   },
@@ -137,6 +138,13 @@ export default {
     showModal(product) {
       this.clickedProduct = product;
       this.$bvModal.show("modal-1");
+    },
+    checkoutCart() {
+      if (this.user) {
+        this.$store.dispatch("checkoutCart");
+      } else {
+        alert("No user! Please log in first.")
+      }
     },
     removeItem: clickedProduct =>
       store.dispatch("removeFromCart", clickedProduct),
