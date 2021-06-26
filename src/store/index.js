@@ -113,6 +113,12 @@ export default new Vuex.Store({
     SET_PRODUCT_ITEM(state, item) {
       state.product.selectedItem = item;
     },
+    ADD_SHIPPING_ADDRESS(state, address) {
+      state.user.shippingAddress = address;
+    },
+    ADD_BILLING_ADDRESS(state, address) {
+      state.user.billingAddress = address;
+    },
     REMOVE_FROM_CART(state, product) {
       state.cart = state.cart.filter(
         item =>
@@ -278,6 +284,12 @@ export default new Vuex.Store({
           .then(() => commit("REMOVE_FROM_CART", product))
           .catch(err => console.log(err));
       }
+    },
+    addShippingAddress({ commit }, address) {
+      commit("ADD_SHIPPING_ADDRESS", address);
+    },
+    addBillingAddress({ commit }, address) {
+      commit("ADD_BILLING_ADDRESS", address);
     },
     checkoutCart({ commit, state }) {
       UserService.checkoutCart(state.user.email)

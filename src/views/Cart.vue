@@ -53,9 +53,9 @@
           <b-col xs="12" md="4" order-md="2">
             <h2 class="text-left">Summary</h2>
             <p>Your total: ${{ getCartTotal }}</p>
-            <router-link class="mb-4" :to="{ name: 'Shipping' }">
+            <button class="mb-4" @click="checkoutCart">
               Check out
-            </router-link>
+            </button>
           </b-col>
           <div :class="cart.length < 2 ? 'col-md-4' : 'col-md-8'">
             <div :class="cart.length < 2 ? 'justify-content-end' : 'row'">
@@ -110,6 +110,7 @@ import moment from "moment";
 
 //store object
 import store from "../store";
+import router from "../router";
 
 //Component level imports
 import ProductCard from "@/components/ProductCard.vue";
@@ -141,7 +142,10 @@ export default {
     },
     removeItem: clickedProduct =>
       store.dispatch("removeFromCart", clickedProduct),
-    getDate: orderDate => moment(orderDate).format("l")
+    getDate: orderDate => moment(orderDate).format("l"),
+    checkoutCart() {
+      router.push({ name: "Shipping" });
+    }
   }
 };
 </script>

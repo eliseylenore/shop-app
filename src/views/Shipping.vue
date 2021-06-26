@@ -8,7 +8,11 @@
       </header>
       <b-row>
         <b-col xs="12" md="7" xl="6" offset-xl="1">
-          <b-form @submit.prevent="">
+          <div class="mt-4 d-flex">
+            <p class="mr-2">Have an account?</p>
+            <router-link :to="{ name: 'Login' }">Login</router-link>
+          </div>
+          <b-form @submit.prevent="addShippingInfo()">
             <b-form-group>
               <label for="address-line1">
                 Address 1
@@ -120,13 +124,9 @@
               </p>
             </div>
           </b-form>
-          <div class="mt-4 d-flex">
-            <p class="mr-2">Already have an account?</p>
-            <router-link :to="{ name: 'Login' }">Login</router-link>
-          </div>
         </b-col>
         <b-col xs="12" md="5">
-          <cart-summary/>
+          <cart-summary key="" />
         </b-col>
       </b-row>
     </b-container>
@@ -137,7 +137,7 @@
 import { mapState } from "vuex";
 import { stateAbbreviations } from "../commons/utils";
 
-import CartSummary from "@/components/CartSummary.vue";;
+import CartSummary from "@/components/CartSummary.vue";
 
 export default {
   components: {
@@ -145,7 +145,6 @@ export default {
   },
   data() {
     return {
-      name: "",
       email: "",
       addressline1: "",
       addressline2: "",
@@ -161,15 +160,31 @@ export default {
     ...mapState(["registerError"])
   },
   methods: {
-    register() {
-      this.$store
-        .dispatch("registerUser", {
-          name: this.name,
-          email: this.email
-        })
-        .then(() => {
-          if (!this.registerError) this.$router.push({ name: "Dashboard" });
+    addShippingInfo() {
+      this.$store.dispatch("addShippingAddress", {
+        email: this.email,
+        addressline1: this.addressline1,
+        addressline2: this.addressline2,
+        city: this.city,
+        state: this.state,
+        country: this.country,
+        zipcode: this.zipcode
+      });
+      // .then(() => {
+      //   if (!this.registerError) this.$router.push({ name: "Dashboard" });
+      // });
+
+      if (this.sameAddress) {
+        this.$store.dispatch("addBillingAddress", {
+          email: this.email,
+          addressline1: this.addressline1,
+          addressline2: this.addressline2,
+          city: this.city,
+          state: this.state,
+          country: this.country,
+          zipcode: this.zipcode
         });
+      }
     }
   }
 };
