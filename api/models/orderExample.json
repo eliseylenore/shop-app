@@ -1,0 +1,45 @@
+{
+  "items": [
+    {
+      "_id": {
+        "$oid": "60d9f859385610415263382b"
+      },
+      "productId": {
+        "$oid": "60ce37e8cc8e9727c7d130fa"
+      },
+      "orderDate": {
+        "$date": {
+          "$numberLong": "1624086000000"
+        }
+      },
+      "hex": "#003366",
+      "color": "Navy blue",
+      "size": "small",
+      "img": "product-scuba-navy.png",
+      "quantity": {
+        "$numberInt": "1"
+      },
+      "title": "Baseline scuba set",
+      "price": {
+        "$numberDouble": "28.5"
+      },
+      "__v": {
+        "$numberInt": "0"
+      }
+    }
+  ],
+  "shippingAddress": {
+    "addressline1": "4219 S Othello St",
+    "addressline2": "",
+    "city": "Seattle",
+    "state": "WA",
+    "country": "United States",
+    "zipcode": "98118"},
+  "billingAddress": {
+    "addressline1": "4219 S Othello St",
+    "addressline2": "",
+    "city": "Seattle",
+    "state": "WA",
+    "country": "United States",
+    "zipcode": "98118"}
+}

@@ -48,7 +48,7 @@ router
     require("./checkout-cart.js")
   );
 
-// @route PUT api/users/:email/cart/
+// @route PUT api/users/:email/cart/itemQuantity
 // @desc Adds to cart item quantity
 // @access private
 router

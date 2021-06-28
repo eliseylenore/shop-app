@@ -2,8 +2,8 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ItemSchema = new Schema({
-  productId: Schema.ObjectId,
-  itemId: Schema.ObjectId,
+  productId: Schema.Types.ObjectId,
+  itemId: Schema.Types.ObjectId,
   orderDate: Date,
   hex: String,
   color: String,
@@ -16,7 +16,5 @@ var ItemSchema = new Schema({
   category: String
 });
 
-const PendingOrder = mongoose.model("pendingOrder", ItemSchema);
-const FilledOrder = mongoose.model("filledOrder", ItemSchema);
 const Item = mongoose.model("item", ItemSchema);
-module.exports = { PendingOrder, FilledOrder, Item };
+module.exports = { Item };
