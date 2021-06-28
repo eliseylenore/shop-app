@@ -24,7 +24,7 @@ import { mapState } from "vuex";
 export default {
   computed: {
     ...mapState({
-      cartLength: state => state.cart.length
+      cartLength: state => state.cart.items.length
     })
   }
 };

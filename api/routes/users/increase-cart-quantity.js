@@ -8,7 +8,7 @@ module.exports = (req, res) => {
     } else {
       const { _id, quantity } = req.body;
 
-      const foundItem = user.cart.find(item => {
+      const foundItem = user.cart.items.find(item => {
         if (item !== undefined && item._id !== undefined) {
           return item._id.toString() === _id;
         }
@@ -16,7 +16,7 @@ module.exports = (req, res) => {
       foundItem.quantity = foundItem.quantity + parseInt(quantity);
       user
         .save()
-        .then(user => res.json(user.cart))
+        .then(user => res.json(user.cart.items))
         .catch(err => console.log(err));
     }
   });

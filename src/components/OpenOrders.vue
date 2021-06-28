@@ -5,12 +5,12 @@
         Your open order<span v-if="openOrders.length > 1">s</span>
       </h3>
     </b-col>
-    <b-row>
+    <b-row v-for="order in openOrders.slice().reverse()" :key="order._id">
       <div
         class="mb-4 col-xs-12 col-md-8 col-md-8 col-lg-6 offset-md-2 offset-lg-3"
-        v-for="product in openOrders.slice().reverse()"
-        :key="product._id + product.size"
         style="position: relative"
+        v-for="product in order.items"
+        :key="product._id"
       >
         <product-card :product="product">
           <b-row class="mt-3 mx-3 w-100">

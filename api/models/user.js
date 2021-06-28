@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-const { Item } = require("./item");
 const { Order } = require("./order");
 var Schema = mongoose.Schema;
 
@@ -22,7 +21,7 @@ var UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  cart: [Item.schema],
+  cart: Order.schema,
   pendingOrders: [Order.schema],
   fulfilledOrders: [Order.schema]
 });

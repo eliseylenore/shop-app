@@ -8,7 +8,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    cart: JSON.parse(localStorage.getItem("cart")) || [],
+    cart: JSON.parse(localStorage.getItem("cart")) || { items: [] },
     products: [],
     product: {},
     user: null,
@@ -94,8 +94,8 @@ export default new Vuex.Store({
     },
     ADD_TO_CART(state, payload) {
       const { product, selectedProduct } = payload;
-      state.cart.push(selectedProduct);
-      localStorage.setItem("cart", JSON.stringify(state.cart));
+      state.cart.items.push(selectedProduct);
+      localStorage.setItem("cart", JSON.stringify(state.cart.items));
       state.product = {
         ...product,
         quantity: 1
@@ -103,7 +103,7 @@ export default new Vuex.Store({
     },
     ADD_TO_CART_ITEM_QUANTITY(state, payload) {
       const { _id, quantity } = payload;
-      let foundItem = state.cart.find(item => item._id === _id);
+      let foundItem = state.cart.items.find(item => item._id === _id);
       if (foundItem) {
         foundItem.quantity += quantity;
       } else {
@@ -120,13 +120,13 @@ export default new Vuex.Store({
       state.user.billingAddress = address;
     },
     REMOVE_FROM_CART(state, product) {
-      state.cart = state.cart.filter(
+      state.cart.items = state.cart.items.filter(
         item =>
           item.id !== product.id ||
           item.size !== product.size ||
           item.hex !== product.hex
       );
-      localStorage.setItem("cart", JSON.stringify(state.cart));
+      localStorage.setItem("cart", JSON.stringify(state.cart.items));
     },
     MARK_ORDER_FILLED(state, item) {
       state.user.pendingOrders = state.user.pendingOrders.filter(
@@ -140,10 +140,10 @@ export default new Vuex.Store({
       );
     },
     EMPTY_CART(state) {
-      for (let item of state.cart) {
+      for (let item of state.cart.items) {
         state.user.pendingOrders.push(item);
       }
-      state.cart = [];
+      state.cart.items = [];
       localStorage.removeItem("cart");
     }
   },
@@ -254,7 +254,7 @@ export default new Vuex.Store({
           .then(({ data }) => {
             let newPayload = payload;
             newPayload.selectedProduct._id =
-              data.cart[data.cart.length - 1]._id;
+              data.cart.items[data.cart.items.length - 1]._id;
             commit("ADD_TO_CART", newPayload);
           })
           .catch(err => console.log(err));
@@ -321,7 +321,7 @@ export default new Vuex.Store({
     },
     getCartTotal: state => {
       let cartTotal = 0;
-      for (let item of state.cart) {
+      for (let item of state.cart.items) {
         cartTotal += parseFloat(item.price) * item.quantity;
       }
       return getFormattedValue(cartTotal);

@@ -42,7 +42,7 @@
       <header>
         <h1>Your cart</h1>
       </header>
-      <div v-if="cart.length < 1" class="d-flex justify-content-center">
+      <div v-if="cart.items.length < 1" class="d-flex justify-content-center">
         <p class="text-center mr-2">
           There's nothing in your cart yet!
         </p>
@@ -57,11 +57,11 @@
               Check out
             </button>
           </b-col>
-          <div :class="cart.length < 2 ? 'col-md-4' : 'col-md-8'">
-            <div :class="cart.length < 2 ? 'justify-content-end' : 'row'">
+          <div :class="cart.items.length < 2 ? 'col-md-4' : 'col-md-8'">
+            <div :class="cart.items.length < 2 ? 'justify-content-end' : 'row'">
               <div
-                :class="cart.length < 2 ? 'col-12' : 'col-md-6'"
-                v-for="product in cart"
+                :class="cart.items.length < 2 ? 'col-12' : 'col-md-6'"
+                v-for="product in cart.items"
                 :key="product._id + product.size"
                 style="position: relative"
                 class="mb-4"

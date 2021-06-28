@@ -10,7 +10,7 @@ module.exports = (req, res) => {
     if (err) res.status(400).json(err);
     // to-do: check if this product/item exists? has all the right qualities?
     let newItem = { orderDate: moment().format("l"), ...req.body };
-    user.cart.push(newItem);
+    user.cart.items.push(newItem);
     user
       .save()
       .then(user => res.json(user))

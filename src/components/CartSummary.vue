@@ -2,7 +2,11 @@
   <div class="cart-summary p-4">
     <h3>Your cart</h3>
     <b-row>
-      <b-col xs="12" v-for="product in cart" :key="product._id + product.size">
+      <b-col
+        xs="12"
+        v-for="product in cart.items"
+        :key="product._id + product.size"
+      >
         <product-card :product="product" class="m-2">
           <b-row class="mt-3 mx-3 w-100">
             <b-col xs="12">

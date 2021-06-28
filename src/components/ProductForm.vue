@@ -141,6 +141,7 @@ export default {
   methods: {
     price: productPrice => getFormattedValue(productPrice, 2),
     addToCart(product) {
+      console.log("state.cart", this.$store.state.cart);
       this.errors = [];
       // check if quantity exceeds amount
       let quantityExceedsAvailable = false;
@@ -152,7 +153,7 @@ export default {
         quantityExceedsAvailable = true;
       }
       //checks cart
-      for (let item of this.$store.state.cart) {
+      for (let item of this.$store.state.cart.items) {
         if (
           item.productId === product.id &&
           item.hex === product.selectedHex &&
@@ -176,7 +177,7 @@ export default {
         let matchFound = false;
         let itemId;
         let selectedProduct = {};
-        for (let item of this.$store.state.cart) {
+        for (let item of this.$store.state.cart.items) {
           if (
             item.hex === product.selectedHex &&
             item.size === product.selectedSize

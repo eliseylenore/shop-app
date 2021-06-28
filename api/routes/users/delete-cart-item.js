@@ -5,15 +5,15 @@ module.exports = (req, res) => {
     if (err) res.status(400).json(err);
     const { _id } = req.body;
 
-    const newCart = user.cart.filter(item => {
+    const newCart = user.cart.items.filter(item => {
       if (item !== undefined && item._id !== undefined) {
         return item._id.toString() !== _id;
       }
     });
-    user.cart = newCart;
+    user.cart.items = newCart;
     user
       .save()
-      .then(user => res.json(user.cart))
+      .then(user => res.json(user.cart.items))
       .catch(err => console.log(err));
   });
 };
