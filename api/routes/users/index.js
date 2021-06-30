@@ -48,6 +48,17 @@ router
     require("./checkout-cart.js")
   );
 
+// @route POST api/users/:email/cart/address/:type
+//:type must be shipping or billing
+// @desc Add address to user's cart
+// @access private
+router
+  .route("/:email/cart/address/:type")
+  .post(
+    passport.authenticate("jwt", { session: false }),
+    require("./add-address-to-cart.js")
+  );
+
 // @route PUT api/users/:email/cart/itemQuantity
 // @desc Adds to cart item quantity
 // @access private
