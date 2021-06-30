@@ -19,7 +19,10 @@ export default new Vuex.Store({
   mutations: {
     SET_USER_DATA(state, userData) {
       state.user = userData;
-      if (userData.user.cart !== undefined && userData.user.cart.length > 0) {
+      if (
+        userData.user.cart !== undefined &&
+        userData.user.cart.items.length > 0
+      ) {
         state.cart = userData.user.cart;
       }
       localStorage.setItem("user", JSON.stringify(userData));

@@ -8,7 +8,7 @@
       </header>
       <b-row>
         <b-col xs="12" md="7" xl="6" offset-xl="1">
-          <div class="mt-4 d-flex">
+          <div class="mt-4 d-flex" v-if="user === null">
             <p class="mr-2">Have an account?</p>
             <router-link :to="{ name: 'Login' }">Login</router-link>
           </div>
@@ -157,7 +157,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["registerError"])
+    ...mapState(["registerError"]),
+    ...mapState({
+      user: state => state.user
+    })
   },
   methods: {
     addShippingInfo() {
