@@ -14,12 +14,14 @@ export default new Vuex.Store({
     user: null,
     loginError: null,
     registerError: null,
-    editError: null
+    editError: null,
+    addressError: null
   },
   mutations: {
     SET_USER_DATA(state, userData) {
       state.user = userData;
       if (
+        userData.user !== undefined &&
         userData.user.cart !== undefined &&
         userData.user.cart.items.length > 0
       ) {
@@ -50,6 +52,9 @@ export default new Vuex.Store({
     },
     SET_EDIT_ERR(state, error) {
       state.editError = error;
+    },
+    SET_ADDRESS_ERR(state, error) {
+      state.addressError = error;
     },
     LOGOUT() {
       localStorage.removeItem("user");
@@ -152,13 +157,17 @@ export default new Vuex.Store({
   },
   actions: {
     registerUser({ commit }, credentials) {
-      UserService.registerUser(credentials)
-        .then(({ data }) => {
-          commit("SET_USER_DATA", data);
-        })
-        .catch(err => {
-          commit("SET_REGISTER_ERR", err.response.data);
-        });
+      return new Promise((resolve, reject) => {
+        UserService.registerUser(credentials)
+          .then(({ data }) => {
+            commit("SET_USER_DATA", data);
+            resolve(console.log("Done!"));
+          })
+          .catch(err => {
+            commit("SET_REGISTER_ERR", err.response.data);
+            reject(err);
+          });
+      });
     },
     loginUser({ commit }, credentials) {
       return UserService.loginUser(credentials)
@@ -288,8 +297,12 @@ export default new Vuex.Store({
           .catch(err => console.log(err));
       }
     },
-    addShippingAddress({ commit }, address) {
-      commit("ADD_SHIPPING_ADDRESS", address);
+    addShippingAddress({ commit, state }, address) {
+      UserService.addAddressToCart(state.user.email, "shipping", address)
+        .then(() => commit("ADD_SHIPPING_ADDRESS", address))
+        .catch(err => {
+          commit("SET_ADDRESS_ERR", err.response.data);
+        });
     },
     addBillingAddress({ commit }, address) {
       commit("ADD_BILLING_ADDRESS", address);

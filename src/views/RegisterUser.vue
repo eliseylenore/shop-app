@@ -105,7 +105,8 @@ export default {
         })
         .then(() => {
           if (!this.registerError) this.$router.push({ name: "Dashboard" });
-        });
+        })
+        .catch(err => console.log("ERR", err));
     }
   }
 };

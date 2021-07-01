@@ -17,6 +17,12 @@ export default {
   editUser: (email, userInfo) => axios.put("/users/" + email, userInfo, config),
   addToCart: (email, item) =>
     axios.post("/users/" + email + "/cart/", item, config),
+  addAddressToCart: (email, shippingOrBilling, address) =>
+    axios.post(
+      "/users/" + email + "/cart/address" + shippingOrBilling + "/",
+      address,
+      config
+    ),
   addToItemQuantity: (email, payload) =>
     axios.put("/users/" + email + "/cart/itemQuantity", payload, config),
   removeItemFromCart: (email, payload) =>

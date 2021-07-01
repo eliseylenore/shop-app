@@ -157,25 +157,26 @@ export default {
     };
   },
   computed: {
-    ...mapState(["registerError"]),
+    ...mapState(["addressError"]),
     ...mapState({
       user: state => state.user
     })
   },
   methods: {
     addShippingInfo() {
-      this.$store.dispatch("addShippingAddress", {
-        email: this.email,
-        addressline1: this.addressline1,
-        addressline2: this.addressline2,
-        city: this.city,
-        state: this.state,
-        country: this.country,
-        zipcode: this.zipcode
-      });
-      // .then(() => {
-      //   if (!this.registerError) this.$router.push({ name: "Dashboard" });
-      // });
+      this.$store
+        .dispatch("addShippingAddress", {
+          email: this.email,
+          addressline1: this.addressline1,
+          addressline2: this.addressline2,
+          city: this.city,
+          state: this.state,
+          country: this.country,
+          zipcode: this.zipcode
+        })
+        .then(() => {
+          if (!this.addressError) this.$router.push({ name: "Dashboard" });
+        });
 
       if (this.sameAddress) {
         this.$store.dispatch("addBillingAddress", {
