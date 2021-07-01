@@ -1,6 +1,12 @@
 const User = require("../../models/user");
+const validateAddressInput = require("../../validation/address");
 
 module.exports = (req, res) => {
+  // Form validation
+  const { errors, isValid } = validateAddressInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   // get user
   User.findOne({ email: req.params.email }, function(err, user) {
     if (!user) {
@@ -28,7 +34,7 @@ module.exports = (req, res) => {
       state,
       country,
       zipcode
-    }
+    };
     if (req.params.type === "billing") {
       user.cart.billingAddress = newAddress;
     } else if (req.params.type === "shipping") {
