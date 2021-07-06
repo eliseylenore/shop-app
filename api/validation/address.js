@@ -27,7 +27,7 @@ module.exports = function validateAddressInput(data) {
   // State checks
   if (Validator.isEmpty(data.country)) {
     errors.country = "Country field is required";
-  } else if (!Validator.equals("United States")) {
+  } else if (!Validator.equals(data.country, "United States")) {
     errors.country = "Country must be United States";
   }
   // Zipcode checks

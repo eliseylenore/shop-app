@@ -19,7 +19,7 @@ export default {
     axios.post("/users/" + email + "/cart/", item, config),
   addAddressToCart: (email, shippingOrBilling, address) =>
     axios.post(
-      "/users/" + email + "/cart/address" + shippingOrBilling + "/",
+      "/users/" + email + "/cart/address/" + shippingOrBilling + "/",
       address,
       config
     ),

@@ -3,16 +3,30 @@
     <b-container>
       <header>
         <h1>
-          Shipping
+          Billing
         </h1>
       </header>
       <b-row>
-        <b-col xs="12" md="7" xl="6" offset-xl="1">
+        <b-col xs="12" md="7" xl="6" offset-xl="1" v-if="user.billingAddress">
+          <div class="p-3" style="border: 1px solid rgba(0, 0, 0, 0.125)">
+            <h4>Current billing address</h4>
+            <p class="mb-0">{{ user.billingAddress.addressline1 }}</p>
+            <p v-if="user.billingAddress.addressline2" class="mb-0">
+              {{ user.billingAddress.addressline2 }}
+            </p>
+            <p class="mb-0">
+              {{ user.billingAddress.zipcode }}
+            </p>
+            <p class="mb-0">{{ user.billingAddress.country }}</p>
+            <button>Edit</button>
+          </div>
+        </b-col>
+        <b-col xs="12" md="7" xl="6" offset-xl="1" v-if="!user.billingAddress">
           <div class="mt-4 d-flex" v-if="user === null">
             <p class="mr-2">Have an account?</p>
             <router-link :to="{ name: 'Login' }">Login</router-link>
           </div>
-          <b-form @submit.prevent="addShippingInfo()">
+          <b-form @submit.prevent="addBillingInfo()">
             <b-form-group>
               <label for="address-line1">
                 Address 1
@@ -92,34 +106,11 @@
                 <option>United States</option>
               </b-form-select>
             </b-form-group>
-            <b-form-group>
-              <b-form-checkbox
-                id="checkbox-1"
-                v-model="sameAddress"
-                value="true"
-                unchecked-value="false"
-              >
-                Use this address for billing
-              </b-form-checkbox>
-            </b-form-group>
-            <b-form-group>
-              <label for="email">
-                Email
-              </label>
-              <b-form-input
-                v-model="email"
-                type="email"
-                name="email"
-                autocomplete="email"
-                value
-                required
-              ></b-form-input>
-            </b-form-group>
             <button type="submit" name="button">
               Next
             </button>
-            <div v-if="addressError">
-              <p v-for="err in addressError" :key="err" class="mt-3 red-text">
+            <div v-if="registerError">
+              <p v-for="err in registerError" :key="err" class="mt-3 red-text">
                 {{ err }}
               </p>
             </div>
@@ -163,9 +154,9 @@ export default {
     })
   },
   methods: {
-    addShippingInfo() {
+    addBillingInfo() {
       this.$store
-        .dispatch("addShippingAddress", {
+        .dispatch("addBillingAddress", {
           email: this.email,
           addressline1: this.addressline1,
           addressline2: this.addressline2,
@@ -175,20 +166,8 @@ export default {
           zipcode: this.zipcode
         })
         .then(() => {
-          if (!this.addressError) this.$router.push({ name: "Billing" });
+          if (!this.addressError) this.$router.push({ name: "Dashboard" });
         });
-
-      if (this.sameAddress) {
-        this.$store.dispatch("addBillingAddress", {
-          email: this.email,
-          addressline1: this.addressline1,
-          addressline2: this.addressline2,
-          city: this.city,
-          state: this.state,
-          country: this.country,
-          zipcode: this.zipcode
-        });
-      }
     }
   }
 };

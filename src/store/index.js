@@ -298,14 +298,30 @@ export default new Vuex.Store({
       }
     },
     addShippingAddress({ commit, state }, address) {
-      UserService.addAddressToCart(state.user.email, "shipping", address)
-        .then(() => commit("ADD_SHIPPING_ADDRESS", address))
-        .catch(err => {
-          commit("SET_ADDRESS_ERR", err.response.data);
-        });
+      return new Promise((resolve, reject) => {
+        UserService.addAddressToCart(state.user.email, "shipping", address)
+          .then(() => {
+            commit("ADD_SHIPPING_ADDRESS", address);
+            resolve();
+          })
+          .catch(err => {
+            commit("SET_ADDRESS_ERR", err.response.data);
+            reject(err);
+          });
+      });
     },
-    addBillingAddress({ commit }, address) {
-      commit("ADD_BILLING_ADDRESS", address);
+    addBillingAddress({ commit, state }, address) {
+      return new Promise((resolve, reject) => {
+        UserService.addAddressToCart(state.user.email, "billing", address)
+          .then(() => {
+            commit("ADD_BILLING_ADDRESS", address);
+            resolve();
+          })
+          .catch(err => {
+            commit("SET_ADDRESS_ERR", err.response.data);
+            reject(err);
+          });
+      });
     },
     checkoutCart({ commit, state }) {
       UserService.checkoutCart(state.user.email)

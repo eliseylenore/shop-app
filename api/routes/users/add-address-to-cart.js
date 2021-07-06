@@ -2,6 +2,17 @@ const User = require("../../models/user");
 const validateAddressInput = require("../../validation/address");
 
 module.exports = (req, res) => {
+  if (
+    req.params.type.toLowerCase() !== "shipping" &&
+    req.params.type.toLowerCase() !== "billing"
+  ) {
+    return res.status(400).json({
+      params:
+        "Param address type must be 'billing' or 'shipping', but it was '" +
+        req.params.type +
+        "'"
+    });
+  }
   // Form validation
   const { errors, isValid } = validateAddressInput(req.body);
   if (!isValid) {
