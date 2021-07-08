@@ -7,21 +7,21 @@
         </h1>
       </header>
       <b-row>
-        <b-col xs="12" md="7" xl="6" offset-xl="1" v-if="user.billingAddress">
+        <b-col xs="12" md="7" xl="6" offset-xl="1" v-if="cart.billingAddress">
           <div class="p-3" style="border: 1px solid rgba(0, 0, 0, 0.125)">
             <h4>Current billing address</h4>
-            <p class="mb-0">{{ user.billingAddress.addressline1 }}</p>
-            <p v-if="user.billingAddress.addressline2" class="mb-0">
-              {{ user.billingAddress.addressline2 }}
+            <p class="mb-0">{{ cart.billingAddress.addressline1 }}</p>
+            <p v-if="cart.billingAddress.addressline2" class="mb-0">
+              {{ cart.billingAddress.addressline2 }}
             </p>
             <p class="mb-0">
-              {{ user.billingAddress.zipcode }}
+              {{ cart.billingAddress.zipcode }}
             </p>
-            <p class="mb-0">{{ user.billingAddress.country }}</p>
+            <p class="mb-0">{{ cart.billingAddress.country }}</p>
             <button>Edit</button>
           </div>
         </b-col>
-        <b-col xs="12" md="7" xl="6" offset-xl="1" v-if="!user.billingAddress">
+        <b-col xs="12" md="7" xl="6" offset-xl="1" v-if="!cart.billingAddress">
           <div class="mt-4 d-flex" v-if="user === null">
             <p class="mr-2">Have an account?</p>
             <router-link :to="{ name: 'Login' }">Login</router-link>
@@ -109,8 +109,8 @@
             <button type="submit" name="button">
               Next
             </button>
-            <div v-if="registerError">
-              <p v-for="err in registerError" :key="err" class="mt-3 red-text">
+            <div v-if="addressError">
+              <p v-for="err in addressError" :key="err" class="mt-3 red-text">
                 {{ err }}
               </p>
             </div>
@@ -150,7 +150,8 @@ export default {
   computed: {
     ...mapState(["addressError"]),
     ...mapState({
-      user: state => state.user
+      user: state => state.user,
+      cart: state => state.cart
     })
   },
   methods: {

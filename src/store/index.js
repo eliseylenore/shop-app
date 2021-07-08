@@ -8,10 +8,29 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    cart: JSON.parse(localStorage.getItem("cart")) || { items: [] },
+    cart: JSON.parse(localStorage.getItem("cart")) || {
+      items: [],
+      shippingAddress: {
+        addressline1: "",
+        addressline2: "",
+        city: "",
+        state: "",
+        country: "",
+        zipcode: ""
+      },
+      billingAddress: {
+        addressline1: "",
+        addressline2: "",
+        city: "",
+        state: "",
+        country: "",
+        zipcode: ""
+      },
+      email: ""
+    },
     products: [],
     product: {},
-    user: null,
+    user: { email: "" },
     loginError: null,
     registerError: null,
     editError: null,
@@ -122,10 +141,10 @@ export default new Vuex.Store({
       state.product.selectedItem = item;
     },
     ADD_SHIPPING_ADDRESS(state, address) {
-      state.user.shippingAddress = address;
+      state.cart.shippingAddress = address;
     },
     ADD_BILLING_ADDRESS(state, address) {
-      state.user.billingAddress = address;
+      state.cart.billingAddress = address;
     },
     REMOVE_FROM_CART(state, product) {
       state.cart.items = state.cart.items.filter(
@@ -357,6 +376,15 @@ export default new Vuex.Store({
         cartTotal += parseFloat(item.price) * item.quantity;
       }
       return getFormattedValue(cartTotal);
+    },
+    getShippingAddress: state => {
+      return state.cart.shippingAddress;
+    },
+    getBillingAddress: state => {
+      return state.cart.billingAddress;
+    },
+    getUserEmail: state => {
+      return state.user.email;
     }
   },
   modules: {}

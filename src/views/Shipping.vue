@@ -18,7 +18,7 @@
                 Address 1
               </label>
               <b-form-input
-                v-model="addressline1"
+                v-model="getShippingAddress.addressline1"
                 type="text"
                 name="address-line1"
                 autocomplete="address-line1"
@@ -31,7 +31,7 @@
                 Address 2
               </label>
               <b-form-input
-                v-model="addressline2"
+                v-model="getShippingAddress.addressline2"
                 type="text"
                 name="address-line2"
                 autocomplete="address-line2"
@@ -43,7 +43,7 @@
                 City
               </label>
               <b-form-input
-                v-model="city"
+                v-model="getShippingAddress.city"
                 type="text"
                 name="city"
                 autocomplete="address-level2"
@@ -57,7 +57,7 @@
               </label>
               <b-form-select
                 id="state"
-                v-model="state"
+                v-model="getShippingAddress.state"
                 class="form-control"
                 aria-describedby="state-error"
                 autocomplete="address-level1"
@@ -70,7 +70,7 @@
                 ZIP code
               </label>
               <b-form-input
-                v-model="zipcode"
+                v-model="getShippingAddress.zipcode"
                 type="number"
                 name="zipcode"
                 autocomplete="postal-code"
@@ -84,7 +84,7 @@
               </label>
               <b-form-select
                 id="country"
-                v-model="country"
+                v-model="getShippingAddress.country"
                 class="form-control"
                 aria-describedby="country-error"
                 autocomplete="country"
@@ -107,7 +107,7 @@
                 Email
               </label>
               <b-form-input
-                v-model="email"
+                v-model="getUserEmail"
                 type="email"
                 name="email"
                 autocomplete="email"
@@ -135,6 +135,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import { stateAbbreviations } from "../commons/utils";
 
 import CartSummary from "@/components/CartSummary.vue";
@@ -160,19 +161,20 @@ export default {
     ...mapState(["addressError"]),
     ...mapState({
       user: state => state.user
-    })
+    }),
+    ...mapGetters(["getShippingAddress", "getUserEmail"])
   },
   methods: {
     addShippingInfo() {
       this.$store
         .dispatch("addShippingAddress", {
-          email: this.email,
-          addressline1: this.addressline1,
-          addressline2: this.addressline2,
-          city: this.city,
-          state: this.state,
-          country: this.country,
-          zipcode: this.zipcode
+          email: this.getUserEmail,
+          addressline1: this.getShippingAddress.addressline1,
+          addressline2: this.getShippingAddress.addressline2,
+          city: this.getShippingAddress.city,
+          state: this.getShippingAddress.state,
+          country: this.getShippingAddress.country,
+          zipcode: this.getShippingAddress.zipcode
         })
         .then(() => {
           if (!this.addressError) this.$router.push({ name: "Billing" });
@@ -180,13 +182,13 @@ export default {
 
       if (this.sameAddress) {
         this.$store.dispatch("addBillingAddress", {
-          email: this.email,
-          addressline1: this.addressline1,
-          addressline2: this.addressline2,
-          city: this.city,
-          state: this.state,
-          country: this.country,
-          zipcode: this.zipcode
+          email: this.getUserEmail,
+          addressline1: this.getShippingAddress.addressline1,
+          addressline2: this.getShippingAddress.addressline2,
+          city: this.getShippingAddress.city,
+          state: this.getShippingAddress.state,
+          country: this.getShippingAddress.country,
+          zipcode: this.getShippingAddress.zipcode
         });
       }
     }
