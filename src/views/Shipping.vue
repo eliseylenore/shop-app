@@ -134,8 +134,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { mapGetters } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import { stateAbbreviations } from "../commons/utils";
 
 import CartSummary from "@/components/CartSummary.vue";
@@ -146,13 +145,6 @@ export default {
   },
   data() {
     return {
-      email: "",
-      addressline1: "",
-      addressline2: "",
-      city: "",
-      state: "",
-      country: "",
-      zipcode: "",
       sameAddress: true,
       states: stateAbbreviations
     };
