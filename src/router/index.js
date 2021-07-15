@@ -86,6 +86,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/PreviousOrders.vue")
   },
+  {
+    path: "/ordersubmitted",
+    name: "OrderSubmitted",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/OrderSubmitted.vue")
+  },
   { path: "*", component: FileNotFound }
 ];
 

@@ -145,7 +145,7 @@ export default {
           zipcode: this.getBillingAddress.zipcode
         })
         .then(() => {
-          if (!this.addressError) this.$router.push({ name: "Dashboard" });
+          if (!this.addressError) this.$router.push({ name: "OrderSubmitted" });
         });
     }
   }

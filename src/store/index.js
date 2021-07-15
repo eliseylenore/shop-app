@@ -385,7 +385,7 @@ export default new Vuex.Store({
   getters: {
     loggedIn: state => {
       // !! syntax helps us determine the truthiness or falsiness of the value
-      return state.user.name === null;
+      return state.user.name !== undefined;
     },
     getProductById: state => id => {
       return state.products.find(product => product._id === id);
