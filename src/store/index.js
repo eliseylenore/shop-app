@@ -5,6 +5,7 @@ import ProductService from "@/services/ProductService.js";
 import UserService from "@/services/UserService.js";
 import { getFormattedValue } from "../commons/utils";
 Vue.use(Vuex);
+const validateAddressInput = require("./validation/address");
 
 export default new Vuex.Store({
   state: {
@@ -122,7 +123,7 @@ export default new Vuex.Store({
     ADD_TO_CART(state, payload) {
       const { product, selectedProduct } = payload;
       state.cart.items.push(selectedProduct);
-      localStorage.setItem("cart", JSON.stringify(state.cart.items));
+      localStorage.setItem("cart", JSON.stringify(state.cart));
       state.product = {
         ...product,
         quantity: 1
@@ -280,7 +281,7 @@ export default new Vuex.Store({
     },
     addToCart({ commit, state }, payload) {
       const { selectedProduct } = payload;
-      if (state.user !== null) {
+      if (state.user.name !== undefined) {
         UserService.addToCart(state.user.email, selectedProduct)
           .then(({ data }) => {
             let newPayload = payload;
@@ -294,7 +295,7 @@ export default new Vuex.Store({
       }
     },
     addToItemQuantity({ commit, state }, payload) {
-      if (state.user !== null) {
+      if (state.user.name !== undefined) {
         UserService.addToItemQuantity(state.user.email, payload)
           .then(() => {
             commit("ADD_TO_CART_ITEM_QUANTITY", payload);
@@ -308,7 +309,7 @@ export default new Vuex.Store({
       commit("SET_PRODUCT_ITEM", item);
     },
     removeFromCart({ commit, state }, product) {
-      if (state.user === null) {
+      if (state.user.name === undefined) {
         commit("REMOVE_FROM_CART", product);
       } else {
         UserService.removeItemFromCart(state.user.email, { _id: product._id })
@@ -317,29 +318,48 @@ export default new Vuex.Store({
       }
     },
     addShippingAddress({ commit, state }, address) {
-      return new Promise((resolve, reject) => {
-        UserService.addAddressToCart(state.user.email, "shipping", address)
-          .then(() => {
+      if (!state.user.name === undefined) {
+        return new Promise((resolve, reject) => {
+          UserService.addAddressToCart(state.user.email, "shipping", address)
+            .then(() => {
+              commit("ADD_SHIPPING_ADDRESS", address);
+              resolve();
+            })
+            .catch(err => {
+              commit("SET_ADDRESS_ERR", err.response.data);
+              reject(err);
+            });
+        });
+      } else {
+        return new Promise((resolve, reject) => {
+          // Form validation
+          const { errors, isValid } = validateAddressInput(address);
+          if (!isValid) {
+            commit("SET_ADDRESS_ERR", errors);
+            reject(errors);
+          } else {
             commit("ADD_SHIPPING_ADDRESS", address);
             resolve();
-          })
-          .catch(err => {
-            commit("SET_ADDRESS_ERR", err.response.data);
-            reject(err);
-          });
-      });
+          }
+        });
+      }
     },
     addBillingAddress({ commit, state }, address) {
       return new Promise((resolve, reject) => {
-        UserService.addAddressToCart(state.user.email, "billing", address)
-          .then(() => {
-            commit("ADD_BILLING_ADDRESS", address);
-            resolve();
-          })
-          .catch(err => {
-            commit("SET_ADDRESS_ERR", err.response.data);
-            reject(err);
-          });
+        if (!state.user.name === undefined) {
+          UserService.addAddressToCart(state.user.email, "billing", address)
+            .then(() => {
+              commit("ADD_BILLING_ADDRESS", address);
+              resolve();
+            })
+            .catch(err => {
+              commit("SET_ADDRESS_ERR", err.response.data);
+              reject(err);
+            });
+        } else {
+          commit("ADD_SHIPPING_ADDRESS", address);
+          resolve();
+        }
       });
     },
     checkoutCart({ commit, state }) {
@@ -365,7 +385,7 @@ export default new Vuex.Store({
   getters: {
     loggedIn: state => {
       // !! syntax helps us determine the truthiness or falsiness of the value
-      return !!state.user;
+      return state.user.name === null;
     },
     getProductById: state => id => {
       return state.products.find(product => product._id === id);

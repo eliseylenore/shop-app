@@ -46,6 +46,10 @@ module.exports = (req, res) => {
       country,
       zipcode
     };
+
+    if (req.body.email) {
+      user.cart.email = req.body.email;
+    }
     if (req.params.type === "billing") {
       user.cart.billingAddress = newAddress;
     } else if (req.params.type === "shipping") {

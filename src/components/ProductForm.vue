@@ -141,7 +141,6 @@ export default {
   methods: {
     price: productPrice => getFormattedValue(productPrice, 2),
     addToCart(product) {
-      console.log("state.cart", this.$store.state.cart);
       this.errors = [];
       // check if quantity exceeds amount
       let quantityExceedsAvailable = false;
@@ -209,7 +208,6 @@ export default {
           this.$store.dispatch("addToCart", { product, selectedProduct });
         } else {
           let { quantity } = product;
-          // TO-DO: create this action
           this.$store.dispatch("addToItemQuantity", {
             _id: itemId,
             quantity
