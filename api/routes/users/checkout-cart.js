@@ -3,13 +3,21 @@ const mongoose = require("mongoose");
 // Load User model
 const User = require("../../models/user");
 const Product = require("../../models/product");
-const { PendingOrder } = require("../../models/item");
+const { PendingOrder } = require("../../models/order");
 
 module.exports = (req, res) => {
-  User.findOne({ email: req.params.email }, function(err, user) {
-    if (err) res.status(400).json(err);
+  User.findOne({ email: req.body.email }, function(err, user) {
+    if (err) {
+      res.status(400).json(err);
+    }
+    let cart;
+    if (user) {
+      cart = user.cart;
+    } else {
+      cart = req.body.cart;
+    }
     const errors = {};
-    for (let item of user.cart) {
+    for (let item of cart.items) {
       // lookup product, then item within product (by itemId)
       Product.findById(mongoose.Types.ObjectId(item.productId), function(
         err,
@@ -17,7 +25,9 @@ module.exports = (req, res) => {
       ) {
         if (err) console.log("err", err);
         if (!product) {
-          res.status(400).json({ "No product found": "No product Found" });
+          res
+            .status(400)
+            .json({ "No product found": item.title + ", size " + item.size });
         }
         let foundItem = product.items.find(productItem => {
           if (productItem && productItem._id) {
@@ -39,40 +49,41 @@ module.exports = (req, res) => {
             product.save().catch(err => console.log(err));
           } else {
             errors.quantity = "There are no longer enough of " + item.title;
-            res.json(errors);
+            return res.json(errors);
           }
         } else {
           errors.noItemFound =
-            "Was not able to find a matching item in database";
+            "Was not able to find a matching item in database: " +
+            item.title +
+            ", size " +
+            item.size;
           return res.status(400).json(errors);
         }
       });
     }
-    for (let cartItem of user.cart) {
-      user.pendingOrders.push(cartItem);
-      let newItem = new PendingOrder({
-        _id: cartItem._id,
-        productId: cartItem.productId,
-        itemId: cartItem.itemId,
-        orderDate: cartItem.orderDate,
-        hex: cartItem.hex,
-        color: cartItem.color,
-        size: cartItem.size,
-        img: cartItem.img,
-        quantity: cartItem.quantity,
-        title: cartItem.title,
-        price: cartItem.price,
-        description: cartItem.description,
-        category: cartItem.category
-      });
-      newItem.save().catch(err => console.log(err));
-    }
-    user.cart = [];
-    user
+    let { shippingAddress, billingAddress, email, items } = cart;
+    let newOrder = new PendingOrder({
+      shippingAddress,
+      billingAddress,
+      email,
+      items
+    });
+    newOrder
       .save()
-      .then(user =>
-        Object.keys(errors).length === 0 ? res.json(user.cart) : errors
-      )
+      .then(() => {
+        if (user) {
+          user.cart.items = [];
+          user.pendingOrders.push(newOrder);
+          user
+            .save()
+            .then(user =>
+              Object.keys(errors).length === 0
+                ? res.json(user.pendingOrders)
+                : errors
+            )
+            .catch(err => console.log(err));
+        }
+      })
       .catch(err => console.log(err));
   });
 };

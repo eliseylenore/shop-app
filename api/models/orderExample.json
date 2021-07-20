@@ -1,45 +1,49 @@
 {
-  "items": [
-    {
-      "_id": {
-        "$oid": "60d9f859385610415263382b"
-      },
-      "productId": {
-        "$oid": "60ce37e8cc8e9727c7d130fa"
-      },
-      "orderDate": {
-        "$date": {
-          "$numberLong": "1624086000000"
+  "email": "bob@gmail.com",
+  "cart": {
+    "items": [
+      {
+        "_id": {
+          "$oid": "60dcb34f7c9bdd3fb018b5dc"
+        },
+        "orderDate": {
+          "$date": {
+            "$numberLong": "1625036400000"
+          }
+        },
+        "color": "Burnt umber",
+        "hex": "#8a3324",
+        "img": "burnt-umber-dress.jpg",
+        "size": "2",
+        "title": "Old copper sun dress",
+        "itemId": {
+          "$oid": "60ce722f581e6b599cb86951"
+        },
+        "productId": "60ce722f581e6b599cb86950",
+        "price": {
+          "$numberInt": "70"
+        },
+        "quantity": {
+          "$numberInt": "2"
         }
-      },
-      "hex": "#003366",
-      "color": "Navy blue",
-      "size": "small",
-      "img": "product-scuba-navy.png",
-      "quantity": {
-        "$numberInt": "1"
-      },
-      "title": "Baseline scuba set",
-      "price": {
-        "$numberDouble": "28.5"
-      },
-      "__v": {
-        "$numberInt": "0"
       }
-    }
-  ],
-  "shippingAddress": {
-    "addressline1": "4219 S Othello St",
-    "addressline2": "",
-    "city": "Seattle",
-    "state": "WA",
-    "country": "United States",
-    "zipcode": "98118"},
-  "billingAddress": {
-    "addressline1": "4219 S Othello St",
-    "addressline2": "",
-    "city": "Seattle",
-    "state": "WA",
-    "country": "United States",
-    "zipcode": "98118"}
+    ],
+    "shippingAddress": {
+      "addressline1": "4219 S Othello St",
+      "addressline2": "",
+      "city": "Seattle ",
+      "state": "WA",
+      "country": "United States",
+      "zipcode": "98118"
+    },
+    "billingAddress": {
+      "addressline1": "poipoas",
+      "addressline2": "",
+      "city": "Seattle ",
+      "state": "WA",
+      "country": "United States",
+      "zipcode": "98118"
+    },
+    "email": "bob@gmail.com"
+  }
 }

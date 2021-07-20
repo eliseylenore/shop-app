@@ -1,9 +1,8 @@
 var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
 
 const { Item } = require("./item");
 
-let OrderSchema = new Schema({
+let orderSchema = new mongoose.Schema({
   items: [Item.schema],
   shippingAddress: {
     addressline1: String,
@@ -24,8 +23,8 @@ let OrderSchema = new Schema({
   email: String
 });
 
-const PendingOrder = mongoose.model("PendingOrder", OrderSchema);
-// const FilledOrder = mongoose.model("filledOrder", OrderSchema);
+const PendingOrder = mongoose.model("pendingOrder", orderSchema);
+// const FilledOrder = mongoose.model("filledOrder", orderSchema);
 
-const Order = mongoose.model("order", OrderSchema);
+const Order = mongoose.model("order", orderSchema);
 module.exports = { Order, PendingOrder };

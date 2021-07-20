@@ -41,13 +41,14 @@ export default new Vuex.Store({
     SET_USER_DATA(state, userData) {
       state.user = userData;
       if (
-        userData.user !== undefined &&
-        userData.user.cart !== undefined &&
-        userData.user.cart.items.length > 0
+        userData !== undefined &&
+        userData.cart !== undefined &&
+        userData.cart.items.length > 0
       ) {
-        state.cart = userData.user.cart;
+        state.cart = userData.cart;
       }
       localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("cart", JSON.stringify(userData.cart));
       axios.defaults.headers.common["Authorization"] = `${userData.token}`;
       state.loginError = null;
       state.registerError = null;
@@ -150,7 +151,7 @@ export default new Vuex.Store({
     REMOVE_FROM_CART(state, product) {
       state.cart.items = state.cart.items.filter(
         item =>
-          item.id !== product.id ||
+          item._id !== product._id ||
           item.size !== product.size ||
           item.hex !== product.hex
       );
@@ -192,7 +193,11 @@ export default new Vuex.Store({
     loginUser({ commit }, credentials) {
       return UserService.loginUser(credentials)
         .then(({ data }) => {
-          commit("SET_USER_DATA", data);
+          commit("SET_USER_DATA", {
+            ...data.user,
+            success: data.success,
+            token: data.token
+          });
         })
         .catch(err => {
           commit("SET_LOGIN_ERR", err.response.data);
@@ -346,7 +351,7 @@ export default new Vuex.Store({
     },
     addBillingAddress({ commit, state }, address) {
       return new Promise((resolve, reject) => {
-        if (!state.user.name === undefined) {
+        if (!state.user.name !== undefined) {
           UserService.addAddressToCart(state.user.email, "billing", address)
             .then(() => {
               commit("ADD_BILLING_ADDRESS", address);
@@ -363,9 +368,17 @@ export default new Vuex.Store({
       });
     },
     checkoutCart({ commit, state }) {
-      UserService.checkoutCart(state.user.email)
-        .then(() => commit("EMPTY_CART", state))
-        .catch(err => console.log(err));
+      return new Promise((resolve, reject) => {
+        UserService.checkoutCart(state.user.email, state.cart)
+          .then(() => {
+            commit("EMPTY_CART", state);
+            resolve();
+          })
+          .catch(err => {
+            console.log(err);
+            reject(err);
+          });
+      });
     },
     cancelOrder({ commit, state }, item) {
       UserService.cancelOrder(state.user.email, item)
