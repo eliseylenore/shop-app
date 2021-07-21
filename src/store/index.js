@@ -164,9 +164,19 @@ export default new Vuex.Store({
       state.user.fulfilledOrders.push(item);
     },
     CANCEL_ORDER(state, item) {
-      state.user.pendingOrders = state.user.pendingOrders.filter(
-        product => product._id !== item._id
+      // find order
+      let order = state.user.pendingOrders.find(
+        order => item.orderId === order._id
       );
+
+      // if only one item, delete that order
+      if (order.items.length === 1) {
+        state.user.pendingOrders = state.user.pendingOrders.filter(
+          order => order._id !== item.orderId
+        );
+      }
+      // delete item
+      order.items = order.items.filter(product => product._id !== item._id);
     },
     EMPTY_CART(state) {
       for (let item of state.cart.items) {

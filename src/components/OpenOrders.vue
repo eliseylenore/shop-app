@@ -38,7 +38,12 @@
               <div>
                 <button
                   class="cancel-btn"
-                  @click="$store.dispatch('cancelOrder', product)"
+                  @click="
+                    $store.dispatch('cancelOrder', {
+                      ...product,
+                      orderId: order._id
+                    })
+                  "
                 >
                   Cancel
                 </button>

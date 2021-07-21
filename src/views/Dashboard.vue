@@ -13,7 +13,9 @@
           <user-info-table :user="user" />
         </b-col>
       </b-row>
-      <open-orders v-if="user.pendingOrders !== undefined" />
+      <open-orders
+        v-if="user.pendingOrders !== undefined && user.pendingOrders.length > 0"
+      />
       <b-row>
         <b-col xs="12" md="8" lg="6" offset-md="2" offset-lg="3" class="mb-5">
           <router-link :to="{ name: 'PreviousOrders' }"
