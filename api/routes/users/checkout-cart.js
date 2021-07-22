@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 // Load User model
 const User = require("../../models/user");
@@ -66,7 +67,8 @@ module.exports = (req, res) => {
       shippingAddress,
       billingAddress,
       email,
-      items
+      items,
+      orderDate: moment().format("l")
     });
     newOrder
       .save()

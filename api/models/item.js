@@ -4,7 +4,6 @@ var Schema = mongoose.Schema;
 var ItemSchema = new Schema({
   productId: Schema.Types.ObjectId,
   itemId: Schema.Types.ObjectId,
-  orderDate: Date,
   hex: String,
   color: String,
   size: String,

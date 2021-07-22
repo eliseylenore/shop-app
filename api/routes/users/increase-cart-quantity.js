@@ -8,6 +8,10 @@ module.exports = (req, res) => {
     } else {
       const { _id, quantity } = req.body;
 
+      // for (let item in user.cart.items) {
+      //   console.log("item._id" + item._id.toString());
+      //   console.log("_id" + _id);
+      // }
       const foundItem = user.cart.items.find(item => {
         if (item !== undefined && item._id !== undefined) {
           return item._id.toString() === _id;

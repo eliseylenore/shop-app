@@ -208,6 +208,7 @@ export default {
           this.$store.dispatch("addToCart", { product, selectedProduct });
         } else {
           let { quantity } = product;
+          console.log("itemId", itemId);
           this.$store.dispatch("addToItemQuantity", {
             _id: itemId,
             quantity

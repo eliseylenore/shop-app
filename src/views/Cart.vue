@@ -76,9 +76,6 @@
                           product.size
                         }}</span>
                       </p>
-                      <p class="mb-0 text-left">
-                        Order date {{ getDate(product.orderDate) }}
-                      </p>
                       <p class="mb-0 text-left">{{ product.color }}</p>
                       <p class="mb-0 text-left">${{ price(product.price) }}</p>
                       <p class="mb-4 text-left">
@@ -106,7 +103,6 @@ import { mapState, mapGetters } from "vuex";
 
 //Common imports
 import { getFormattedValue } from "../commons/utils";
-import moment from "moment";
 
 //store object
 import store from "../store";
@@ -142,7 +138,6 @@ export default {
     },
     removeItem: clickedProduct =>
       store.dispatch("removeFromCart", clickedProduct),
-    getDate: orderDate => moment(orderDate).format("l"),
     checkoutCart() {
       router.push({ name: "Shipping" });
     }

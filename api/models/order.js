@@ -20,7 +20,8 @@ let orderSchema = new mongoose.Schema({
     country: String,
     zipcode: String
   },
-  email: String
+  email: String,
+  orderDate: Date
 });
 
 const PendingOrder = mongoose.model("pendingOrder", orderSchema);
