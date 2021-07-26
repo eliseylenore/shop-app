@@ -87,6 +87,7 @@ module.exports = (req, res) => {
       order
     ) {
       if (err) console.log(err);
+      if (!order) res.status(400).json({ "Order not found": orderId });
       if (order.items.length === 1) {
         // if there's only one item, delete the order
         PendingOrder.findByIdAndDelete(

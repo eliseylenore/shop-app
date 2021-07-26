@@ -11,7 +11,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "@/assets/fonts/fonts.css";
 
-
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);
 
@@ -29,9 +28,11 @@ new Vue({
   store,
   created() {
     const userString = localStorage.getItem("user");
+    const cartString = localStorage.getItem("cart");
     if (userString) {
       const userData = JSON.parse(userString);
-      this.$store.commit("SET_USER_DATA", userData);
+      const cartData = JSON.parse(cartString);
+      this.$store.commit("SET_USER_DATA", { ...userData, cart: cartData });
     }
     axios.interceptors.response.use(
       response => response, // simply return the response

@@ -59,7 +59,6 @@ export default new Vuex.Store({
     },
     UPDATE_USER_EMAIL(state, email) {
       state.cart.email = email;
-      state.user.email = email;
     },
     EDIT_USER_DATA(state, userData) {
       const { name, email } = userData;
@@ -163,7 +162,7 @@ export default new Vuex.Store({
           item.size !== product.size ||
           item.hex !== product.hex
       );
-      localStorage.setItem("cart", JSON.stringify(state.cart.items));
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     MARK_ORDER_FILLED(state, item) {
       state.user.pendingOrders = state.user.pendingOrders.filter(
