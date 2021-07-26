@@ -31,7 +31,7 @@ export default {
       ...config
     }),
   cancelOrder: (email, payload) =>
-    axios.delete("/users/" + email + "/orders/", {
+    axios.delete("/users/" + email + "/orders/item", {
       data: payload,
       ...config
     }),

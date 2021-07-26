@@ -31,7 +31,11 @@ export default new Vuex.Store({
     },
     products: [],
     product: {},
-    user: { email: "" },
+    user: {
+      email: "",
+      pendingOrders: [],
+      fulfilledOrders: []
+    },
     loginError: null,
     registerError: null,
     editError: null,
@@ -52,6 +56,10 @@ export default new Vuex.Store({
       axios.defaults.headers.common["Authorization"] = `${userData.token}`;
       state.loginError = null;
       state.registerError = null;
+    },
+    UPDATE_USER_EMAIL(state, email) {
+      state.cart.email = email;
+      state.user.email = email;
     },
     EDIT_USER_DATA(state, userData) {
       const { name, email } = userData;
@@ -333,7 +341,7 @@ export default new Vuex.Store({
       }
     },
     addShippingAddress({ commit, state }, address) {
-      if (!state.user.name === undefined) {
+      if (state.user.name !== undefined) {
         return new Promise((resolve, reject) => {
           UserService.addAddressToCart(state.user.email, "shipping", address)
             .then(() => {
@@ -361,7 +369,7 @@ export default new Vuex.Store({
     },
     addBillingAddress({ commit, state }, address) {
       return new Promise((resolve, reject) => {
-        if (!state.user.name !== undefined) {
+        if (state.user.name !== undefined) {
           UserService.addAddressToCart(state.user.email, "billing", address)
             .then(() => {
               commit("ADD_BILLING_ADDRESS", address);
@@ -372,22 +380,28 @@ export default new Vuex.Store({
               reject(err);
             });
         } else {
-          commit("ADD_SHIPPING_ADDRESS", address);
+          commit("ADD_BILLING_ADDRESS", address);
           resolve();
         }
       });
     },
     checkoutCart({ commit, state }) {
       return new Promise((resolve, reject) => {
-        UserService.checkoutCart(state.user.email, state.cart)
-          .then(() => {
-            commit("EMPTY_CART", state);
-            resolve();
-          })
-          .catch(err => {
-            console.log(err);
-            reject(err);
-          });
+        let email = state.user.email ? state.user.email : state.cart.email;
+        if (email) {
+          UserService.checkoutCart(email, state.cart)
+            .then(res => {
+              console.log("res " + res);
+              commit("EMPTY_CART", state);
+              resolve();
+            })
+            .catch(err => {
+              console.log(err);
+              reject(err);
+            });
+        } else {
+          console.log("No email!");
+        }
       });
     },
     cancelOrder({ commit, state }, item) {
@@ -427,8 +441,7 @@ export default new Vuex.Store({
       return state.cart.billingAddress;
     },
     getUserEmail: state => {
-      return state.user.email;
+      return state.cart.email;
     }
-  },
-  modules: {}
+  }
 });

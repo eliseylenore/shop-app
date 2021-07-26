@@ -12,6 +12,11 @@ module.exports = function validateAddressInput(data) {
   data.state = !isEmpty(data.state) ? data.state : "";
   data.zipcode = !isEmpty(data.zipcode) ? data.zipcode : "";
   data.country = !isEmpty(data.country) ? data.country : "";
+  data.type = !isEmpty(data.type) ? data.type : "";
+
+  if (data.type === "shipping" && Validator.isEmpty(data.email)) {
+    errors.email = "Email field is required";
+  }
 
   if (!Validator.isEmpty(data.email) && !Validator.isEmail(data.email)) {
     console.log("Email invalid", data.email);

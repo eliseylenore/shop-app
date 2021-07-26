@@ -78,12 +78,20 @@ module.exports = (req, res) => {
           user.pendingOrders.push(newOrder);
           user
             .save()
-            .then(user =>
+            .then(user => {
+              console.log(
+                "Object.keys(errors).length ",
+                Object.keys(errors).length
+              );
               Object.keys(errors).length === 0
-                ? res.json(user.pendingOrders)
-                : errors
-            )
+                ? res.json({
+                    "order added to pending orders": user.pendingOrders
+                  })
+                : res.status(400).json(errors);
+            })
             .catch(err => console.log(err));
+        } else {
+          res.json({ "Order number": newOrder._id });
         }
       })
       .catch(err => console.log(err));

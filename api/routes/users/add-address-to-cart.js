@@ -14,7 +14,10 @@ module.exports = (req, res) => {
     });
   }
   // Form validation
-  const { errors, isValid } = validateAddressInput(req.body);
+  const { errors, isValid } = validateAddressInput({
+    ...req.body,
+    type: req.params.type.toLowerCase()
+  });
   if (!isValid) {
     return res.status(400).json(errors);
   }

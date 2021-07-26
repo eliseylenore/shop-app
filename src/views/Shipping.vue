@@ -107,11 +107,11 @@
                 Email
               </label>
               <b-form-input
-                v-model="getUserEmail"
+                :value="getUserEmail"
+                @input="updateUserEmail"
                 type="email"
                 name="email"
                 autocomplete="email"
-                value
                 required
               ></b-form-input>
             </b-form-group>
@@ -157,6 +157,10 @@ export default {
     ...mapGetters(["getShippingAddress", "getUserEmail"])
   },
   methods: {
+    updateUserEmail(e) {
+      console.log("e ", e);
+      this.$store.commit("UPDATE_USER_EMAIL", e);
+    },
     addShippingInfo() {
       this.$store
         .dispatch("addShippingAddress", {
@@ -169,20 +173,19 @@ export default {
           zipcode: this.getShippingAddress.zipcode
         })
         .then(() => {
+          if (this.sameAddress) {
+            this.$store.dispatch("addBillingAddress", {
+              addressline1: this.getShippingAddress.addressline1,
+              addressline2: this.getShippingAddress.addressline2,
+              city: this.getShippingAddress.city,
+              state: this.getShippingAddress.state,
+              country: this.getShippingAddress.country,
+              zipcode: this.getShippingAddress.zipcode
+            });
+          }
           if (!this.addressError) this.$router.push({ name: "Billing" });
-        });
-
-      if (this.sameAddress) {
-        this.$store.dispatch("addBillingAddress", {
-          email: this.getUserEmail,
-          addressline1: this.getShippingAddress.addressline1,
-          addressline2: this.getShippingAddress.addressline2,
-          city: this.getShippingAddress.city,
-          state: this.getShippingAddress.state,
-          country: this.getShippingAddress.country,
-          zipcode: this.getShippingAddress.zipcode
-        });
-      }
+        })
+        .catch(err => console.log(err));
     }
   }
 };

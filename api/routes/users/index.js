@@ -44,7 +44,7 @@ router
   // @desc Checkout user's cart (adds to open orders)
   // @access private
   .delete(
-    passport.authenticate("jwt", { session: false }),
+    // passport.authenticate("jwt", { session: false }),
     require("./checkout-cart.js")
   );
 
@@ -54,10 +54,7 @@ router
 // @access private
 router
   .route("/:email/cart/address/:type")
-  .post(
-    passport.authenticate("jwt", { session: false }),
-    require("./add-address-to-cart.js")
-  );
+  .post(require("./add-address-to-cart.js"));
 
 // @route PUT api/users/:email/cart/itemQuantity
 // @desc Adds to cart item quantity
@@ -87,14 +84,17 @@ router
   .put(
     passport.authenticate("jwt", { session: false }),
     require("./fill-order.js")
-  )
-  // @route DELETE api/users/:email/orders
-  // @desc cancel a pending order
-  // @access private
-  // cancel order
+  );
+
+// @route DELETE api/users/:email/orders/item
+// @desc cancel a pending order
+// @access private
+// cancel order
+router
+  .route("/:email/orders/item")
   .delete(
     passport.authenticate("jwt", { session: false }),
-    require("./cancel-order.js")
+    require("./cancel-order-item.js")
   );
 
 // get user's open orders (accessed at GET http://localhost:3000/api/users/:email/openOrders/)
