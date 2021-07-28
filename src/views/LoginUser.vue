@@ -83,9 +83,13 @@ export default {
           email: this.email,
           password: this.password
         })
-        .then(() => {
-          if (!this.loginError) this.$router.push({ name: "Dashboard" });
-        })
+        // this code was throwing an error, and it looks like it's not necessary due to Vue reactivity. I'll keep for a bit in case I need again.
+        // .then(() => {
+        //   if (!this.loginError)
+        //     this.$router
+        //       .push({ name: "Dashboard" })
+        //       .catch(err => console.log(err));
+        // })
         .catch(err => {
           console.log("error in login ", err);
         });
