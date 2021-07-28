@@ -1,43 +1,35 @@
 const User = require("../../models/user");
-const { FilledOrder, PendingOrder } = require("../../models/item");
+const { FilledOrder, PendingOrder } = require("../../models/order");
 
 module.exports = (req, res) => {
   User.findOne({ email: req.params.email }, function(err, user) {
     if (err) res.status(400).json(err);
     const { _id } = req.body;
 
-    const foundItem = user.pendingOrders.find(item => {
+    const foundOrder = user.pendingOrders.find(item => {
       if (item !== undefined && item._id !== undefined) {
         return item._id.toString() === _id;
       }
     });
-    if (foundItem) {
-      user.fulfilledOrders.push(foundItem);
+    if (foundOrder) {
+      user.fulfilledOrders.push(foundOrder);
       var ObjectID = require("mongodb").ObjectID;
-      const _id = new ObjectID(foundItem._id);
+      const _id = new ObjectID(foundOrder._id);
       PendingOrder.deleteOne({
         _id
       }).catch(err => console.log(err));
 
-      let newItem = new FilledOrder({
-        _id: foundItem._id,
-        productId: foundItem.productId,
-        itemId: foundItem.itemId,
-        orderDate: foundItem.orderDate,
-        hex: foundItem.hex,
-        color: foundItem.color,
-        size: foundItem.size,
-        img: foundItem.img,
-        quantity: foundItem.quantity,
-        title: foundItem.title,
-        price: foundItem.price,
-        description: foundItem.description,
-        category: foundItem.category
+      let newOrder = new FilledOrder({
+        items: foundOrder.items,
+        shippingAddress: foundOrder.shippingAddress,
+        billingAddress: foundOrder.billingAddress,
+        email: foundOrder.email,
+        orderDate: foundOrder.orderDate
       });
-      newItem.save().catch(err => console.log(err));
-      const newPendingOrders = user.pendingOrders.filter(item => {
-        if (item !== undefined && item._id !== undefined) {
-          return item._id.toString() !== _id.toString();
+      newOrder.save().catch(err => console.log(err));
+      const newPendingOrders = user.pendingOrders.filter(newOrder => {
+        if (newOrder !== undefined && newOrder._id !== undefined) {
+          return newOrder._id.toString() !== _id.toString();
         }
       });
       user.pendingOrders = newPendingOrders;

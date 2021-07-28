@@ -25,7 +25,7 @@ let orderSchema = new mongoose.Schema({
 });
 
 const PendingOrder = mongoose.model("pendingOrder", orderSchema);
-// const FilledOrder = mongoose.model("filledOrder", orderSchema);
+const FilledOrder = mongoose.model("filledOrder", orderSchema);
 
 const Order = mongoose.model("order", orderSchema);
-module.exports = { Order, PendingOrder };
+module.exports = { Order, PendingOrder, FilledOrder };
