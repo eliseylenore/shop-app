@@ -13,6 +13,21 @@
             <router-link :to="{ name: 'Login' }">Login</router-link>
           </div>
           <b-form @submit.prevent="addShippingInfo()">
+            <b-form-group v-if="user.addressBook.length > 0">
+              <label for="addressBook">
+                Select an address
+              </label>
+              <b-form-select
+                id="addressBook"
+                :value="getShippingAddress"
+                @input="updateShippingAddress"
+                class="form-control"
+                aria-describedby="addressBook-error"
+                autocomplete="address-level1"
+                :options="getAddressBookOptions"
+              >
+              </b-form-select>
+            </b-form-group>
             <b-form-group>
               <label for="address-line1">
                 Address 1
@@ -95,6 +110,16 @@
             <b-form-group>
               <b-form-checkbox
                 id="checkbox-1"
+                v-model="addToAddressBook"
+                value="true"
+                unchecked-value="false"
+              >
+                Add to address book
+              </b-form-checkbox>
+            </b-form-group>
+            <b-form-group>
+              <b-form-checkbox
+                id="checkbox-1"
                 v-model="sameAddress"
                 value="true"
                 unchecked-value="false"
@@ -145,6 +170,8 @@ export default {
   },
   data() {
     return {
+      address: "Choose an option",
+      addToAddressBook: true,
       sameAddress: true,
       states: stateAbbreviations
     };
@@ -154,12 +181,18 @@ export default {
     ...mapState({
       user: state => state.user
     }),
-    ...mapGetters(["getShippingAddress", "getUserEmail"])
+    ...mapGetters([
+      "getShippingAddress",
+      "getUserEmail",
+      "getAddressBookOptions"
+    ])
   },
   methods: {
     updateUserEmail(e) {
-      console.log("e ", e);
       this.$store.commit("UPDATE_USER_EMAIL", e);
+    },
+    updateShippingAddress(e) {
+      console.log("e ", e);
     },
     addShippingInfo() {
       this.$store
@@ -174,14 +207,27 @@ export default {
         })
         .then(() => {
           if (this.sameAddress) {
-            this.$store.dispatch("addBillingAddress", {
-              addressline1: this.getShippingAddress.addressline1,
-              addressline2: this.getShippingAddress.addressline2,
-              city: this.getShippingAddress.city,
-              state: this.getShippingAddress.state,
-              country: this.getShippingAddress.country,
-              zipcode: this.getShippingAddress.zipcode
-            });
+            this.$store
+              .dispatch("addBillingAddress", {
+                addressline1: this.getShippingAddress.addressline1,
+                addressline2: this.getShippingAddress.addressline2,
+                city: this.getShippingAddress.city,
+                state: this.getShippingAddress.state,
+                country: this.getShippingAddress.country,
+                zipcode: this.getShippingAddress.zipcode
+              })
+              .then(() => {
+                if (this.sameAddress) {
+                  this.$store.dispatch("addToAddressBook", {
+                    addressline1: this.getShippingAddress.addressline1,
+                    addressline2: this.getShippingAddress.addressline2,
+                    city: this.getShippingAddress.city,
+                    state: this.getShippingAddress.state,
+                    country: this.getShippingAddress.country,
+                    zipcode: this.getShippingAddress.zipcode
+                  });
+                }
+              });
           }
           if (!this.addressError) this.$router.push({ name: "Billing" });
         })

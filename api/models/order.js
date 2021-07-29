@@ -1,25 +1,12 @@
 var mongoose = require("mongoose");
 
 const { Item } = require("./item");
+const { Address } = require("./address");
 
 let orderSchema = new mongoose.Schema({
   items: [Item.schema],
-  shippingAddress: {
-    addressline1: String,
-    addressline2: String,
-    city: String,
-    state: String,
-    country: String,
-    zipcode: String
-  },
-  billingAddress: {
-    addressline1: String,
-    addressline2: String,
-    city: String,
-    state: String,
-    country: String,
-    zipcode: String
-  },
+  shippingAddress: Address.schema,
+  billingAddress: Address.schema,
   email: String,
   orderDate: Date
 });

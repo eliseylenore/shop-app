@@ -56,6 +56,14 @@ router
   .route("/:email/cart/address/:type")
   .post(require("./add-address-to-cart.js"));
 
+// @route POST api/users/:email/add-to-address-book
+//:type must be shipping or billing
+// @desc Add address to user's cart
+// @access private
+router
+  .route("/:email/addToAddressBook")
+  .post(require("./add-to-address-book.js"));
+
 // @route PUT api/users/:email/cart/itemQuantity
 // @desc Adds to cart item quantity
 // @access private

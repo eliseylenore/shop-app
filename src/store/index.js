@@ -34,7 +34,8 @@ export default new Vuex.Store({
     user: {
       email: "",
       pendingOrders: [],
-      fulfilledOrders: []
+      fulfilledOrders: [],
+      addressBook: []
     },
     loginError: null,
     registerError: null,
@@ -154,6 +155,10 @@ export default new Vuex.Store({
     },
     ADD_BILLING_ADDRESS(state, address) {
       state.cart.billingAddress = address;
+    },
+    ADD_TO_ADDRESS_BOOK(state, address) {
+      state.user.addressBook.push(address);
+      localStorage.setItem("user", JSON.stringify(state.user));
     },
     REMOVE_FROM_CART(state, product) {
       state.cart.items = state.cart.items.filter(
@@ -384,6 +389,24 @@ export default new Vuex.Store({
         }
       });
     },
+    addToAddressBook({ commit, state }, address) {
+      return new Promise((resolve, reject) => {
+        if (state.user.name !== undefined) {
+          UserService.addToAddressBook(state.user.email, address)
+            .then(() => {
+              commit("ADD_TO_ADDRESS_BOOK", address);
+              resolve();
+            })
+            .catch(err => {
+              commit("SET_ADDRESS_ERR", err.response.data);
+              reject(err);
+            });
+        } else {
+          commit("ADD_TO_ADDRESS_BOOK", address);
+          resolve();
+        }
+      });
+    },
     checkoutCart({ commit, state }) {
       return new Promise((resolve, reject) => {
         let email = state.user.email ? state.user.email : state.cart.email;
@@ -441,6 +464,26 @@ export default new Vuex.Store({
     },
     getUserEmail: state => {
       return state.cart.email;
+    },
+    getAddressBookOptions: state => {
+      let addressBookOptions = state.user.addressBook.map(address => {
+        return {
+          value: address,
+          text:
+            address.addressline1 +
+            " " +
+            address.addressline2 +
+            ", " +
+            address.city +
+            ", " +
+            address.state +
+            " " +
+            address.zipcode +
+            " " +
+            address.country
+        };
+      });
+      return addressBookOptions;
     }
   }
 });
