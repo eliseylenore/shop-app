@@ -119,7 +119,7 @@
             </b-form-group>
             <b-form-group>
               <b-form-checkbox
-                id="checkbox-1"
+                id="checkbox-2"
                 v-model="sameAddress"
                 value="true"
                 unchecked-value="false"
@@ -192,7 +192,13 @@ export default {
       this.$store.commit("UPDATE_USER_EMAIL", e);
     },
     updateShippingAddress(e) {
-      console.log("e ", e);
+      this.getShippingAddress.addressline1 = e.addressline1;
+      this.getShippingAddress.addressline2 = e.addressline2;
+      this.getShippingAddress.city = e.city;
+      this.getShippingAddress.state = e.state;
+      this.getShippingAddress.country = e.country;
+      this.getShippingAddress.zipcode = e.zipcode;
+      this.addToAddressBook = false;
     },
     addShippingInfo() {
       this.$store
@@ -217,15 +223,25 @@ export default {
                 zipcode: this.getShippingAddress.zipcode
               })
               .then(() => {
-                if (this.sameAddress) {
-                  this.$store.dispatch("addToAddressBook", {
-                    addressline1: this.getShippingAddress.addressline1,
-                    addressline2: this.getShippingAddress.addressline2,
-                    city: this.getShippingAddress.city,
-                    state: this.getShippingAddress.state,
-                    country: this.getShippingAddress.country,
-                    zipcode: this.getShippingAddress.zipcode
-                  });
+                if (this.addToAddressBook) {
+                  let existingAddress = this.user.addressBook.find(
+                    address =>
+                      address.addressline1 ===
+                        this.getShippingAddress.addressline1 &&
+                      address.addressline2 ===
+                        this.getShippingAddress.addressline2 &&
+                      address.city === this.getShippingAddress.city
+                  );
+                  if (existingAddress !== undefined) {
+                    this.$store.dispatch("addToAddressBook", {
+                      addressline1: this.getShippingAddress.addressline1,
+                      addressline2: this.getShippingAddress.addressline2,
+                      city: this.getShippingAddress.city,
+                      state: this.getShippingAddress.state,
+                      country: this.getShippingAddress.country,
+                      zipcode: this.getShippingAddress.zipcode
+                    });
+                  }
                 }
               });
           }
