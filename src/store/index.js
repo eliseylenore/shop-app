@@ -48,6 +48,7 @@ export default new Vuex.Store({
       state.user = userData;
       if (
         userData !== undefined &&
+        userData.cart !== undefined &&
         userData.cart !== null &&
         userData.cart.items.length > 0
       ) {
