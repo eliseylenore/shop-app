@@ -40,7 +40,8 @@ export default new Vuex.Store({
     loginError: null,
     registerError: null,
     editError: null,
-    addressError: null
+    addressError: null,
+    networkError: null
   },
   mutations: {
     SET_USER_DATA(state, userData) {
@@ -84,6 +85,9 @@ export default new Vuex.Store({
     },
     SET_ADDRESS_ERR(state, error) {
       state.addressError = error;
+    },
+    SET_NETWORK_ERR(state) {
+      state.networkError = true;
     },
     LOGOUT() {
       localStorage.removeItem("user");
@@ -256,7 +260,11 @@ export default new Vuex.Store({
           commit("SET_PRODUCTS", productsWithSelectedColors);
         })
         .catch(error => {
-          console.log("There was an error:", error.response);
+          if (error.message === "Network Error") {
+            commit("SET_NETWORK_ERR");
+          } else {
+            console.log("There was an error: ", error);
+          }
         });
     },
     fetchOpenOrders({ commit, state }) {

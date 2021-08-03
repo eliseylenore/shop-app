@@ -7,7 +7,7 @@
       </h1>
     </header>
     <b-container>
-      <div>
+      <div v-if="!networkError">
         <b-row>
           <b-col
             xs="12"
@@ -58,6 +58,9 @@
           </b-col>
         </b-row>
       </div>
+      <div v-else>
+        <h2>Could not connect to server.</h2>
+      </div>
     </b-container>
   </div>
 </template>
@@ -89,7 +92,8 @@ export default {
   },
   computed: {
     ...mapState({
-      products: state => state.products
+      products: state => state.products,
+      networkError: state => state.networkError
     }),
     category() {
       return this.$route.params.category !== undefined
