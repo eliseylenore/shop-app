@@ -260,7 +260,7 @@ export default new Vuex.Store({
           commit("SET_PRODUCTS", productsWithSelectedColors);
         })
         .catch(error => {
-          if (error.message === "Network Error") {
+          if (!error.status) {
             commit("SET_NETWORK_ERR");
           } else {
             console.log("There was an error: ", error);
