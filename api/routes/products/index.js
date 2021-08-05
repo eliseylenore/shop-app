@@ -27,4 +27,12 @@ router
   // delete the product with this id (accessed at DELETE http://localhost:3000/api/products/:product_id)
   .delete(require("./delete-product.js"));
 
+// on routes that end in /products/:product_id/reviews
+// ----------------------------------------------------
+router
+  .route("/:product_id/reviews")
+
+  // create a review (accessed at POST http://localhost:3000/api/products/:product_id/reviews)
+  .post(require("./create-review"))
+
 module.exports = router;

@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+const { Review } = require("./review");
 
 var ProductSchema = new Schema({
   title: String,
@@ -23,7 +24,8 @@ var ProductSchema = new Schema({
       color: String,
       img: String
     }
-  ]
+  ],
+  reviews: [Review.schema]
 });
 
 module.exports = mongoose.model("Product", ProductSchema);
