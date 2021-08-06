@@ -12,7 +12,6 @@ module.exports = async (req, res) => {
   }
 
   let { username, useremail, text, rating } = req.body;
-  console.log("rating", rating, " username ", username);
   let review = new Review({
     username,
     useremail,

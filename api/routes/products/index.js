@@ -35,4 +35,7 @@ router
   // create a review (accessed at POST http://localhost:3000/api/products/:product_id/reviews)
   .post(require("./create-review"))
 
+  // get the product reviews (accessed at GET http://localhost:3000/api/products/:product_id/reviews)
+  .get(require("./get-reviews.js"))
+
 module.exports = router;
