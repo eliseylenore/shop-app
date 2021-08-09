@@ -33,9 +33,12 @@ router
   .route("/:product_id/reviews")
 
   // create a review (accessed at POST http://localhost:3000/api/products/:product_id/reviews)
-  .post(require("./create-review"))
+  .post(require("./create-review.js"))
 
   // get the product reviews (accessed at GET http://localhost:3000/api/products/:product_id/reviews)
   .get(require("./get-reviews.js"))
+
+  // update the review of the product with this id (accessed at PUT http://localhost:3000/api/products/:product_id/reviews)
+  .put(require("./update-review.js"));
 
 module.exports = router;
