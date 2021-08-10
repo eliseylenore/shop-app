@@ -39,6 +39,9 @@ router
   .get(require("./get-reviews.js"))
 
   // update the review of the product with this id (accessed at PUT http://localhost:3000/api/products/:product_id/reviews)
-  .put(require("./update-review.js"));
+  .put(require("./update-review.js"))
+
+  // delete the review of the product with this id (accessed at DELETE http://localhost:3000/api/products/:product_id/reviews)
+  .delete(require("./delete-review.js"));
 
 module.exports = router;

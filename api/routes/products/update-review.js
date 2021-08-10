@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Product = require("../../models/product");
 
 module.exports = async (req, res) => {
