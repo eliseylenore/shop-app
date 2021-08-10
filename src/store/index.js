@@ -134,6 +134,9 @@ export default new Vuex.Store({
         selectedItem: selectedItem
       };
     },
+    CREATE_REVIEW(state, review) {
+      this.state.product.reviews.push(review);
+    },
     ADD_TO_CART(state, payload) {
       const { product, selectedProduct } = payload;
       state.cart.items.push(selectedProduct);
@@ -352,6 +355,21 @@ export default new Vuex.Store({
           .then(() => commit("REMOVE_FROM_CART", product))
           .catch(err => console.log(err));
       }
+    },
+    submitReview({ commit, state }, review) {
+      return new Promise((resolve, reject) => {
+        if (state.user.email) {
+          review.useremail = state.user.email;
+        }
+        ProductService.createReview(review)
+          .then(() => {
+            commit("CREATE_REVIEW", review);
+            resolve();
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
     },
     addShippingAddress({ commit, state }, address) {
       if (state.user.name !== undefined) {

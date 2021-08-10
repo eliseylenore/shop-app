@@ -3,6 +3,7 @@ const { Review } = require("../../models/review");
 const moment = require("moment");
 
 module.exports = async (req, res) => {
+  console.log("req.body", req.body);
   // to-do: if there's an email, make sure the user is logged in.
   let product;
   try {
@@ -11,11 +12,11 @@ module.exports = async (req, res) => {
     res.status(400).json({ err });
   }
 
-  let { username, useremail, text, rating } = req.body;
+  let { nickname, useremail, reviewText, rating } = req.body;
   let review = new Review({
-    username,
+    username: nickname,
     useremail,
-    text,
+    text: reviewText,
     rating,
     date: moment().format("l")
   });

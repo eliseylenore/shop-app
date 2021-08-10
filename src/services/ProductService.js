@@ -13,5 +13,7 @@ export default {
   getProducts: () => apiClient.get("/products"),
   getFilteredProducts: category =>
     apiClient.get("/products/category/" + category),
-  getProduct: id => apiClient.get("/products/" + id)
+  getProduct: id => apiClient.get("/products/" + id),
+  createReview: review =>
+    apiClient.post("/products/" + review.product_id + "/reviews", review)
 };

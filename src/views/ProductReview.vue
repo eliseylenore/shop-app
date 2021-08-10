@@ -73,7 +73,7 @@ export default {
     ...mapState(["user", "product"])
   },
   methods: {
-    submitReview() {
+    async submitReview() {
       alert("Review submitted");
       // const editedUser = {
       //   name: this.user.name,
@@ -85,9 +85,27 @@ export default {
       // if (this.password2) {
       //   editedUser.password2 = this.password2;
       // }
-      // this.$store.dispatch("editUser", editedUser).then(() => {
-      //   if (!this.editError) this.$router.push({ name: "Dashboard" });
-      // });
+      if (Object.keys(this.product).length === 0) {
+        try {
+          await this.$store.dispatch("fetchProduct", this.$route.params.id);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      console.log("reset product!", this.product._id);
+      this.$store
+        .dispatch("submitReview", {
+          nickname: this.nickname,
+          reviewText: this.reviewText,
+          rating: this.rating,
+          product_id: this.product._id
+        })
+        .then(() => {
+          this.$router.push({
+            name: "ProductShow",
+            params: { id: this.product._id }
+          });
+        });
     }
   }
 };
