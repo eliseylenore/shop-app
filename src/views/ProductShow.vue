@@ -42,6 +42,10 @@
               />
             </button>
             <p v-if="materialsShowing">Materials and care</p>
+            <router-link
+              :to="{ name: 'ProductReview', params: { id: product._id } }"
+              >Review product</router-link
+            >
           </div>
         </b-col>
       </b-row>
