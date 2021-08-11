@@ -2,8 +2,13 @@ const Product = require("../../models/product");
 const { Review } = require("../../models/review");
 const moment = require("moment");
 
+const validateReviewInput = require("../../validation/review");
+
 module.exports = async (req, res) => {
-  console.log("req.body", req.body);
+  const { errors, isValid } = validateReviewInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   // to-do: if there's an email, make sure the user is logged in.
   let product;
   try {

@@ -19,7 +19,6 @@ module.exports = function validateAddressInput(data) {
   }
 
   if (!Validator.isEmpty(data.email) && !Validator.isEmail(data.email)) {
-    console.log("Email invalid", data.email);
     errors.email = "Email is invalid";
   }
 

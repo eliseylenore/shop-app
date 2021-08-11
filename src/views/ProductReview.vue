@@ -24,11 +24,17 @@
             </label>
             <b-form-textarea
               v-model="reviewText"
+              :state="reviewText.length < 10 ? null : reviewText.length < 299"
               type="text"
               name="review-text"
               value
               rows="3"
             ></b-form-textarea>
+            <div v-if="reviewText.length > 300">
+              <p class="mt-3 red-text">
+                300 character limit ({{ reviewText.length - 300 }} above limit)
+              </p>
+            </div>
           </b-form-group>
           <b-form-group>
             <label for="rating">
@@ -38,6 +44,9 @@
               v-model="rating"
               :options="[1, 2, 3, 4, 5]"
             ></b-form-select>
+            <p v-if="reviewError" class="mt-3 red-text">
+              {{ reviewError.rating }}
+            </p>
           </b-form-group>
           <button type="submit" name="button">
             Save
@@ -61,7 +70,7 @@ export default {
       showPasswordForm: false,
       nickname: "",
       reviewText: "",
-      rating: 5
+      rating: null
     };
   },
   created() {
@@ -70,21 +79,11 @@ export default {
     }
   },
   computed: {
-    ...mapState(["user", "product"])
+    ...mapState(["user", "product", "reviewError"])
   },
   methods: {
     async submitReview() {
       alert("Review submitted");
-      // const editedUser = {
-      //   name: this.user.name,
-      //   email: this.user.email
-      // };
-      // if (this.password1) {
-      //   editedUser.password = this.password1;
-      // }
-      // if (this.password2) {
-      //   editedUser.password2 = this.password2;
-      // }
       if (Object.keys(this.product).length === 0) {
         try {
           await this.$store.dispatch("fetchProduct", this.$route.params.id);

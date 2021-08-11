@@ -41,7 +41,8 @@ export default new Vuex.Store({
     registerError: null,
     editError: null,
     addressError: null,
-    networkError: null
+    networkError: null,
+    reviewError: null
   },
   mutations: {
     SET_USER_DATA(state, userData) {
@@ -86,6 +87,9 @@ export default new Vuex.Store({
     },
     SET_ADDRESS_ERR(state, error) {
       state.addressError = error;
+    },
+    SET_REVIEW_ERR(state, error) {
+      state.reviewError = error;
     },
     SET_NETWORK_ERR(state) {
       state.networkError = true;
@@ -367,6 +371,7 @@ export default new Vuex.Store({
             resolve();
           })
           .catch(err => {
+            commit("SET_REVIEW_ERR", err.response.data);
             reject(err);
           });
       });
