@@ -2,15 +2,17 @@
   <div class="product-show">
     <b-container class="mt-5">
       <b-row>
-        <b-col xs="12" sm="5" offset="1" class="px-sm-5">
-          <img
-            :src="'./../../img/' + selectedImg"
-            alt=""
-            class="w-100 product-img"
-          />
+        <b-col xs="12" sm="5" offset="1" class="px-md-5">
+          <div class="mr-lg-5 mr-0">
+            <img
+              :src="'./../../img/' + selectedImg"
+              alt=""
+              class="w-100 product-img "
+            />
+          </div>
         </b-col>
         <b-col xs="12" sm="5" class="text-left pt-5 pt-sm-0">
-          <h2 class="mb-0">
+          <h2 class="mb-0 text-left">
             {{ product.title }}
           </h2>
           <p>${{ product.price }}</p>
@@ -46,8 +48,8 @@
         </b-col>
       </b-row>
       <b-row>
-        <b-col xs="12" sm="5" offset="1" class="my-5 px-sm-5">
-            <reviews :reviews="product.reviews"/>
+        <b-col xs="12" sm="5" offset="1" class="my-5 px-md-5">
+          <reviews :reviews="product.reviews" />
         </b-col>
       </b-row>
     </b-container>

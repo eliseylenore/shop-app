@@ -34,40 +34,45 @@
         </b-container>
       </product-card>
     </modal>
-    <h4 class="text-left" id="color-title">Color</h4>
-    <div
-      class="d-flex flex-row"
-      role="radiogroup"
-      aria-labelledby="color-title"
-    >
-      <div v-for="color in product.colors" :key="product.colors.indexOf(color)">
-        <input
-          type="radio"
-          :id="color"
-          :value="color"
-          name="color"
-          v-model="product.selectedHex"
-          @click="changeSelectedItem(color)"
-          class="color-swatch"
-          :aria-checked="product.selectedHex === color ? 'true' : 'false'"
-        />
-        <label :for="color" class="mb-0 mr-1">
-          <div
-            :style="'background-color: ' + color"
-            :class="[
-              'color-swatch',
-              product.selectedHex === color ? 'active' : ''
-            ]"
-          ></div>
-          <span class="sr-only">
-            {{ color }}
-          </span>
-        </label>
-      </div>
-    </div>
     <!-- <p>{{ product.items.find(obj => obj.hex === color).color }}</p> -->
-    <b-row>
-      <b-col xs="6">
+    <b-row class="my-4">
+      <b-col lg="5">
+        <h4 class="text-left" id="color-title">Color</h4>
+        <div
+          class="d-flex flex-row flex-wrap"
+          role="radiogroup"
+          aria-labelledby="color-title"
+        >
+          <div
+            v-for="color in product.colors"
+            :key="product.colors.indexOf(color)"
+          >
+            <input
+              type="radio"
+              :id="color"
+              :value="color"
+              name="color"
+              v-model="product.selectedHex"
+              @click="changeSelectedItem(color)"
+              class="color-swatch"
+              :aria-checked="product.selectedHex === color ? 'true' : 'false'"
+            />
+            <label :for="color" class="mb-0 mr-1">
+              <div
+                :style="'background-color: ' + color"
+                :class="[
+                  'color-swatch',
+                  product.selectedHex === color ? 'active' : ''
+                ]"
+              ></div>
+              <span class="sr-only">
+                {{ color }}
+              </span>
+            </label>
+          </div>
+        </div>
+      </b-col>
+      <b-col lg="5">
         <h4 class="text-left" id="size-title">
           Size
         </h4>
@@ -75,7 +80,7 @@
           {{ errors.size ? errors.size : "" }}
         </p>
         <div
-          class="d-flex flex-row"
+          class="d-flex flex-row flex-wrap"
           role="radiogroup"
           aria-labelledby="size-title"
           aria-describedby="size-error"
@@ -96,8 +101,10 @@
           </div>
         </div>
       </b-col>
-      <b-col xs="6">
-        <h4><label class="mb-0" for="quantity">Quantity</label></h4>
+      <b-col lg="2">
+        <h4>
+          <label class="mb-0" for="quantity">Quantity</label>
+        </h4>
         <select
           id="quantity"
           v-model.number="product.quantity"
@@ -111,7 +118,7 @@
         </p>
       </b-col>
     </b-row>
-    <button type="submit">
+    <button type="submit" class="mt-3">
       Add to cart
     </button>
   </form>

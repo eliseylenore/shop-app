@@ -19,7 +19,8 @@
         />
       </span>
     </div>
-    <router-link :to="{ name: 'ProductReview', params: { id: $store.state.product._id } }"
+    <router-link
+      :to="{ name: 'ProductReview', params: { id: $store.state.product._id } }"
       >Review product</router-link
     >
     <div class="my-4" v-for="review in reviews" :key="review._id">
