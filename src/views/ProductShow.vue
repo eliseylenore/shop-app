@@ -42,11 +42,12 @@
               />
             </button>
             <p v-if="materialsShowing">Materials and care</p>
-            <router-link
-              :to="{ name: 'ProductReview', params: { id: product._id } }"
-              >Review product</router-link
-            >
           </div>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col xs="12" sm="5" offset="1" class="my-5 px-sm-5">
+            <reviews :reviews="product.reviews"/>
         </b-col>
       </b-row>
     </b-container>
@@ -56,9 +57,11 @@
 <script>
 import { mapState } from "vuex";
 import ProductForm from "@/components/ProductForm.vue";
+import Reviews from "@/components/Reviews.vue";
 export default {
   components: {
-    ProductForm
+    ProductForm,
+    Reviews
   },
   data() {
     return {
