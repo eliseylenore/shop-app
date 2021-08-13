@@ -1,0 +1,59 @@
+<template>
+  <div>
+    <span v-for="n in 5" :key="n">
+      <img
+        v-if="n <= review.rating"
+        src="/img/star-1.svg"
+        alt="full-star"
+        class="small-star-icon"
+        title="Your cart"
+      />
+      <img
+        v-if="n > review.rating"
+        src="/img/star-0.svg"
+        alt="full-star"
+        class="small-star-icon"
+        title="Your cart"
+      />
+    </span>
+    <p class="mb-0">{{ review.username ? review.username : "Anonymous" }}</p>
+    <p class="mb-0">{{ review.text }}</p>
+    <button
+      v-if="review.useremail === $store.state.user.email"
+      v-on:click="editMode = !editMode"
+    >
+      Edit
+    </button>
+    <edit-review
+      v-if="editMode"
+      :review="review"
+      productId="this.$router.params.id"
+    />
+  </div>
+</template>
+
+<script>
+import EditReview from "@/components/EditReview.vue";
+export default {
+  components: {
+    EditReview
+  },
+  props: {
+    review: Object
+  },
+  data() {
+    return {
+      editMode: false
+    };
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.star-icon {
+  height: 1.5em;
+}
+.small-star-icon {
+  height: 1em;
+}
+</style>

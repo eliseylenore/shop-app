@@ -49,7 +49,35 @@
       </b-row>
       <b-row>
         <b-col xs="12" sm="5" offset="1" class="my-5 px-md-5">
-          <reviews :reviews="product.reviews" />
+          <div class="d-flex">
+            <h3 class="text-left mr-3">Reviews</h3>
+            <span v-for="n in 5" :key="n">
+              <img
+                v-if="n <= averageRating"
+                src="/img/star-1.svg"
+                alt="full-star"
+                class="star-icon"
+                title="Your cart"
+              />
+              <img
+                v-if="n > averageRating"
+                src="/img/star-0.svg"
+                alt="full-star"
+                class="star-icon"
+                title="Your cart"
+              />
+            </span>
+          </div>
+          <router-link
+            :to="{
+              name: 'ProductReview',
+              params: { id: $store.state.product._id }
+            }"
+            >Review product</router-link
+          >
+          <div v-for="review in product.reviews" :key="review._id">
+            <review :review="review" />
+          </div>
         </b-col>
       </b-row>
     </b-container>
@@ -59,11 +87,11 @@
 <script>
 import { mapState } from "vuex";
 import ProductForm from "@/components/ProductForm.vue";
-import Reviews from "@/components/Reviews.vue";
+import Review from "@/components/Review.vue";
 export default {
   components: {
     ProductForm,
-    Reviews
+    Review
   },
   data() {
     return {
@@ -94,7 +122,16 @@ export default {
     },
     ...mapState({
       product: state => state.product
-    })
+    }),
+    averageRating() {
+      if (this.reviews) {
+        const reducer = (accumulator, currentValue) =>
+          accumulator + currentValue.rating;
+        let ratingSum = this.reviews.reduce(reducer, 0);
+        return ratingSum / this.reviews.length;
+      }
+      return 0;
+    }
   }
 };
 </script>
