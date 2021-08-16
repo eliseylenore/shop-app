@@ -17,8 +17,10 @@
           title="Your cart"
         />
       </span>
-      <p class="mb-0">{{ review.username ? review.username : "Anonymous" }}</p>
       <p class="mb-0">{{ review.text }}</p>
+      <p class="mb-0">
+        - {{ review.username ? review.username : "Anonymous" }}
+      </p>
       <button
         v-if="review.useremail === $store.state.user.email"
         v-on:click="editMode = !editMode"

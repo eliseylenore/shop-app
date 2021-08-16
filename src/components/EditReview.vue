@@ -2,6 +2,35 @@
   <div class="mt-3">
     <b-form @submit.prevent="editReview">
       <b-form-group>
+        <h4 class="text-left" id="rating" style="font-weight: normal">
+          Rating
+        </h4>
+        <div
+          class="d-flex flex-row flex-wrap"
+          role="radiogroup"
+          aria-labelledby="rating"
+        >
+          <div v-for="n in 5" :key="n">
+            <input
+              type="radio"
+              :id="n"
+              :value="n"
+              name="n"
+              v-model="review.rating"
+              @click="changeRating(n)"
+              class="rating"
+              :aria-checked="review.rating === n ? 'true' : 'false'"
+            />
+            <label :for="n" class="mb-0 mr-1">
+              <div
+                :class="['rating', review.rating >= n ? 'active' : '']"
+              ></div>
+              <span class="sr-only">
+                {{ n }}
+              </span>
+            </label>
+          </div>
+        </div>
         <label for="nickname">
           Choose a nickname. For privacy, do not use your full name.
         </label>
@@ -29,18 +58,6 @@
             300 character limit ({{ review.text.length - 300 }} above limit)
           </p>
         </div>
-      </b-form-group>
-      <b-form-group>
-        <label for="rating">
-          Rating
-        </label>
-        <b-form-select
-          v-model="review.rating"
-          :options="[1, 2, 3, 4, 5]"
-        ></b-form-select>
-        <p v-if="reviewError" class="mt-3 red-text">
-          {{ reviewError.rating }}
-        </p>
       </b-form-group>
       <button type="submit" name="button">
         Save
@@ -83,4 +100,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.rating {
+  width: 1em;
+  height: 1em;
+  background-size: cover;
+  &.active {
+    background-image: url("/img/star-1.svg");
+  }
+  &:not(.active) {
+    background-image: url("/img/star-0.svg");
+  }
+}
+</style>

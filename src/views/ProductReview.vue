@@ -7,6 +7,33 @@
     <b-row>
       <b-col xs="12" md="8" lg="4" offset-md="2" offset-lg="4">
         <b-form @submit.prevent="submitReview">
+          <h4 class="text-left" id="rating" style="font-weight: normal">
+            Rating
+          </h4>
+          <div
+            class="d-flex flex-row flex-wrap"
+            role="radiogroup"
+            aria-labelledby="rating"
+          >
+            <div v-for="n in 5" :key="n">
+              <input
+                type="radio"
+                :id="n"
+                :value="n"
+                name="n"
+                v-model="rating"
+                @click="changeRating(n)"
+                class="rating"
+                :aria-checked="rating === n ? 'true' : 'false'"
+              />
+              <label :for="n" class="mb-0 mr-1">
+                <div :class="['rating', rating >= n ? 'active' : '']"></div>
+                <span class="sr-only">
+                  {{ n }}
+                </span>
+              </label>
+            </div>
+          </div>
           <b-form-group>
             <label for="nickname">
               Choose a nickname. For privacy, do not use your full name.
@@ -36,18 +63,7 @@
               </p>
             </div>
           </b-form-group>
-          <b-form-group>
-            <label for="rating">
-              Rating
-            </label>
-            <b-form-select
-              v-model="rating"
-              :options="[1, 2, 3, 4, 5]"
-            ></b-form-select>
-            <p v-if="reviewError" class="mt-3 red-text">
-              {{ reviewError.rating }}
-            </p>
-          </b-form-group>
+
           <button type="submit" name="button">
             Save
           </button>
@@ -83,7 +99,6 @@ export default {
   },
   methods: {
     async submitReview() {
-      alert("Review submitted");
       if (Object.keys(this.product).length === 0) {
         try {
           await this.$store.dispatch("fetchProduct", this.$route.params.id);
@@ -110,4 +125,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.rating {
+  width: 1em;
+  height: 1em;
+  background-size: cover;
+  &.active {
+    background-image: url("/img/star-1.svg");
+  }
+  &:not(.active) {
+    background-image: url("/img/star-0.svg");
+  }
+}
+</style>

@@ -48,7 +48,7 @@
         </b-col>
       </b-row>
       <b-row>
-        <b-col xs="12" sm="5" offset="1" class="my-5 px-md-5">
+        <b-col xs="12" offset="1" class="my-5 px-md-5">
           <div class="d-flex">
             <h3 class="text-left mr-3">Reviews</h3>
             <span v-for="n in 5" :key="n">
@@ -75,8 +75,10 @@
             }"
             >Review product</router-link
           >
+          <hr />
           <div v-for="review in product.reviews" :key="review._id" class="mt-3">
             <review :review="review" />
+            <hr />
           </div>
         </b-col>
       </b-row>
