@@ -139,7 +139,16 @@ export default new Vuex.Store({
       };
     },
     CREATE_REVIEW(state, review) {
-      this.state.product.reviews.push(review);
+      state.product.reviews.push(review);
+    },
+    EDIT_REVIEW(state, review) {
+      let { rating, text, username } = review;
+      let editedReview = state.product.reviews.find(
+        thisReview => thisReview._id === review._id
+      );
+      editedReview.rating = rating;
+      editedReview.text = text;
+      editedReview.username = username;
     },
     ADD_TO_CART(state, payload) {
       const { product, selectedProduct } = payload;
@@ -368,6 +377,19 @@ export default new Vuex.Store({
         ProductService.createReview(review)
           .then(() => {
             commit("CREATE_REVIEW", review);
+            resolve();
+          })
+          .catch(err => {
+            commit("SET_REVIEW_ERR", err.response.data);
+            reject(err);
+          });
+      });
+    },
+    editReview({ commit, state }, review) {
+      return new Promise((resolve, reject) => {
+        ProductService.editReview({ review, email: state.user.email })
+          .then(() => {
+            commit("EDIT_REVIEW", review);
             resolve();
           })
           .catch(err => {

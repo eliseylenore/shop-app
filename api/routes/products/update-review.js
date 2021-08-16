@@ -1,6 +1,7 @@
 const Product = require("../../models/product");
 
 module.exports = async (req, res) => {
+  console.log("req.body", req.body);
   if (req.body.email !== req.body.review.useremail) {
     res.status(400).json({
       "Email does not match":

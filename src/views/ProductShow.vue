@@ -75,7 +75,7 @@
             }"
             >Review product</router-link
           >
-          <div v-for="review in product.reviews" :key="review._id">
+          <div v-for="review in product.reviews" :key="review._id" class="mt-3">
             <review :review="review" />
           </div>
         </b-col>
@@ -124,11 +124,11 @@ export default {
       product: state => state.product
     }),
     averageRating() {
-      if (this.reviews) {
+      if (this.product.reviews) {
         const reducer = (accumulator, currentValue) =>
           accumulator + currentValue.rating;
-        let ratingSum = this.reviews.reduce(reducer, 0);
-        return ratingSum / this.reviews.length;
+        let ratingSum = this.product.reviews.reduce(reducer, 0);
+        return ratingSum / this.product.reviews.length;
       }
       return 0;
     }
@@ -137,6 +137,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.star-icon {
+  height: 1.5em;
+}
+.small-star-icon {
+  height: 1em;
+}
 h2,
 h3,
 h4 {

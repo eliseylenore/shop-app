@@ -15,5 +15,10 @@ export default {
     apiClient.get("/products/category/" + category),
   getProduct: id => apiClient.get("/products/" + id),
   createReview: review =>
-    apiClient.post("/products/" + review.product_id + "/reviews", review)
+    apiClient.post("/products/" + review.product_id + "/reviews", review),
+  editReview: payload =>
+    apiClient.put(
+      "/products/" + payload.review.product_id + "/reviews",
+      payload
+    )
 };
