@@ -62,10 +62,9 @@
 <script>
 // Framework related imports
 import { mapState } from "vuex";
-import moment from "moment";
 
 //Common imports
-import { getFormattedValue } from "../commons/utils";
+import { getFormattedValue, formattedDate } from "../commons/utils";
 
 //Component level imports
 import ProductCard from "@/components/ProductCard.vue";
@@ -89,7 +88,7 @@ export default {
     })
   },
   methods: {
-    getDate: orderDate => moment(orderDate).format("l"),
+    getDate: orderDate => formattedDate(orderDate),
     price: productPrice => getFormattedValue(productPrice, 2)
   }
 };

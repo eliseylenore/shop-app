@@ -17,6 +17,7 @@
           title="Your cart"
         />
       </span>
+      <p>{{ thisReviewDate(review.date) }}</p>
       <p class="mb-0">{{ review.text }}</p>
       <p class="mb-0">
         - {{ review.username ? review.username : "Anonymous" }}
@@ -39,6 +40,8 @@
 
 <script>
 import EditReview from "@/components/EditReview.vue";
+import { formattedDate } from "../commons/utils";
+
 export default {
   components: {
     EditReview
@@ -50,6 +53,9 @@ export default {
     return {
       editMode: false
     };
+  },
+  methods: {
+    thisReviewDate: reviewDate => formattedDate(reviewDate)
   }
 };
 </script>

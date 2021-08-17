@@ -36,7 +36,8 @@
 </template>
 
 <script>
-import moment from "moment";
+import { formattedDate } from "../commons/utils";
+
 export default {
   props: {
     user: {
@@ -46,7 +47,7 @@ export default {
   },
   computed: {
     formattedDate() {
-      return moment(this.user.date).format("L");
+      return formattedDate(this.user.date);
     }
   }
 };

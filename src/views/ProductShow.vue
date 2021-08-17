@@ -51,20 +51,22 @@
         <b-col xs="12" offset="1" class="my-5 px-md-5">
           <div class="d-flex">
             <h3 class="text-left mr-3">Reviews</h3>
-            <span v-for="n in 5" :key="n">
+            <span
+              v-for="n in 5"
+              :key="n"
+              :title="averageRating + ' out of 5 stars'"
+            >
               <img
                 v-if="n <= averageRating"
                 src="/img/star-1.svg"
                 alt="full-star"
                 class="star-icon"
-                title="Your cart"
               />
               <img
                 v-if="n > averageRating"
                 src="/img/star-0.svg"
                 alt="full-star"
                 class="star-icon"
-                title="Your cart"
               />
             </span>
           </div>
@@ -130,7 +132,8 @@ export default {
         const reducer = (accumulator, currentValue) =>
           accumulator + currentValue.rating;
         let ratingSum = this.product.reviews.reduce(reducer, 0);
-        return ratingSum / this.product.reviews.length;
+        let average = ratingSum / this.product.reviews.length;
+        return Math.round(average * 10) / 10;
       }
       return 0;
     }

@@ -1,7 +1,11 @@
+import moment from "moment";
+
 const getFormattedValue = (value = 0, digits = 2) =>
   parseFloat(value)
     .toFixed(digits)
     .replace(/\.0+$/, "");
+
+const formattedDate = date => moment(date).format("l");
 
 const stateAbbreviations = [
   "AK",
@@ -61,4 +65,4 @@ const stateAbbreviations = [
   "WY"
 ];
 
-export { getFormattedValue, stateAbbreviations };
+export { getFormattedValue, stateAbbreviations, formattedDate };
