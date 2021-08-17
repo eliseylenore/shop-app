@@ -463,6 +463,9 @@ export default new Vuex.Store({
     },
     checkoutCart({ commit, state }) {
       return new Promise((resolve, reject) => {
+        if (!state.cart || !state.cart.items || state.cart.items.length === 0) {
+          reject({ "Cart length": "No items in cart" });
+        }
         let email = state.user.email ? state.user.email : state.cart.email;
         if (email) {
           UserService.checkoutCart(email, state.cart)
