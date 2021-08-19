@@ -57,13 +57,19 @@
               :title="averageRating + ' out of 5 stars'"
             >
               <img
-                v-if="n <= averageRating"
+                v-if="n - 0.3 < averageRating"
                 src="/img/star-1.svg"
                 alt="full-star"
                 class="star-icon"
               />
               <img
-                v-if="n > averageRating"
+                v-if="n + 0.3 <= averageRating && n + 0.7 >= averageRating"
+                src="/img/star-0.5.svg"
+                alt="full-star"
+                class="star-icon"
+              />
+              <img
+                v-if="averageRating < n - 0.7"
                 src="/img/star-0.svg"
                 alt="full-star"
                 class="star-icon"
