@@ -506,6 +506,18 @@ export default new Vuex.Store({
     getProductById: state => id => {
       return state.products.find(product => product._id === id);
     },
+    getReviews: state => selectedSort => {
+      // use slice to create copy of array, so you're not mutating the state
+      let thisReviews = state.product.reviews.slice();
+      thisReviews.sort((a, b) => (a.date > b.date ? -1 : 1));
+      if (selectedSort === "date") {
+        return thisReviews;
+      } else if (selectedSort === "lowestRated") {
+        return thisReviews.sort((a, b) => (a.rating < b.rating ? -1 : 1));
+      } else if (selectedSort === "highestRated") {
+        return thisReviews.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+      }
+    },
     getCartTotal: state => {
       let cartTotal = 0;
       for (let item of state.cart.items) {

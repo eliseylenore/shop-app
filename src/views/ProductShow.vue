@@ -77,8 +77,18 @@
             }"
             >Review product</router-link
           >
+          <div>
+            <b-form-select
+              v-model="selectedSort"
+              :options="options"
+            ></b-form-select>
+          </div>
           <hr />
-          <div v-for="review in product.reviews" :key="review._id" class="mt-3">
+          <div
+            v-for="review in getReviews(selectedSort)"
+            :key="review._id"
+            class="mt-3"
+          >
             <review :review="review" />
             <hr />
           </div>
@@ -89,7 +99,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import ProductForm from "@/components/ProductForm.vue";
 import Review from "@/components/Review.vue";
 export default {
@@ -100,7 +110,13 @@ export default {
   data() {
     return {
       descriptionShowing: true,
-      materialsShowing: false
+      materialsShowing: false,
+      options: [
+        { value: "date", text: "Most recent" },
+        { value: "highestRated", text: "Highest Rated" },
+        { value: "lowestRated", text: "Lowest Rated" }
+      ],
+      selectedSort: "date"
     };
   },
   created() {
@@ -127,6 +143,7 @@ export default {
     ...mapState({
       product: state => state.product
     }),
+    ...mapGetters(["getReviews"]),
     averageRating() {
       if (this.product.reviews) {
         const reducer = (accumulator, currentValue) =>
