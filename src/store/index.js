@@ -42,7 +42,8 @@ export default new Vuex.Store({
     editError: null,
     addressError: null,
     networkError: null,
-    reviewError: null
+    reviewError: null,
+    productError: null
   },
   mutations: {
     SET_USER_DATA(state, userData) {
@@ -93,6 +94,9 @@ export default new Vuex.Store({
     },
     SET_NETWORK_ERR(state) {
       state.networkError = true;
+    },
+    SET_PRODUCT_ERR(state) {
+      state.productError = true;
     },
     LOGOUT() {
       localStorage.removeItem("user");
@@ -327,7 +331,8 @@ export default new Vuex.Store({
             commit("SET_PRODUCT", response.data);
           })
           .catch(error => {
-            console.log("There was an error:", error.response);
+            console.log(error);
+            commit("SET_PRODUCT_ERR");
           });
       }
     },
@@ -507,15 +512,19 @@ export default new Vuex.Store({
       return state.products.find(product => product._id === id);
     },
     getReviews: state => selectedSort => {
-      // use slice to create copy of array, so you're not mutating the state
-      let thisReviews = state.product.reviews.slice();
-      thisReviews.sort((a, b) => (a.date > b.date ? -1 : 1));
-      if (selectedSort === "date") {
-        return thisReviews;
-      } else if (selectedSort === "lowestRated") {
-        return thisReviews.sort((a, b) => (a.rating < b.rating ? -1 : 1));
-      } else if (selectedSort === "highestRated") {
-        return thisReviews.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+      if (state.product && state.product.reviews) {
+        // use slice to create copy of array, so you're not mutating the state
+        let thisReviews = state.product.reviews.slice();
+        thisReviews.sort((a, b) => (a.date > b.date ? -1 : 1));
+        if (selectedSort === "date") {
+          return thisReviews;
+        } else if (selectedSort === "lowestRated") {
+          return thisReviews.sort((a, b) => (a.rating < b.rating ? -1 : 1));
+        } else if (selectedSort === "highestRated") {
+          return thisReviews.sort((a, b) => (a.rating > b.rating ? -1 : 1));
+        }
+      } else {
+        return [];
       }
     },
     getCartTotal: state => {

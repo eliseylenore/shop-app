@@ -17,7 +17,6 @@
               :value="n"
               name="n"
               v-model="review.rating"
-              @click="changeRating(n)"
               class="rating"
               :aria-checked="review.rating === n ? 'true' : 'false'"
             />
@@ -88,12 +87,7 @@ export default {
           ...this.review,
           product_id: this.$store.state.product._id
         })
-        .then(() => {
-          this.$router.push({
-            name: "ProductShow",
-            params: { id: this.product._id }
-          });
-        });
+        .catch(err => console.log(err));
       this.$emit("changeEditMode");
     }
   }

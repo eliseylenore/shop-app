@@ -6,118 +6,105 @@
         :product="lastAddedProduct"
         class="mx-sm-5"
       >
-        <b-container>
-          <b-row>
-            <b-col xs="6">
-              <p class="mt-4 ml-4 mb-0 text-left">
-                <strong>{{ lastAddedProduct.title }}</strong
-                >,
-                <span
-                  >size
-                  {{
-                    lastAddedProduct.selectedSize
-                      ? lastAddedProduct.selectedSize
-                      : lastAddedProduct.size
-                  }}</span
-                >
-              </p>
-              <p class="mb-4 ml-4 text-left">
-                ${{ price(lastAddedProduct.price) }}
-              </p>
-            </b-col>
-            <b-col xs="6">
-              <p class="mt-4 ml-4 mb-0 text-left">
-                Quantity: {{ lastAddedProduct.quantity }}
-              </p>
-            </b-col>
-          </b-row>
-        </b-container>
+        <b-row>
+          <b-col xs="6">
+            <p class="mt-4 ml-4 mb-0 text-left">
+              <strong>{{ lastAddedProduct.title }}</strong
+              >,
+              <span
+                >size
+                {{
+                  lastAddedProduct.selectedSize
+                    ? lastAddedProduct.selectedSize
+                    : lastAddedProduct.size
+                }}</span
+              >
+            </p>
+            <p class="mb-4 ml-4 text-left">
+              ${{ price(lastAddedProduct.price) }}
+            </p>
+          </b-col>
+          <b-col xs="6">
+            <p class="mt-4 ml-4 mb-0 text-left">
+              Quantity: {{ lastAddedProduct.quantity }}
+            </p>
+          </b-col>
+        </b-row>
       </product-card>
     </modal>
-    <!-- <p>{{ product.items.find(obj => obj.hex === color).color }}</p> -->
-    <b-row class="my-4">
-      <b-col lg="5">
-        <h4 class="text-left" id="color-title">Color</h4>
-        <div
-          class="d-flex flex-row flex-wrap"
-          role="radiogroup"
-          aria-labelledby="color-title"
-        >
+    <h4 class="text-left" id="color-title">Color</h4>
+    <div
+      class="d-flex flex-row flex-wrap mb-3"
+      role="radiogroup"
+      aria-labelledby="color-title"
+    >
+      <div v-for="color in product.colors" :key="product.colors.indexOf(color)">
+        <input
+          type="radio"
+          :id="color"
+          :value="color"
+          name="color"
+          v-model="product.selectedHex"
+          @click="changeSelectedItem(color)"
+          class="color-swatch"
+          :aria-checked="product.selectedHex === color ? 'true' : 'false'"
+        />
+        <label :for="color" class="mb-0 mr-1">
           <div
-            v-for="color in product.colors"
-            :key="product.colors.indexOf(color)"
-          >
-            <input
-              type="radio"
-              :id="color"
-              :value="color"
-              name="color"
-              v-model="product.selectedHex"
-              @click="changeSelectedItem(color)"
-              class="color-swatch"
-              :aria-checked="product.selectedHex === color ? 'true' : 'false'"
-            />
-            <label :for="color" class="mb-0 mr-1">
-              <div
-                :style="'background-color: ' + color"
-                :class="[
-                  'color-swatch',
-                  product.selectedHex === color ? 'active' : ''
-                ]"
-              ></div>
-              <span class="sr-only">
-                {{ color }}
-              </span>
-            </label>
-          </div>
-        </div>
-      </b-col>
-      <b-col lg="5">
-        <h4 class="text-left" id="size-title">
-          Size
-        </h4>
-        <p class="red-text mb-0" id="size-error">
-          {{ errors.size ? errors.size : "" }}
-        </p>
-        <div
-          class="d-flex flex-row flex-wrap"
-          role="radiogroup"
-          aria-labelledby="size-title"
-          aria-describedby="size-error"
-        >
-          <div v-for="size in product.sizes" :key="size">
-            <input
-              type="radio"
-              :disabled="!selectedColorSizes[size]"
-              :id="size"
-              :value="size"
-              v-model="product.selectedSize"
-              name="size"
-              aria-required="true"
-            />
-            <label :for="size" :class="sizeClasses(size)">
-              {{ size }}
-            </label>
-          </div>
-        </div>
-      </b-col>
-      <b-col lg="2">
-        <h4>
-          <label class="mb-0" for="quantity">Quantity</label>
-        </h4>
-        <select
-          id="quantity"
-          v-model.number="product.quantity"
-          class="form-control"
-          aria-describedby="quantity-error"
-        >
-          <option v-for="n in maxQuantity" :key="n"> {{ n }}</option>
-        </select>
-        <p class="red-text mb-0" id="size-error">
-          {{ errors.quantity ? errors.quantity : "" }}
-        </p>
-      </b-col>
-    </b-row>
+            :style="'background-color: ' + color"
+            :class="[
+              'color-swatch',
+              product.selectedHex === color ? 'active' : ''
+            ]"
+          ></div>
+          <span class="sr-only">
+            {{ color }}
+          </span>
+        </label>
+      </div>
+    </div>
+    <h4 class="text-left" id="size-title">
+      Size
+    </h4>
+    <p class="red-text mb-0" id="size-error">
+      {{ errors.size ? errors.size : "" }}
+    </p>
+    <div
+      class="d-flex flex-row flex-wrap mb-3"
+      role="radiogroup"
+      aria-labelledby="size-title"
+      aria-describedby="size-error"
+    >
+      <div v-for="size in product.sizes" :key="size">
+        <input
+          type="radio"
+          :disabled="!selectedColorSizes[size]"
+          :id="size"
+          :value="size"
+          v-model="product.selectedSize"
+          name="size"
+          aria-required="true"
+        />
+        <label :for="size" :class="sizeClasses(size)">
+          {{ size }}
+        </label>
+      </div>
+    </div>
+    <h4>
+      <label class="mb-0" for="quantity">Quantity</label>
+    </h4>
+    <select
+      id="quantity"
+      v-model.number="product.quantity"
+      class="form-control mb-3"
+      style="width: auto"
+      aria-describedby="quantity-error"
+    >
+      <option v-for="n in maxQuantity" :key="n"> {{ n }}</option>
+    </select>
+    <p class="red-text mb-0" id="size-error">
+      {{ errors.quantity ? errors.quantity : "" }}
+    </p>
     <button type="submit" class="mt-3">
       Add to cart
     </button>

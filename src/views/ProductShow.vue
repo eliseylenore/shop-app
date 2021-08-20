@@ -2,7 +2,7 @@
   <div class="product-show">
     <b-container class="mt-5">
       <b-row>
-        <b-col xs="12" sm="5" offset="1" class="px-md-5">
+        <b-col xs="12" sm="5" class="px-md-5">
           <div class="mr-lg-5 mr-0">
             <img
               :src="'./../../img/' + selectedImg"
@@ -48,7 +48,7 @@
         </b-col>
       </b-row>
       <b-row>
-        <b-col xs="12" offset="1" class="my-5 px-md-5">
+        <b-col xs="12" class="my-5 px-md-5">
           <div class="d-flex">
             <h3 class="text-left mr-3">Reviews</h3>
             <span
@@ -76,19 +76,13 @@
               />
             </span>
           </div>
-          <router-link
-            :to="{
-              name: 'ProductReview',
-              params: { id: $store.state.product._id }
-            }"
-            >Review product</router-link
-          >
-          <div>
+          <b-form-group>
             <b-form-select
               v-model="selectedSort"
               :options="options"
+              class="w-auto"
             ></b-form-select>
-          </div>
+          </b-form-group>
           <hr />
           <div
             v-for="review in getReviews(selectedSort)"
@@ -201,5 +195,13 @@ button {
 }
 .product-img {
   box-shadow: 3px 3px 15px rgba(163, 35, 25, 0.4);
+}
+.w-md-25 {
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .w-md-25 {
+    width: 25%;
+  }
 }
 </style>

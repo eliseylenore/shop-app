@@ -14,7 +14,11 @@
         <router-link :to="{ name: 'Products' }">Go shopping</router-link>
       </div>
       <div v-else>
-        <div v-for="order in fulfilledOrders" :key="order._id" class="w-100 order-container">
+        <div
+          v-for="order in fulfilledOrders"
+          :key="order._id"
+          class="w-100 order-container"
+        >
           <h4 class="mb-0 text-left">Order {{ order._id }}</h4>
           <p class="mb-0 text-left">Date {{ getDate(order.orderDate) }}</p>
           <b-row class="mb-4">
@@ -36,6 +40,13 @@
                   <p class="mb-0 text-left">{{ product.color }}</p>
                   <p class="mb-0 text-left">${{ price(product.price) }}</p>
                   <p class="mb-4 text-left">Quantity: {{ product.quantity }}</p>
+                  <router-link
+                    :to="{
+                      name: 'ProductReview',
+                      params: { id: product.productId }
+                    }"
+                    >Review product</router-link
+                  >
                 </div>
               </product-card>
             </b-col>

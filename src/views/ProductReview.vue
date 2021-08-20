@@ -4,7 +4,7 @@
       <h1>Review product</h1>
       <h2>{{ product.title }}</h2>
     </header>
-    <b-row>
+    <b-row v-if="!productError">
       <b-col xs="12" md="8" lg="4" offset-md="2" offset-lg="4">
         <b-form @submit.prevent="submitReview">
           <h4 class="text-left" id="rating" style="font-weight: normal">
@@ -22,7 +22,6 @@
                 :value="n"
                 name="n"
                 v-model="rating"
-                @click="changeRating(n)"
                 class="rating"
                 :aria-checked="rating === n ? 'true' : 'false'"
               />
@@ -75,6 +74,11 @@
         </b-form>
       </b-col>
     </b-row>
+    <b-row v-else>
+      <b-col xs="12" md="8" lg="4" offset-md="2" offset-lg="4">
+        <p class="text-center">This product was not found.</p>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -90,12 +94,15 @@ export default {
     };
   },
   created() {
-    if (!this.$store.state.user.name) {
-      this.$store.dispatch("fetchUserInfo");
-    }
+    this.$store
+      .dispatch("fetchProduct", this.$route.params.id)
+      .catch(err => console.log(err));
+    // if (!this.$store.state.user.name) {
+    //   this.$store.dispatch("fetchUserInfo");
+    // }
   },
   computed: {
-    ...mapState(["user", "product", "reviewError"])
+    ...mapState(["user", "product", "reviewError", "productError"])
   },
   methods: {
     async submitReview() {
