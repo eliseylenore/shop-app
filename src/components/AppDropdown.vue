@@ -29,13 +29,6 @@
         >
           Shop all
         </router-link>
-
-        <!-- <span v-if="this.$route.name === 'Products'" class="sr-only"
-          >Current page:
-        </span>
-        <span v-if="this.$route.name === 'Products'" class="dropdown-item"
-          >Shop all</span
-        > -->
       </li>
       <li :class="this.$route.params.category === 'outerwear' ? 'active' : ''">
         <router-link
@@ -50,14 +43,6 @@
         >
           Outerwear
         </router-link>
-        <!-- <span v-if="this.$route.params.category === 'outerwear'" class="sr-only"
-          >Current page:
-        </span>
-        <span
-          v-if="this.$route.params.category === 'outerwear'"
-          class="dropdown-item"
-          >Outerwear</span
-        > -->
       </li>
       <li :class="this.$route.params.category === 'swimwear' ? 'active' : ''">
         <router-link
@@ -72,14 +57,6 @@
         >
           Swimwear
         </router-link>
-        <!-- <span v-if="this.$route.params.category === 'swimwear'" class="sr-only"
-          >Current page:
-        </span>
-        <span
-          v-if="this.$route.params.category === 'swimwear'"
-          class="dropdown-item"
-          >Swimwear</span
-        > -->
       </li>
       <li
         :class="this.$route.params.category === 'accessories' ? 'active' : ''"
@@ -96,16 +73,6 @@
         >
           Accessories
         </router-link>
-        <!-- <span
-          v-if="this.$route.params.category === 'accessories'"
-          class="sr-only"
-          >Current page:
-        </span>
-        <span
-          v-if="this.$route.params.category === 'accessories'"
-          class="dropdown-item"
-          >Accessories</span -->
-        <!-- >   -->
       </li>
     </ul>
   </nav>
@@ -160,19 +127,19 @@ export default {
 }
 .menu-container {
   position: absolute;
-  border-left: $prussianBlue solid 1px;
-  border-right: $prussianBlue solid 1px;
-  border-top: $prussianBlue solid 1px;
+  border-left: $black solid 1px;
+  border-right: $black solid 1px;
+  border-top: $black solid 1px;
   li {
     text-align: left;
     background-color: white;
-    color: $prussianBlue;
-    border-bottom: $prussianBlue solid 1px;
+    color: $black;
+    border-bottom: $black solid 1px;
     &:hover {
       background-color: $linkWater;
     }
     &:active {
-      color: $prussianBlue;
+      color: $black;
     }
     &.active {
       .dropdown-item {

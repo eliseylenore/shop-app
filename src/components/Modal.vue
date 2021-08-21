@@ -19,7 +19,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     id: {
@@ -40,7 +39,7 @@ export default {
 <style lang="scss">
 header.modal-header {
   background-color: $silver;
-  color: $prussianBlue;
+  color: $black;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   justify-content: center;

@@ -30,20 +30,14 @@ body {
   color: white !important;
 }
 .nav {
-  background-color: $prussianBlue;
+  background-color: $black;
   padding: 0.7em 0;
 }
 
 .nav a:not(.dropdown-item) {
   font-size: 1em;
   color: white;
-  border-bottom: $prussianBlue 1px solid;
-}
-
-.nav a:not(.dropdown-item):hover,
-.nav-item.active a {
-  color: white;
-  background-color: $chathamsBlue;
+  border-bottom: $black 1px solid;
 }
 
 a:focus-visible {
@@ -51,11 +45,19 @@ a:focus-visible {
 }
 
 .nav {
-  a.router-link-exact-active:not(.dropdown-item),
-  .router-link-exact-active a,
-  .active .nav-item {
-    background-color: $scienceBlue;
-    border-bottom: white 1px solid;
+  .nav-item:after {
+    content: "";
+    display: block;
+    margin: auto;
+    height: 1px;
+    width: 0px;
+    background: transparent;
+    transition: width 0.5s ease, background-color 0.5s ease;
+  }
+  .nav-item:hover:after,
+  .nav-item.active:after {
+    width: 100%;
+    background: white;
   }
 }
 
@@ -72,7 +74,7 @@ a:focus-visible {
   h4 {
     font-weight: bold;
     text-align: center;
-    color: $prussianBlue;
+    color: $black;
   }
   h2 {
     font-size: 1.5rem;

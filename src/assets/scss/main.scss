@@ -1,4 +1,5 @@
-$prussianBlue: #00264d;
+
+$black: #000000;
 $midnightBlue: #003060;
 $chathamsBlue: #114170;
 $congressBlue: #014790;
@@ -16,6 +17,10 @@ $silver: #CCCCCC;
   outline-width: 2px;
   outline-style: dotted;
   outline-color: transparent;
+}
+
+.nav-link {
+  padding: 0.2rem 1rem
 }
 
 .red-text {
