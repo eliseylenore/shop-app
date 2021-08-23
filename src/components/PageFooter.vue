@@ -7,7 +7,7 @@
           xs=""
           md="2"
         >
-          <img src="/img/cart-dark.png" alt="" style="height: 3em;" />
+          <img src="/img/waves-logo.svg" alt="" style="height: 1.5em;" />
         </b-col>
         <b-col xs="12" md="2">
           <p class="mb-0"><strong>Account</strong></p>
@@ -51,7 +51,7 @@
 <style lang="scss" scoped>
 p,
 a {
-  color: $turquoise;
+  color: black;
 }
 ul {
   padding-inline-start: 0;

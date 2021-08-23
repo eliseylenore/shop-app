@@ -2,3 +2,8 @@
   font-family: "Myriad Pro";
   src: url('MyriadPro-Regular.woff2') format("woff2");
 }
+
+@font-face {
+  font-family: "Coolvetica";
+  src: url('coolvetica_rg.woff2') format("woff2");
+}

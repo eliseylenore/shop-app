@@ -1,13 +1,14 @@
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 $black: #000000;
-$linkWater: #D9E7F5;
 $persimmon: #FF5E5C;
 $silver: #CCCCCC;
-$turquoise: #43A8A8;
+$turquoise-dark: #378B8B;
+$turquoise: #33CCCC;
+$turquoise-light: #B9E9E9;
 
 $enable-rounded: false;
 $theme-colors: (
-  "primary": $turquoise,
+  "primary": $turquoise-dark,
   "danger": #ff4136
 );
 

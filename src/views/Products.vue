@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="title py-4 mb-4 px-0 h-100">
-      <h1 class="mb-0 white">
+      <h1 class="mb-0">
         <!-- take route and convert  it to page name  -->
         {{ category }}
       </h1>
@@ -118,12 +118,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-  background-color: $persimmon;
-
-  h1 {
-    color: white;
-    font-weight: bold;
-  }
+.title h1 {
+  color: black;
 }
 </style>

@@ -136,7 +136,7 @@ export default {
     color: $black;
     border-bottom: $black solid 1px;
     &:hover {
-      background-color: $linkWater;
+      background-color: $turquoise-light;
     }
     &:active {
       color: $black;

@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="d-flex flex-column h-100">
     <page-nav />
+    <secondary-nav />
     <main class="flex-grow-1">
       <router-view />
     </main>
@@ -11,11 +12,13 @@
 <script>
 import PageNav from "@/components/PageNav.vue";
 import PageFooter from "@/components/PageFooter.vue";
+import SecondaryNav from "@/components/SecondaryNav.vue";
 
 export default {
   components: {
     PageFooter,
-    PageNav
+    PageNav,
+    SecondaryNav
   }
 };
 </script>
@@ -24,20 +27,22 @@ export default {
 html,
 body {
   height: 100%;
-  font-family: "Myriad Pro", sans-serif !important;
+  font-family: "Myriad Pro", sans-serif;
 }
 .white {
   color: white !important;
 }
-.nav {
-  background-color: $black;
-  padding: 0.7em 0;
-}
+.main-nav {
+  .nav {
+    background-color: $black;
+    padding: 0.7em 0;
+  }
 
-.nav a:not(.dropdown-item) {
-  font-size: 1em;
-  color: white;
-  border-bottom: $black 1px solid;
+  .nav a:not(.dropdown-item) {
+    font-size: 1em;
+    color: white;
+    border-bottom: $black 1px solid;
+  }
 }
 
 a:focus-visible {
@@ -52,7 +57,7 @@ a:focus-visible {
     height: 1px;
     width: 0px;
     background: transparent;
-    transition: width 0.5s ease, background-color 0.5s ease;
+    transition: width 0.3s ease, background-color 0.3s ease;
   }
   .nav-item:hover:after,
   .nav-item.active:after {
@@ -62,7 +67,7 @@ a:focus-visible {
 }
 
 @media screen and (min-width: 992px) {
-  .nav .right-items {
+  .main-nav .nav .right-items {
     position: absolute;
     right: 2em;
   }
@@ -72,9 +77,17 @@ a:focus-visible {
   h2,
   h3,
   h4 {
-    font-weight: bold;
     text-align: center;
     color: $black;
+  }
+  h1,
+  h2 {
+    font-family: "Coolvetica", sans-serif !important;
+  }
+  h2,
+  h3 {
+    font-family: "Myriad Pro", sans-serif !important;
+    font-weight: bold;
   }
   h2 {
     font-size: 1.5rem;

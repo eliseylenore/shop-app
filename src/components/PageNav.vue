@@ -1,5 +1,9 @@
 <template>
-  <div class="container-fluid px-0" role="navigation">
+  <div
+    class="container-fluid px-0 main-nav"
+    role="navigation"
+    aria-label="Main navigation"
+  >
     <b-nav align="left">
       <div class="ml-4">
         <b-nav-item
