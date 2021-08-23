@@ -53,7 +53,7 @@
           <b-col xs="12" md="4" order-md="2">
             <h2 class="text-left">Summary</h2>
             <p>Your total: ${{ getCartTotal }}</p>
-            <button class="mb-4" @click="checkoutCart">
+            <button class="mb-4 btn btn-primary" @click="checkoutCart">
               Check out
             </button>
           </b-col>

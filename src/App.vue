@@ -96,7 +96,6 @@ button a {
 button,
 .button,
 button.close {
-  background-color: $scienceBlue;
   &.cancel-btn {
     background-color: orangered;
     &:hover {
@@ -113,18 +112,6 @@ button.close {
   &:focus-visible {
     @include focus-glow;
   }
-}
-
-button:hover,
-button.close:hover,
-.button:hover {
-  background-color: $congressBlue;
-}
-
-button:active,
-button.close:active,
-.button:active {
-  background-color: $midnightBlue;
 }
 
 /* Form styles */

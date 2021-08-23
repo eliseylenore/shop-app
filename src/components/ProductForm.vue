@@ -105,7 +105,7 @@
     <p class="red-text mb-0" id="size-error">
       {{ errors.quantity ? errors.quantity : "" }}
     </p>
-    <button type="submit" class="mt-3">
+    <button type="submit" class="mt-3 btn btn-primary">
       Add to cart
     </button>
   </form>

@@ -64,7 +64,6 @@ button.close {
   font-size: 1em;
   height: 2rem;
   width: 2rem;
-  background-color: $scienceBlue;
   font-weight: bold;
   font-size: 1.5em;
 }

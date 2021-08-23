@@ -25,6 +25,7 @@
       <button
         v-if="review.useremail === $store.state.user.email"
         v-on:click="editMode = !editMode"
+        class="btn btn-primary"
       >
         Edit
       </button>

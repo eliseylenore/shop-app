@@ -50,7 +50,7 @@
           </product-card>
         </div>
         <div class="mt-3">
-          <button @click="$store.dispatch('markOrderFilled', order)">
+          <button @click="$store.dispatch('markOrderFilled', order)" class="btn btn-primary">
             Mark fulfilled
           </button>
         </div>

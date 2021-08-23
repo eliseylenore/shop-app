@@ -1,13 +1,26 @@
-
+// Import Bootstrap an BootstrapVue CSS files (order is important)
 $black: #000000;
-$midnightBlue: #003060;
-$chathamsBlue: #114170;
-$congressBlue: #014790;
-$scienceBlue: #015fc0;
 $linkWater: #D9E7F5;
-$coral: #ff744e;
 $persimmon: #FF5E5C;
 $silver: #CCCCCC;
+$turquoise: #43A8A8;
+
+$enable-rounded: false;
+$theme-colors: (
+  "primary": $turquoise,
+  "danger": #ff4136
+);
+
+$btn-padding-y: 0.25em;
+$btn-padding-x: 1.2em;
+
+a {
+  color: theme-color-level(primary, 10);
+}
+
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
+
 
 @mixin focus-glow($color: null) {
   @if $color == null {

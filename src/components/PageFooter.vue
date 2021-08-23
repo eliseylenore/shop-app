@@ -51,7 +51,7 @@
 <style lang="scss" scoped>
 p,
 a {
-  color: $midnightBlue;
+  color: $turquoise;
 }
 ul {
   padding-inline-start: 0;

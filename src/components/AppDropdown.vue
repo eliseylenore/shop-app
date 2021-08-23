@@ -144,7 +144,7 @@ export default {
     &.active {
       .dropdown-item {
         color: white;
-        background-color: $scienceBlue;
+        background-color: $turquoise;
       }
     }
   }

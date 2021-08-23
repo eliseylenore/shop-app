@@ -33,7 +33,7 @@
                 autocomplete="current-password"
               ></b-form-input>
             </b-form-group>
-            <button type="submit" name="button">
+            <button type="submit" name="button" class="btn btn-primary">
               Login
             </button>
             <div v-if="loginError">

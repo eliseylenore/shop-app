@@ -61,7 +61,7 @@
                 required
               ></b-form-input>
             </b-form-group>
-            <button type="submit" name="button">
+            <button type="submit" name="button" class="btn btn-primary">
               Register
             </button>
             <div v-if="registerError">
