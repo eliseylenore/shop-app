@@ -50,35 +50,4 @@ header.modal-header {
   }
 }
 
-.modal-header .close {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-button.close {
-  position: absolute;
-  top: -1rem;
-  right: -0.15rem;
-  border-radius: 100%;
-  font-size: 1em;
-  height: 2rem;
-  width: 2rem;
-  font-weight: bold;
-  font-size: 1.5em;
-}
-
-.modal button.close {
-  top: -0.1rem;
-}
-
-.close:hover {
-  color: white;
-}
-
-.close:not(:disabled):not(.disabled):hover,
-.close:not(:disabled):not(.disabled):focus-visible,
-.close {
-  opacity: 1;
-}
 </style>

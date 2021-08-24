@@ -41,7 +41,6 @@ body {
   .nav a:not(.dropdown-item) {
     font-size: 1em;
     color: white;
-    border-bottom: $black 1px solid;
   }
 }
 
@@ -99,29 +98,9 @@ a:focus-visible {
   }
 }
 
-button a {
-  color: white;
-  &:hover {
-    text-decoration: none;
-  }
-}
-
 button,
 .button,
-button.close {
-  &.cancel-btn {
-    background-color: orangered;
-    &:hover {
-      background-color: red;
-    }
-    &:active {
-      background-color: yellow;
-    }
-  }
-  border: none;
-  color: white;
-  padding: 0.5em 1.5em;
-
+button.delete {
   &:focus-visible {
     @include focus-glow;
   }

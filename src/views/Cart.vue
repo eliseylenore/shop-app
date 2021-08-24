@@ -69,25 +69,29 @@
                 <product-card :product="product">
                   <b-row class="mt-3 mx-3 w-100">
                     <b-col xs="12">
-                      <p class="mb-0 text-left">
+                      <p class="mb-0">
                         <strong>{{ product.title }}</strong
                         >, size
                         <span style="text-transform: capitalize">{{
                           product.size
                         }}</span>
                       </p>
-                      <p class="mb-0 text-left">{{ product.color }}</p>
-                      <p class="mb-0 text-left">${{ price(product.price) }}</p>
-                      <p class="mb-4 text-left">
-                        Quantity {{ product.quantity }}
-                      </p>
+                      <p class="mb-0">{{ product.color }}</p>
+                      <p class="mb-0">${{ price(product.price) }}</p>
+                      <div
+                        class="d-flex mb-4 flex-row justify-content-between align-items-center"
+                      >
+                        <p class="mb-0">Quantity {{ product.quantity }}</p>
+                        <button
+                          class="btn btn-light mr-3"
+                          @click="showModal(product)"
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </b-col>
                   </b-row>
                 </product-card>
-                <button class="close" @click="showModal(product)">
-                  <span class="sr-only">Remove item</span>
-                  ×
-                </button>
               </div>
             </div>
           </div>

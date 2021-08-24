@@ -34,7 +34,7 @@
               <b-col xs="4">
                 <div>
                   <button
-                    class="cancel-btn"
+                    class="btn btn-danger"
                     @click="
                       $store.dispatch('cancelOrder', {
                         ...product,

@@ -1,6 +1,6 @@
 <template>
-  <div class="container-fluid px-0" role="navigation">
-    <b-nav aria-label="Secondary navigation" align="center">
+  <div class="container" role="navigation">
+    <b-nav aria-label="Secondary navigation" align="around">
       <b-nav-item
         :to="{ name: 'Category', params: { category: 'outerwear' } }"
         :class="[
@@ -36,7 +36,6 @@ export default {};
 .nav {
   padding: 30px;
   .nav-item {
-    margin: 0 2em 0;
     font-family: Coolvetica;
     font-size: 2em;
     a {
@@ -50,9 +49,21 @@ export default {};
     background: black;
   }
 
-  .nav-item:hover {
-    background-color: $turquoise-light;
-    transition: background-color 0.3s ease;
+  .nav-item:hover:after {
+    animation-name: linewidth;
+    animation-duration: 0.3s;
+  }
+
+  @keyframes linewidth {
+    0% {
+      width: 100%;
+    }
+    25% {
+      width: 60%;
+    }
+    100% {
+      width: 100%;
+    }
   }
   .nav-item.active {
     background: $turquoise;

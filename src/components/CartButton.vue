@@ -33,16 +33,16 @@ export default {
 <style lang="scss">
 .cart-quantity {
   position: absolute;
-  left: 40px;
-  bottom: 27px;
+  left: 35px;
+  bottom: 18px;
   background-color: red;
   border-radius: 50%;
   padding: 4px 7px 0;
-  height: 2em;
-  width: 2em;
+  height: 2.1em;
+  width: 2.3em;
   font-size: 0.6em;
 }
 .cart-icon {
-  height: 1.5em;
+  height: 1.3em;
 }
 </style>
