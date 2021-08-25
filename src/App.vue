@@ -1,7 +1,6 @@
 <template>
   <div id="app" class="d-flex flex-column h-100">
     <page-nav />
-    <secondary-nav />
     <main class="flex-grow-1">
       <router-view />
     </main>
@@ -12,13 +11,11 @@
 <script>
 import PageNav from "@/components/PageNav.vue";
 import PageFooter from "@/components/PageFooter.vue";
-import SecondaryNav from "@/components/SecondaryNav.vue";
 
 export default {
   components: {
     PageFooter,
-    PageNav,
-    SecondaryNav
+    PageNav
   }
 };
 </script>

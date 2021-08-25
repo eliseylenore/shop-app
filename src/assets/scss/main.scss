@@ -2,7 +2,7 @@
 $black: #000000;
 $persimmon: #FF5E5C;
 $silver: #CCCCCC;
-$turquoise-dark: #378B8B;
+$turquoise-dark: #3ea7a7;
 $turquoise: #33CCCC;
 $turquoise-light: #B9E9E9;
 
@@ -15,9 +15,8 @@ $theme-colors: (
 $btn-padding-y: 0.25em;
 $btn-padding-x: 1.2em;
 
-a {
-  color: theme-color-level(primary, 10);
-}
+$link-color: $turquoise-dark;
+$link-decoration: underline;
 
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';

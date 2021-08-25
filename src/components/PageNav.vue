@@ -7,10 +7,20 @@
     <b-nav align="left">
       <div class="ml-4">
         <b-nav-item
-          :to="{ name: 'About' }"
-          :class="['nav-item', $route.name === 'About' ? 'active' : 'inactive']"
-          >About</b-nav-item
+          :to="{ name: 'Products' }"
+          :class="[
+            'nav-item',
+            $route.name === 'Products' ? 'active' : 'inactive'
+          ]"
         >
+          <img
+            src="/img/waves-logo-white.svg"
+            alt=""
+            class="cart-icon"
+            title="Home page"
+          />
+          <span class="sr-only">Home</span>
+        </b-nav-item>
       </div>
       <div class="right-items d-flex">
         <b-nav-item
