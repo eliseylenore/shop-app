@@ -20,7 +20,7 @@
           <div class="my-4" :class="descriptionShowing ? 'closed' : 'open'">
             <button
               @click="toggleDescription"
-              class="description d-flex align-items-center justify-content-start"
+              class="description d-flex align-items-center justify-content-start btn"
             >
               <h4 class="mb-0 mr-2">Description</h4>
               <img
@@ -34,7 +34,7 @@
           <div class="my-4" :class="materialsShowing ? 'closed' : 'open'">
             <button
               @click="toggleMaterials"
-              class="materials d-flex align-items-center justify-content-start"
+              class="materials d-flex align-items-center justify-content-start btn"
             >
               <h4 class="mb-0 mr-2">Materials and care</h4>
               <img
@@ -179,9 +179,6 @@ button {
     background-color: transparent;
     padding: 0;
     color: #000;
-  }
-  &:focus-visible {
-    @include focus-glow;
   }
 }
 

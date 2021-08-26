@@ -78,9 +78,6 @@ h4 {
   border: none;
   background-color: white;
   color: black;
-  &:focus-visible {
-    @include focus-glow();
-  }
 }
 
 .product-image {

@@ -41,10 +41,6 @@ body {
   }
 }
 
-a:focus-visible {
-  @include focus-glow;
-}
-
 .nav {
   .nav-item:after {
     content: "";
@@ -95,13 +91,6 @@ a:focus-visible {
   }
 }
 
-button,
-.button,
-button.delete {
-  &:focus-visible {
-    @include focus-glow;
-  }
-}
 
 /* Form styles */
 input,
@@ -114,7 +103,7 @@ input[type="radio"] {
   position: absolute;
 
   &:focus-visible + label {
-    @include focus-glow;
+    outline: -webkit-focus-ring-color auto 1px;
   }
 }
 
