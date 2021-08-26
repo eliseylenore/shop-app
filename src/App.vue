@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="d-flex flex-column h-100">
     <page-nav />
+    <secondary-nav />
     <main class="flex-grow-1">
       <router-view />
     </main>
@@ -11,11 +12,13 @@
 <script>
 import PageNav from "@/components/PageNav.vue";
 import PageFooter from "@/components/PageFooter.vue";
+import SecondaryNav from "@/components/SecondaryNav.vue";
 
 export default {
   components: {
     PageFooter,
-    PageNav
+    PageNav, 
+    SecondaryNav
   }
 };
 </script>
@@ -25,6 +28,10 @@ html,
 body {
   height: 100%;
   font-family: "Myriad Pro", sans-serif;
+}
+
+header {
+  margin-top: 1em;
 }
 .white {
   color: white !important;

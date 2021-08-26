@@ -1,5 +1,5 @@
 <template>
-  <div class="cart mt-5">
+  <div class="cart">
     <modal
       id="modal-1"
       title="Are you sure you want to remove item?"

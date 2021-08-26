@@ -32,7 +32,7 @@
           <button
             v-if="!showPasswordForm"
             @click="togglePasswordForm"
-            class="mr-4"
+            class="mr-4 btn btn-secondary"
           >
             Update password
           </button>

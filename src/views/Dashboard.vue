@@ -1,24 +1,31 @@
 <template>
-  <div class="mt-5">
+  <div>
     <b-container v-if="this.$store.getters.loggedIn">
       <header>
         <h1>Your profile</h1>
-        <p class="text-center">Hi, {{ user.name }}</p>
+        <p class="text-center">Welcome, {{ user.name }}</p>
       </header>
       <b-row>
-        <b-col xs="12" md="8" lg="6" offset-md="2" offset-lg="3">
-          <h3 class="text-left">
-            Profile review
-          </h3>
-          <user-info-table :user="user" />
+        <b-col sm="3">
+          <profile-nav />
         </b-col>
-      </b-row>
-      <open-orders
-        v-if="user.pendingOrders !== undefined && user.pendingOrders.length > 0"
-      />
-      <b-row>
-        <b-col xs="12" md="8" lg="6" offset-md="2" offset-lg="3" class="mb-5">
-          <router-link :to="{ name: 'PreviousOrders' }"
+        <b-col sm="9">
+          <div v-if="$route.params.page === 'profile'">
+            <h3 class="text-left">
+              Profile review
+            </h3>
+            <user-info-table :user="user" />
+          </div>
+          <open-orders
+            v-if="
+              user.pendingOrders !== undefined &&
+                user.pendingOrders.length > 0 &&
+                $route.params.page === 'openorders'
+            "
+          />
+          <router-link
+            :to="{ name: 'PreviousOrders' }"
+            v-if="$route.params.page === 'previousorders'"
             >Previous orders</router-link
           >
         </b-col>
@@ -31,10 +38,12 @@
 import { mapState } from "vuex";
 import UserInfoTable from "@/components/UserInfoTable.vue";
 import OpenOrders from "@/components/OpenOrders.vue";
+import ProfileNav from "@/components/ProfileNav.vue";
 export default {
   components: {
     UserInfoTable,
-    OpenOrders
+    OpenOrders,
+    ProfileNav
   },
   created() {
     if (!this.$store.state.user.name) {

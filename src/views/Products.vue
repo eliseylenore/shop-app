@@ -1,6 +1,5 @@
 <template>
   <div>
-    <secondary-nav />
     <header class="title py-4 mb-4 px-0 h-100">
       <h1 class="mb-0">
         <!-- take route and convert  it to page name  -->
@@ -71,12 +70,10 @@ import { mapState } from "vuex";
 
 import { getFormattedValue } from "../commons/utils";
 import ProductCard from "@/components/ProductCard.vue";
-import SecondaryNav from "@/components/SecondaryNav.vue";
 
 export default {
   components: {
-    ProductCard,
-    SecondaryNav
+    ProductCard
   },
   data() {
     return {

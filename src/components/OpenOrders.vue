@@ -1,13 +1,11 @@
 <template>
-  <div class="open-orders mt-5">
-    <b-col xs="12" md="8" lg="6" offset-md="2" offset-lg="3">
-      <h3 class="text-left">
-        Your open order<span v-if="openOrders.length > 1">s</span>
-      </h3>
-    </b-col>
-    <b-row v-for="order in openOrders.slice().reverse()" :key="order._id">
+  <div class="open-orders">
+    <h3 class="text-left">
+      Your open order<span v-if="openOrders.length > 1">s</span>
+    </h3>
+    <div v-for="order in openOrders.slice().reverse()" :key="order._id">
       <div
-        class="mb-4 col-xs-12 col-md-8 col-md-8 col-lg-6 offset-md-2 offset-lg-3 p-4"
+        class="mb-4 p-4"
         style="position: relative; border: 1px #cccccc solid;"
       >
         <p class="mb-0">Order date {{ getDate(order.orderDate) }}</p>
@@ -50,12 +48,15 @@
           </product-card>
         </div>
         <div class="mt-3">
-          <button @click="$store.dispatch('markOrderFilled', order)" class="btn btn-primary">
+          <button
+            @click="$store.dispatch('markOrderFilled', order)"
+            class="btn btn-primary"
+          >
             Mark fulfilled
           </button>
         </div>
       </div>
-    </b-row>
+    </div>
   </div>
 </template>
 

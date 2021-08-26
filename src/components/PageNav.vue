@@ -30,7 +30,7 @@
           >Login</b-nav-item
         >
         <b-nav-item
-          :to="{ name: 'Dashboard' }"
+          :to="{ name: 'Dashboard', params: { page: 'profile' } }"
           v-if="$store.getters.loggedIn"
           :class="[
             'nav-item',
