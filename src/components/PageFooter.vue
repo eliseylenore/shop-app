@@ -13,7 +13,8 @@
           <p class="mb-0"><strong>Account</strong></p>
           <ul class="mb-0">
             <li>
-              <router-link :to="{ name: 'Dashboard' }"
+              <router-link
+                :to="{ name: 'Dashboard', params: { page: 'profile' } }"
                 >Manage your account</router-link
               >
             </li>

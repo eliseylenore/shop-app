@@ -104,7 +104,11 @@ export default {
           password2: this.password2
         })
         .then(() => {
-          if (!this.registerError) this.$router.push({ name: "Dashboard" });
+          if (!this.registerError)
+            this.$router.push({
+              name: "Dashboard",
+              params: { page: "profile" }
+            });
         })
         .catch(err => console.log("ERR", err));
     }

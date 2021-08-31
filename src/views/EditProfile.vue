@@ -106,7 +106,8 @@ export default {
         editedUser.password2 = this.password2;
       }
       this.$store.dispatch("editUser", editedUser).then(() => {
-        if (!this.editError) this.$router.push({ name: "Dashboard" });
+        if (!this.editError)
+          this.$router.push({ name: "Dashboard", params: { page: "profile" } });
       });
     }
   }

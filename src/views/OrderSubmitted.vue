@@ -10,7 +10,7 @@
         You will receive an email with your order details.
       </p>
       <div class="mt-4 d-flex justify-content-center" v-if="user !== null">
-        <router-link :to="{ name: 'Dashboard' }"
+        <router-link :to="{ name: 'Dashboard', params: { page: 'openorders' } }"
           >Go back to my dashboard</router-link
         >
       </div>
@@ -48,7 +48,11 @@ export default {
           zipcode: this.getBillingAddress.zipcode
         })
         .then(() => {
-          if (!this.addressError) this.$router.push({ name: "Dashboard" });
+          if (!this.addressError)
+            this.$router.push({
+              name: "Dashboard",
+              params: { page: "profile" }
+            });
         });
     }
   }

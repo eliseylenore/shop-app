@@ -72,7 +72,7 @@ export default {
   watch: {
     loggedIn(newValue, oldValue) {
       if (newValue && !oldValue) {
-        this.$router.push({ name: "Dashboard" });
+        this.$router.push({ name: "Dashboard", params: { page: "profile" } });
       }
     }
   },

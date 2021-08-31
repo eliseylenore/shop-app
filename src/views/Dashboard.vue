@@ -16,13 +16,7 @@
             </h3>
             <user-info-table :user="user" />
           </div>
-          <open-orders
-            v-if="
-              user.pendingOrders !== undefined &&
-                user.pendingOrders.length > 0 &&
-                $route.params.page === 'openorders'
-            "
-          />
+          <open-orders v-if="$route.params.page === 'openorders'" />
           <router-link
             :to="{ name: 'PreviousOrders' }"
             v-if="$route.params.page === 'previousorders'"
