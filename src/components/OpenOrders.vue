@@ -5,32 +5,11 @@
         Your open order<span v-if="openOrders.length > 1">s</span>
       </h3>
       <div v-for="order in openOrders.slice().reverse()" :key="order._id">
-        <div class="mb-4 px-4" style=" border-bottom: 1px #cccccc solid;">
-          <div class=" d-flex justify-content-between align-items-center">
-            <div>
-              <p class="mb-0">{{ getDate(order.orderDate) }}</p>
-              <p>
-                {{ order.items.length }} item<span v-if="order.items.length > 1"
-                  >s</span
-                >
-              </p>
-            </div>
-            <button
-              @click="clickedOrder = order._id"
-              v-if="clickedOrder !== order._id"
-              class="btn btn-secondary"
-            >
-              Expand
-            </button>
-            <button
-              @click="clickedOrder = ''"
-              v-if="clickedOrder === order._id"
-              class="btn btn-secondary"
-            >
-              Hide
-            </button>
-          </div>
-          <div v-if="clickedOrder === order._id">
+        <div class="mb-4">
+          <button @click="headerClicked" class="btn w-100 panel-header">
+            {{ getDate(order.orderDate) }}
+          </button>
+          <div class="panel">
             <div v-for="product in order.items" :key="product._id" class="mb-3">
               <product-card :product="product">
                 <b-row class="mt-3 mx-3 w-100">
@@ -119,12 +98,43 @@ export default {
   },
   methods: {
     getDate: orderDate => formattedDate(orderDate),
-    price: productPrice => getFormattedValue(productPrice, 2)
+    price: productPrice => getFormattedValue(productPrice, 2),
+    // using accordion solution from this youTube  video https://www.youtube.com/watch?v=4BGfvKpP-b0&t=10s
+    headerClicked(_event) {
+      console.log(_event);
+      _event.currentTarget.classList.toggle("active");
+      const allPanels = document.getElementsByClassName("panel");
+      allPanels.forEach(panel => {
+        if (_event.currentTarget.nextElementSibling !== panel) {
+          panel.style.maxHeight = null;
+        }
+        panel.previousElementSibling.classList.remove("active");
+      });
+      let thisPanel = _event.currentTarget.nextElementSibling;
+      console.log(thisPanel.style.maxHeight);
+      if (thisPanel.style.maxHeight) {
+        thisPanel.style.maxHeight = null;
+      } else {
+        thisPanel.style.maxHeight = thisPanel.scrollHeight + "px";
+      }
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
 .open-orders .product-image {
   height: 10em;
+}
+.panel-header {
+  border: 1px solid #ced4da;
+  &.active {
+    background-color: $turquoise;
+    color: white;
+  }
+}
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
 }
 </style>
