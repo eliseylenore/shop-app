@@ -17,7 +17,7 @@ import SecondaryNav from "@/components/SecondaryNav.vue";
 export default {
   components: {
     PageFooter,
-    PageNav, 
+    PageNav,
     SecondaryNav
   }
 };
@@ -37,10 +37,8 @@ header {
   color: white !important;
 }
 .main-nav {
-  .nav {
-    background-color: $black;
-    padding: 0.7em 0;
-  }
+  background-color: $black;
+  padding: 0.7em 0;
 
   .nav a:not(.dropdown-item) {
     font-size: 1em;
@@ -97,7 +95,6 @@ header {
     font-size: 1rem;
   }
 }
-
 
 /* Form styles */
 input,

@@ -1,6 +1,11 @@
 <template>
   <div class="product-card d-flex flex-column align-items-center">
-    <button class="plain-btn w-100 px-0" v-on:click="goToProduct">
+    <button
+      class="plain-btn w-100 px-0"
+      v-on:click="goToProduct"
+      :tabindex="tabIndex === -1 ? -1 : ''"
+    >
+      <p class="sr-only">Go to {{ product.title }}</p>
       <div
         class="product-image"
         :aria-label="product.alt ? product.alt : ''"
@@ -31,6 +36,10 @@ export default {
           return hasValidExtension;
         } else return false;
       }
+    },
+    tabIndex: {
+      required: false,
+      type: Number
     }
   },
   methods: {

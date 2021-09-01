@@ -6,12 +6,28 @@
       </h3>
       <div v-for="order in openOrders.slice().reverse()" :key="order._id">
         <div class="mb-4">
-          <button @click="headerClicked" class="btn w-100 panel-header">
+          <button
+            :id="'panel-' + order._id"
+            @click="headerClicked(order._id, $event)"
+            :class="[
+              'btn w-100 panel-header',
+              clickedOrder === order._id ? 'active' : ''
+            ]"
+            :aria-expanded="clickedOrder === order._id ? 'true' : 'false'"
+          >
             {{ getDate(order.orderDate) }}
           </button>
-          <div class="panel">
+          <div
+            :class="['panel', clickedOrder === order._id ? 'active' : '']"
+            role="region"
+            :aria-hidden="clickedOrder === order._id ? 'true' : 'false'"
+            :aria-labelledby="'panel-' + order._id"
+          >
             <div v-for="product in order.items" :key="product._id" class="mb-3">
-              <product-card :product="product">
+              <product-card
+                :product="product"
+                :tabIndex="clickedOrder === order._id ? '' : -1"
+              >
                 <b-row class="mt-3 mx-3 w-100">
                   <b-col xs="8">
                     <p class="mb-0 text-left">
@@ -30,6 +46,7 @@
                   <b-col xs="4">
                     <div>
                       <button
+                        :tabindex="clickedOrder === order._id ? '' : -1"
                         class="btn btn-danger"
                         @click="
                           $store.dispatch('cancelOrder', {
@@ -47,6 +64,7 @@
             </div>
             <div class="mt-3">
               <button
+                :tabindex="clickedOrder === order._id ? '' : -1"
                 @click="$store.dispatch('markOrderFilled', order)"
                 class="btn btn-primary mb-4"
               >
@@ -100,9 +118,10 @@ export default {
     getDate: orderDate => formattedDate(orderDate),
     price: productPrice => getFormattedValue(productPrice, 2),
     // using accordion solution from this youTube  video https://www.youtube.com/watch?v=4BGfvKpP-b0&t=10s
-    headerClicked(_event) {
-      console.log(_event);
-      _event.currentTarget.classList.toggle("active");
+    headerClicked(orderId, _event) {
+      this.clickedOrder === orderId
+        ? (this.clickedOrder = "")
+        : (this.clickedOrder = orderId);
       const allPanels = document.getElementsByClassName("panel");
       allPanels.forEach(panel => {
         if (_event.currentTarget.nextElementSibling !== panel) {
@@ -111,7 +130,6 @@ export default {
         panel.previousElementSibling.classList.remove("active");
       });
       let thisPanel = _event.currentTarget.nextElementSibling;
-      console.log(thisPanel.style.maxHeight);
       if (thisPanel.style.maxHeight) {
         thisPanel.style.maxHeight = null;
       } else {
