@@ -1,5 +1,5 @@
 <template>
-  <div role="navigation">
+  <div role="navigation" class="mb-3">
     <b-nav vertical pills aria-label="Profile navigation">
       <b-nav-item
         :to="{ name: 'Dashboard', params: { page: 'profile' } }"

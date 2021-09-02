@@ -1,11 +1,11 @@
 <template>
   <div class="open-orders">
-    <div v-if="openOrders.length > 1">
-      <h3 class="text-left mb-4">
+    <div v-if="openOrders.length > 1" class="mb-4">
+      <h3 class="text-left mb-2">
         Your open order<span v-if="openOrders.length > 1">s</span>
       </h3>
       <div v-for="order in openOrders.slice().reverse()" :key="order._id">
-        <div class="mb-4">
+        <div class="">
           <button
             :id="'panel-' + order._id"
             @click="headerClicked(order._id, $event)"
@@ -23,53 +23,59 @@
             :aria-hidden="clickedOrder === order._id ? 'true' : 'false'"
             :aria-labelledby="'panel-' + order._id"
           >
-            <div v-for="product in order.items" :key="product._id" class="mb-3">
-              <product-card
-                :product="product"
-                :tabIndex="clickedOrder === order._id ? '' : -1"
+            <div class="p-4 grey-border">
+              <div
+                v-for="product in order.items"
+                :key="product._id"
+                class="mb-3"
               >
-                <b-row class="mt-3 mx-3 w-100">
-                  <b-col xs="8">
-                    <p class="mb-0 text-left">
-                      <strong>{{ product.title }}</strong
-                      >, size
-                      <span style="text-transform: capitalize">{{
-                        product.size
-                      }}</span>
-                    </p>
-                    <p class="mb-0 text-left">{{ product.color }}</p>
-                    <p class="mb-0 text-left">${{ price(product.price) }}</p>
-                    <p class="mb-4 text-left">
-                      Quantity: {{ product.quantity }}
-                    </p>
-                  </b-col>
-                  <b-col xs="4">
-                    <div>
-                      <button
-                        :tabindex="clickedOrder === order._id ? '' : -1"
-                        class="btn btn-danger"
-                        @click="
-                          $store.dispatch('cancelOrder', {
-                            ...product,
-                            orderId: order._id
-                          })
-                        "
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </b-col>
-                </b-row>
-              </product-card>
-            </div>
-            <div class="mt-3">
-              <button
-                :tabindex="clickedOrder === order._id ? '' : -1"
-                @click="$store.dispatch('markOrderFilled', order)"
-                class="btn btn-primary mb-4"
-              >
-                Mark fulfilled
-              </button>
+                <product-card
+                  :product="product"
+                  :tabIndex="clickedOrder === order._id ? '' : -1"
+                >
+                  <b-row class="mt-3 mx-3 w-100">
+                    <b-col xs="8">
+                      <p class="mb-0 text-left">
+                        <strong>{{ product.title }}</strong
+                        >, size
+                        <span style="text-transform: capitalize">{{
+                          product.size
+                        }}</span>
+                      </p>
+                      <p class="mb-0 text-left">{{ product.color }}</p>
+                      <p class="mb-0 text-left">${{ price(product.price) }}</p>
+                      <p class="mb-4 text-left">
+                        Quantity: {{ product.quantity }}
+                      </p>
+                    </b-col>
+                    <b-col xs="4">
+                      <div>
+                        <button
+                          :tabindex="clickedOrder === order._id ? '' : -1"
+                          class="btn btn-danger"
+                          @click="
+                            $store.dispatch('cancelOrder', {
+                              ...product,
+                              orderId: order._id
+                            })
+                          "
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </b-col>
+                  </b-row>
+                </product-card>
+              </div>
+              <div class="mt-3">
+                <button
+                  :tabindex="clickedOrder === order._id ? '' : -1"
+                  @click="$store.dispatch('markOrderFilled', order)"
+                  class="btn btn-primary"
+                >
+                  Mark fulfilled
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -144,9 +150,24 @@ export default {
   height: 10em;
 }
 .panel-header {
-  border: 1px solid #ced4da;
+  padding-left: 2em;
+  border-bottom: 1px solid #ced4da;
   &.active {
     background-color: $turquoise;
+    color: white;
+    border-bottom: none;
+  }
+  text-align: left;
+  &::before {
+    content: "+";
+    font-size: 2em;
+    color: #a3a7aa;
+    position: absolute;
+    margin-top: -0.5em;
+    left: 0.7em;
+  }
+  &.active::before {
+    content: "–";
     color: white;
   }
 }
@@ -154,5 +175,9 @@ export default {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
+}
+
+.grey-border {
+  border: 1px solid #ced4da;
 }
 </style>
