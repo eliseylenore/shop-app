@@ -1,9 +1,9 @@
 <template>
   <div class="previous-orders">
+    <h3 class="text-left mb-2">
+      Your previous orders
+    </h3>
     <div v-if="previousOrders.length > 1" class="mb-4">
-      <h3 class="text-left mb-2">
-        Your previous order<span v-if="previousOrders.length > 1">s</span>
-      </h3>
       <div v-for="order in previousOrders.slice().reverse()" :key="order._id">
         <div class="">
           <button
@@ -32,8 +32,11 @@
                 <product-card
                   :product="product"
                   :tabIndex="clickedOrder === order._id ? '' : -1"
+                  align="horizontal"
+                  :width="25"
+                  height="10em"
                 >
-                  <b-row class="mt-3 mx-3 w-100">
+                  <b-row class="mx-3 w-100">
                     <b-col xs="8">
                       <p class="mb-0 text-left">
                         <strong>{{ product.title }}</strong
@@ -44,20 +47,17 @@
                       </p>
                       <p class="mb-0 text-left">{{ product.color }}</p>
                       <p class="mb-0 text-left">${{ price(product.price) }}</p>
-                      <p class="mb-4 text-left">
+                      <p class="mb-0 text-left">
                         Quantity: {{ product.quantity }}
                       </p>
-                    </b-col>
-                    <b-col xs="4">
-                      <div>
-                        <router-link
-                          :to="{
-                            name: 'ProductReview',
-                            params: { id: product.productId }
-                          }"
-                          >Review product</router-link
-                        >
-                      </div>
+                      <router-link
+                        class="mb-4"
+                        :to="{
+                          name: 'ProductReview',
+                          params: { id: product.productId }
+                        }"
+                        >Review product</router-link
+                      >
                     </b-col>
                   </b-row>
                 </product-card>
@@ -68,12 +68,9 @@
       </div>
     </div>
     <div v-else>
-      <h3 class="text-left">
+      <p class="text-left">
         No previous orders
-      </h3>
-      <router-link :to="{ name: 'PreviousOrders' }"
-        >Previous orders</router-link
-      >
+      </p>
     </div>
   </div>
 </template>

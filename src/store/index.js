@@ -404,6 +404,7 @@ export default new Vuex.Store({
       });
     },
     addShippingAddress({ commit, state }, address) {
+      commit("SET_ADDRESS_ERR", null);
       if (state.user.name !== undefined) {
         return new Promise((resolve, reject) => {
           UserService.addAddressToCart(state.user.email, "shipping", address)

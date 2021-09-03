@@ -1,9 +1,9 @@
 <template>
   <div class="open-orders">
-    <div v-if="openOrders.length > 1" class="mb-4">
       <h3 class="text-left mb-2">
-        Your open order<span v-if="openOrders.length > 1">s</span>
+        Your open orders
       </h3>
+    <div v-if="openOrders.length > 1" class="mb-4">
       <div v-for="order in openOrders.slice().reverse()" :key="order._id">
         <div class="">
           <button
@@ -32,6 +32,9 @@
                 <product-card
                   :product="product"
                   :tabIndex="clickedOrder === order._id ? '' : -1"
+                  align="horizontal"
+                  :width="25"
+                  height="10em"
                 >
                   <b-row class="mt-3 mx-3 w-100">
                     <b-col xs="8">
@@ -82,12 +85,9 @@
       </div>
     </div>
     <div v-else>
-      <h3 class="text-left">
+      <p class="text-left">
         No open orders
-      </h3>
-      <router-link :to="{ name: 'PreviousOrders' }"
-        >Previous orders</router-link
-      >
+      </p>
     </div>
   </div>
 </template>

@@ -1,7 +1,12 @@
 <template>
-  <div class="product-card d-flex flex-column align-items-center">
+  <div
+    :class="[
+      'product-card d-flex align-items-center',
+      align !== 'horizontal' ? 'flex-column' : ''
+    ]"
+  >
     <button
-      class="plain-btn w-100 px-0"
+      :class="['plain-btn px-0', 'w-' + width]"
       v-on:click="goToProduct"
       :tabindex="tabIndex === -1 ? -1 : ''"
     >
@@ -10,7 +15,8 @@
         class="product-image"
         :aria-label="product.alt ? product.alt : ''"
         :style="{
-          backgroundImage: 'url(/img/' + image + ')'
+          backgroundImage: 'url(/img/' + image + ')',
+          height
         }"
       ></div>
     </button>
@@ -37,9 +43,24 @@ export default {
         } else return false;
       }
     },
+    width: {
+      type: Number,
+      default: 100,
+      validator: propValue => {
+        let validValues = [0, 25, 75, 100];
+        return validValues.includes(propValue);
+      }
+    },
+    height: {
+      default: "20em",
+      type: String
+    },
     tabIndex: {
       required: false,
       type: Number
+    },
+    align: {
+      type: String
     }
   },
   methods: {
@@ -90,7 +111,6 @@ h4 {
 }
 
 .product-image {
-  height: 20em;
   background-size: cover;
   background-position: center;
   background-repeat: none;

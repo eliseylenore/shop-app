@@ -92,7 +92,7 @@
                 <option>United States</option>
               </b-form-select>
             </b-form-group>
-            <button type="submit" name="button">
+            <button type="submit" name="button" class="btn btn-primary">
               Next
             </button>
             <div v-if="addressError">
