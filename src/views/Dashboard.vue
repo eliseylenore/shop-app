@@ -17,11 +17,7 @@
             <user-info-table :user="user" />
           </div>
           <open-orders v-if="$route.params.page === 'openorders'" />
-          <router-link
-            :to="{ name: 'PreviousOrders' }"
-            v-if="$route.params.page === 'previousorders'"
-            >Previous orders</router-link
-          >
+          <previous-orders v-if="$route.params.page === 'previousorders'" />
         </b-col>
       </b-row>
     </b-container>
@@ -32,11 +28,13 @@
 import { mapState } from "vuex";
 import UserInfoTable from "@/components/UserInfoTable.vue";
 import OpenOrders from "@/components/OpenOrders.vue";
+import PreviousOrders from "@/components/PreviousOrders.vue";
 import ProfileNav from "@/components/ProfileNav.vue";
 export default {
   components: {
     UserInfoTable,
     OpenOrders,
+    PreviousOrders,
     ProfileNav
   },
   created() {

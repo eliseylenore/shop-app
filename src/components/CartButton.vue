@@ -1,7 +1,10 @@
 <template class="cart-button">
   <b-nav-item
     :to="{ name: 'Cart' }"
-    class="cart-item"
+    :class="[
+      'cart-item nav-item',
+      $route.name === 'Cart' ? 'active' : 'inactive'
+    ]"
     style="position: relative"
   >
     <div v-if="cartLength > 0" class="cart-quantity">
@@ -34,13 +37,13 @@ export default {
 .cart-quantity {
   position: absolute;
   left: 35px;
-  bottom: 18px;
+  bottom: 16px;
   background-color: red;
   border-radius: 50%;
-  padding: 4px 7px 0;
+  padding: 5px 0px 0;
   height: 2.1em;
-  width: 2.3em;
-  font-size: 0.6em;
+  width: 2.2em;
+  font-size: 0.7em;
 }
 .cart-icon {
   height: 1.3em;

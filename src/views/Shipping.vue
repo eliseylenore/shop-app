@@ -7,7 +7,7 @@
         </h1>
       </header>
       <b-row>
-        <b-col xs="12" md="7" xl="6" offset-xl="1">
+        <b-col xs="12" md="7" xl="6" offset-xl="1" class="mb-5">
           <div class="mt-4 d-flex" v-if="user === null">
             <p class="mr-2">Have an account?</p>
             <router-link :to="{ name: 'Login' }">Login</router-link>
