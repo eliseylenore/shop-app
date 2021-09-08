@@ -3,7 +3,7 @@
     <h3 class="text-left mb-2">
       Your previous orders
     </h3>
-    <div v-if="previousOrders.length > 1" class="mb-4">
+    <div v-if="previousOrders.length > 0" class="mb-4">
       <div v-for="order in previousOrders.slice().reverse()" :key="order._id">
         <div class="">
           <button

@@ -18,6 +18,7 @@
           </div>
           <open-orders v-if="$route.params.page === 'openorders'" />
           <previous-orders v-if="$route.params.page === 'previousorders'" />
+          <address-book v-if="$route.params.page === 'addressbook'" />
         </b-col>
       </b-row>
     </b-container>
@@ -30,12 +31,14 @@ import UserInfoTable from "@/components/UserInfoTable.vue";
 import OpenOrders from "@/components/OpenOrders.vue";
 import PreviousOrders from "@/components/PreviousOrders.vue";
 import ProfileNav from "@/components/ProfileNav.vue";
+import AddressBook from "@/components/AddressBook.vue";
 export default {
   components: {
     UserInfoTable,
     OpenOrders,
     PreviousOrders,
-    ProfileNav
+    ProfileNav,
+    AddressBook
   },
   created() {
     if (!this.$store.state.user.name) {
