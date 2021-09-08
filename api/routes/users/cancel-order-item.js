@@ -7,19 +7,26 @@ const { PendingOrder } = require("../../models/order");
 
 module.exports = (req, res) => {
   User.findOne({ email: req.params.email }, function(err, user) {
-    if (err) res.status(400).json(err);
+    let errors = {};
+    if (err) {
+      errors.generalErr = err;
+      return res.status(400).json(err);
+    }
     const { _id, productId, itemId, quantity, size, title, orderId } = req.body;
 
     // lookup product, then item within product (by itemId)
-    const errors = {};
     Product.findById(mongoose.Types.ObjectId(productId), function(
       err,
       product
     ) {
       console.log("err", err);
 
-      if (!product)
-        res.status(400).json({ "No product found": title + ", size " + size });
+      if (!product) {
+        errors.noProductFound = {
+          "No product found": title + ", size " + size
+        };
+        return res.status(400).json(errors.noProductFound);
+      }
 
       let foundItem = product.items.find(productItem => {
         if (productItem && productItem._id) {
@@ -87,7 +94,11 @@ module.exports = (req, res) => {
       order
     ) {
       if (err) console.log(err);
-      if (!order) res.status(400).json({ "Order not found": orderId });
+      if (!order) {
+        errors.orderNotFound = { "Order not found": orderId };
+        console.log("errors", errors);
+        return res.status(400).json(errors.orderNotFound);
+      }
       if (order.items.length === 1) {
         // if there's only one item, delete the order
         PendingOrder.findByIdAndDelete(
@@ -112,11 +123,11 @@ module.exports = (req, res) => {
           .then()
           .catch(err => console.log(err));
       }
-    });
-
-    user
-      .save()
-      .then(user => res.json(user.pendingOrders))
-      .catch(err => console.log(err));
+    }).then(
+      user
+        .save()
+        .then(user => res.json(user.pendingOrders))
+        .catch(err => console.log(err))
+    );
   });
 };

@@ -18,6 +18,7 @@ module.exports = (req, res) => {
       cart = req.body.cart;
     }
     const errors = {};
+    console.log("Cart items", cart.items);
     for (let item of cart.items) {
       // lookup product, then item within product (by itemId)
       Product.findById(mongoose.Types.ObjectId(item.productId), function(

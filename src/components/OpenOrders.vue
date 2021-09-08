@@ -1,9 +1,9 @@
 <template>
   <div class="open-orders">
-      <h3 class="text-left mb-2">
-        Your open orders
-      </h3>
-    <div v-if="openOrders.length > 1" class="mb-4">
+    <h3 class="text-left mb-2">
+      Your open orders
+    </h3>
+    <div v-if="openOrders.length > 0" class="mb-4">
       <div v-for="order in openOrders.slice().reverse()" :key="order._id">
         <div class="">
           <button
