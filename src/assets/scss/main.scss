@@ -17,11 +17,17 @@ $btn-padding-x: 1.2em;
 
 $link-color: $turquoise-dark;
 $link-decoration: underline;
+$table-border-color: $silver;
+$table-border-width: 1px;
+
 
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-vue/src/index.scss';
 
-
+td {
+  border-top: none!important;
+  border-bottom: $table-border-width solid $table-border-color;
+}
 @mixin focus-glow($color: null) {
   @if $color == null {
     $color: $persimmon;

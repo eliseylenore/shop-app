@@ -1,17 +1,16 @@
 <template>
   <div>
     <b-table-simple
+      small
       table-class="w-100"
       thead-class="hidden_header"
       tbody-tr-class="no-border-top"
-      borderless
       show-empty="true"
     >
       <b-thead class="hidden_header">
         <b-tr>
           <b-th>Property</b-th>
           <b-th>Value</b-th>
-          <b-th>Edit</b-th>
         </b-tr>
       </b-thead>
       <b-tbody>
@@ -57,17 +56,7 @@ export default {
 .hidden_header {
   display: none;
 }
-table {
-  border: 1px #cccccc solid;
-}
-td:first-child,
-td:nth-child(2) {
-  font-weight: bold;
-}
 td:first-child {
   color: #666666;
-}
-.table td {
-  padding-right: 4em;
 }
 </style>
