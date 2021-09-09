@@ -18,7 +18,10 @@ module.exports = (req, res) => {
       cart = req.body.cart;
     }
     const errors = {};
-    console.log("Cart items", cart.items);
+    if (cart.items.length === 0) {
+      errors.emptyCart = "No items in cart";
+      return res.status(400).json(errors);
+    }
     for (let item of cart.items) {
       // lookup product, then item within product (by itemId)
       Product.findById(mongoose.Types.ObjectId(item.productId), function(
