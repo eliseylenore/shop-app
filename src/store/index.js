@@ -512,6 +512,9 @@ export default new Vuex.Store({
     getProductById: state => id => {
       return state.products.find(product => product._id === id);
     },
+    getReviewCount: state => {
+      return state.product.reviews.length;
+    },
     getReviews: state => selectedSort => {
       if (state.product && state.product.reviews) {
         // use slice to create copy of array, so you're not mutating the state

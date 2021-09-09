@@ -49,12 +49,13 @@
       </b-row>
       <b-row>
         <b-col xs="12" class="my-5 px-md-5">
-          <div class="d-flex">
-            <h3 class="text-left mr-3">Reviews</h3>
+          <div class="d-flex align-items-center mb-2">
+            <h3 class="text-left mr-3 mb-0">Reviews</h3>
             <span
               v-for="n in 5"
               :key="n"
-              :title="averageRating + ' out of 5 stars'"
+              :title="'Average ' + averageRating + ' out of 5 stars'"
+              class="pb-2"
             >
               <img
                 v-if="n - 0.3 < averageRating"
@@ -75,22 +76,39 @@
                 class="star-icon"
               />
             </span>
+            <p class="mb-0 pl-3">{{ getReviewCount }} reviews</p>
           </div>
-          <b-form-group>
-            <b-form-select
-              v-model="selectedSort"
-              :options="options"
-              class="w-auto"
-            ></b-form-select>
-          </b-form-group>
-          <hr />
-          <div
-            v-for="review in getReviews(selectedSort)"
-            :key="review._id"
-            class="mt-3"
+          <button
+            v-if="!reviewsExpanded"
+            class="btn btn-primary"
+            @click="reviewsExpanded = true"
           >
-            <review :review="review" />
+            Show reviews
+          </button>
+          <div v-if="reviewsExpanded">
+            <b-form-group>
+              <b-form-select
+                v-model="selectedSort"
+                :options="options"
+                class="w-auto"
+              ></b-form-select>
+            </b-form-group>
             <hr />
+            <div
+              v-for="review in getReviews(selectedSort).slice(0, numberReviews)"
+              :key="review._id"
+              class="mt-3"
+            >
+              <review :review="review" />
+              <hr />
+            </div>
+            <button
+              v-if="!allReviewsShown"
+              class="btn btn-primary"
+              @click="showAllReviews"
+            >
+              Show all reviews
+            </button>
           </div>
         </b-col>
       </b-row>
@@ -111,6 +129,9 @@ export default {
     return {
       descriptionShowing: true,
       materialsShowing: false,
+      reviewsExpanded: false,
+      allReviewsShown: false,
+      numberReviews: 5,
       options: [
         { value: "date", text: "Most recent" },
         { value: "highestRated", text: "Highest Rated" },
@@ -128,6 +149,10 @@ export default {
     },
     toggleMaterials() {
       this.materialsShowing = !this.materialsShowing;
+    },
+    showAllReviews() {
+      this.allReviewsShown = true;
+      this.numberReviews = this.getReviewCount;
     }
   },
   computed: {
@@ -143,7 +168,7 @@ export default {
     ...mapState({
       product: state => state.product
     }),
-    ...mapGetters(["getReviews"]),
+    ...mapGetters(["getReviews", "getReviewCount"]),
     averageRating() {
       if (this.product.reviews) {
         const reducer = (accumulator, currentValue) =>

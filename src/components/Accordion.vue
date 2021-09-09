@@ -2,7 +2,7 @@
   <div class="accordion">
     <button
       :id="'panel-' + panelId"
-      @click="headerClicked(panelId, $event)"
+      @click="$emit('header-clicked', panelId, $event)"
       :class="[
         'btn w-100 panel-header',
         clickedPanel === panelId ? 'active' : ''
@@ -27,36 +27,14 @@
 <script>
 //style related imports
 export default {
-  data() {
-    return {
-      clickedPanel: ""
-    };
-  },
   props: {
     panelId: {
       type: String,
       required: true
-    }
-  },
-  methods: {
-    // using accordion solution from this youTube  video https://www.youtube.com/watch?v=4BGfvKpP-b0&t=10s
-    headerClicked(panelId, _event) {
-      this.clickedPanel === panelId
-        ? (this.clickedPanel = "")
-        : (this.clickedPanel = panelId);
-      const allPanels = document.getElementsByClassName("panel");
-      allPanels.forEach(panel => {
-        if (_event.currentTarget.nextElementSibling !== panel) {
-          panel.style.maxHeight = null;
-        }
-        panel.previousElementSibling.classList.remove("active");
-      });
-      let thisPanel = _event.currentTarget.nextElementSibling;
-      if (thisPanel.style.maxHeight) {
-        thisPanel.style.maxHeight = null;
-      } else {
-        thisPanel.style.maxHeight = thisPanel.scrollHeight + "px";
-      }
+    },
+    clickedPanel: {
+      type: String,
+      required: true
     }
   }
 };
