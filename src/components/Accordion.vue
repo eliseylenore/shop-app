@@ -2,21 +2,13 @@
   <div class="accordion">
     <button
       :id="'panel-' + panelId"
-      @click="$emit('header-clicked', panelId, $event)"
-      :class="[
-        'btn w-100 panel-header',
-        clickedPanel === panelId ? 'active' : ''
-      ]"
-      :aria-expanded="clickedPanel === panelId ? 'true' : 'false'"
+      @click="headerClicked(panelId, $event)"
+      class="btn w-100 panel-header"
+      aria-expanded="false"
     >
       <slot name="header"></slot>
     </button>
-    <div
-      :class="['panel', clickedPanel === panelId ? 'active' : '']"
-      role="region"
-      :aria-hidden="clickedPanel === panelId ? 'true' : 'false'"
-      :aria-labelledby="'panel-' + panelId"
-    >
+    <div class="panel" role="region" :aria-labelledby="'panel-' + panelId">
       <div class="p-4 grey-border">
         <slot name="panel"></slot>
       </div>
@@ -31,10 +23,30 @@ export default {
     panelId: {
       type: String,
       required: true
-    },
-    clickedPanel: {
-      type: String,
-      required: true
+    }
+  },
+  methods: {
+    // using accordion solution from this youTube  video https://www.youtube.com/watch?v=4BGfvKpP-b0&t=10s
+    headerClicked(panelId, _event) {
+      this.$emit("header-clicked", panelId);
+      const allPanels = document.getElementsByClassName("panel");
+      allPanels.forEach(panel => {
+        if (_event.currentTarget.nextElementSibling !== panel) {
+          panel.style.maxHeight = null;
+        }
+        panel.previousElementSibling.classList.remove("active");
+      });
+      let thisPanel = _event.currentTarget.nextElementSibling;
+      thisPanel.classList.toggle("active");
+      if (thisPanel.style.maxHeight) {
+        thisPanel.style.maxHeight = null;
+        _event.currentTarget.classList.remove("active");
+        _event.currentTarget.setAttribute("aria-expanded", "false");
+      } else {
+        thisPanel.style.maxHeight = thisPanel.scrollHeight + "px";
+        _event.currentTarget.classList.add("active");
+        _event.currentTarget.setAttribute("aria-expanded", "true");
+      }
     }
   }
 };
@@ -43,7 +55,7 @@ export default {
 .panel-header {
   padding-left: 2em;
   border-bottom: 1px solid #ced4da;
-  &.active {
+  &[aria-expanded="true"] {
     background-color: $turquoise;
     color: white;
     border-bottom: none;
@@ -57,7 +69,7 @@ export default {
     margin-top: -0.5em;
     left: 0.7em;
   }
-  &.active::before {
+  &[aria-expanded="true"]::before {
     content: "–";
     color: white;
   }
