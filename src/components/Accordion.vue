@@ -34,17 +34,14 @@ export default {
         if (_event.currentTarget.nextElementSibling !== panel) {
           panel.style.maxHeight = null;
         }
-        panel.previousElementSibling.classList.remove("active");
+        panel.previousElementSibling.setAttribute("aria-expanded", "false");
       });
       let thisPanel = _event.currentTarget.nextElementSibling;
-      thisPanel.classList.toggle("active");
       if (thisPanel.style.maxHeight) {
         thisPanel.style.maxHeight = null;
-        _event.currentTarget.classList.remove("active");
         _event.currentTarget.setAttribute("aria-expanded", "false");
       } else {
         thisPanel.style.maxHeight = thisPanel.scrollHeight + "px";
-        _event.currentTarget.classList.add("active");
         _event.currentTarget.setAttribute("aria-expanded", "true");
       }
     }
