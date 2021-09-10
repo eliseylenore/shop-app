@@ -31,7 +31,7 @@
               >
                 <product-card
                   :product="product"
-                  :tabIndex="clickedOrder === order._id ? '' : -1"
+                  :tabIndex="-1"
                   align="horizontal"
                   :width="25"
                   height="10em"
@@ -54,7 +54,7 @@
                     <b-col xs="4">
                       <div>
                         <button
-                          :tabindex="clickedOrder === order._id ? '' : -1"
+                          :tabIndex="-1"
                           class="btn btn-danger"
                           @click="
                             $store.dispatch('cancelOrder', {
@@ -72,7 +72,7 @@
               </div>
               <div class="mt-3">
                 <button
-                  :tabindex="clickedOrder === order._id ? '' : -1"
+                  :tabIndex="-1"
                   @click="$store.dispatch('markOrderFilled', order)"
                   class="btn btn-primary"
                 >
