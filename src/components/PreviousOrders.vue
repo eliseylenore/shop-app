@@ -93,39 +93,4 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-.open-orders .product-image {
-  height: 10em;
-}
-.panel-header {
-  padding-left: 2em;
-  border-bottom: 1px solid #ced4da;
-  &.active {
-    background-color: $turquoise;
-    color: white;
-    border-bottom: none;
-  }
-  text-align: left;
-  &::before {
-    content: "+";
-    font-size: 2em;
-    color: #a3a7aa;
-    position: absolute;
-    margin-top: -0.5em;
-    left: 0.7em;
-  }
-  &.active::before {
-    content: "–";
-    color: white;
-  }
-}
-.panel {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-}
-
-.grey-border {
-  border: 1px solid #ced4da;
-}
-</style>
+<style lang="scss" scoped></style>
