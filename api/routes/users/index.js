@@ -64,6 +64,12 @@ router
   .route("/:email/addToAddressBook")
   .post(require("./add-to-address-book.js"));
 
+// @route DELETE api/users/:email/address/:_id
+//:type must be shipping or billing
+// @desc Add address to user's cart
+// @access private
+router.route("/:email/address/:_id").delete(require("./delete-address.js"));
+
 // @route PUT api/users/:email/cart/itemQuantity
 // @desc Adds to cart item quantity
 // @access private

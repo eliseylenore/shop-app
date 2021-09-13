@@ -185,6 +185,10 @@ export default new Vuex.Store({
       state.user.addressBook.push(address);
       localStorage.setItem("user", JSON.stringify(state.user));
     },
+    DELETE_ADDRESS(state, _id) {
+      state.user.addressBook = state.user.addressBook.filter(address => address._id !== _id);
+      localStorage.setItem("user", JSON.stringify(state.user));
+    },
     REMOVE_FROM_CART(state, product) {
       state.cart.items = state.cart.items.filter(
         item =>
@@ -463,6 +467,24 @@ export default new Vuex.Store({
             });
         } else {
           commit("ADD_TO_ADDRESS_BOOK", address);
+          resolve();
+        }
+      });
+    },
+    deleteAddress({ commit, state }, _id) {
+      return new Promise((resolve, reject) => {
+        if (state.user.name !== undefined) {
+          UserService.deleteAddress(state.user.email, _id)
+            .then(() => {
+              commit("DELETE_ADDRESS", _id);
+              resolve();
+            })
+            .catch(err => {
+              commit("SET_ADDRESS_ERR", err.response.data);
+              reject(err);
+            });
+        } else {
+          commit("DELETE_ADDRESS", _id);
           resolve();
         }
       });

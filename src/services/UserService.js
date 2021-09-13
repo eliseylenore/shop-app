@@ -25,6 +25,10 @@ export default {
     ),
   addToAddressBook: (email, address) =>
     axios.post("/users/" + email + "/addToAddressBook/", address, config),
+  deleteAddress: (email, _id) =>
+    axios.delete("/users/" + email + "/address/" + _id, {
+      ...config
+    }),
   addToItemQuantity: (email, payload) =>
     axios.put("/users/" + email + "/cart/itemQuantity", payload, config),
   removeItemFromCart: (email, payload) =>

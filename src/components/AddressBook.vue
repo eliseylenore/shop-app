@@ -16,6 +16,12 @@
           <p class="mb-0">
             {{ address.city }}, {{ address.state }} {{ address.zipcode }}
           </p>
+          <button
+            @click="$store.dispatch('deleteAddress', address._id)"
+            class="btn btn-danger mt-2"
+          >
+            Delete
+          </button>
         </template>
       </accordion>
     </div>
