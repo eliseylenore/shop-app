@@ -10,7 +10,7 @@
       <slot></slot>
       <template #modal-footer="{ ok }">
         <!-- Emulate built in modal footer ok and cancel button actions -->
-        <button @click="ok()">
+        <button @click="ok()" class="btn btn-primary">
           OK
         </button>
       </template>
@@ -36,18 +36,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-header.modal-header {
-  background-color: $silver;
-  color: $black;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  justify-content: center;
-
-  h5 {
-    font-weight: bold;
-    text-align: center;
-  }
-}
-
-</style>
+<style lang="scss"></style>

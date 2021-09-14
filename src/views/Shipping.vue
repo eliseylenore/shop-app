@@ -198,7 +198,6 @@ export default {
       this.getShippingAddress.state = e.state;
       this.getShippingAddress.country = e.country;
       this.getShippingAddress.zipcode = e.zipcode;
-      this.addToAddressBook = false;
     },
     addShippingInfo() {
       this.$store
@@ -223,6 +222,7 @@ export default {
                 zipcode: this.getShippingAddress.zipcode
               })
               .then(() => {
+                console.log("this.addToAddressBook", this.addToAddressBook);
                 if (this.addToAddressBook) {
                   let existingAddress = this.user.addressBook.find(
                     address =>
@@ -232,7 +232,8 @@ export default {
                         this.getShippingAddress.addressline2 &&
                       address.city === this.getShippingAddress.city
                   );
-                  if (existingAddress !== undefined) {
+                  console.log("existingAddress", existingAddress);
+                  if (existingAddress === undefined) {
                     this.$store.dispatch("addToAddressBook", {
                       addressline1: this.getShippingAddress.addressline1,
                       addressline2: this.getShippingAddress.addressline2,

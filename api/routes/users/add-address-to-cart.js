@@ -60,7 +60,7 @@ module.exports = (req, res) => {
     }
     user
       .save()
-      .then(user => res.json(user))
+      .then(user => res.json(user.addressBook))
       .catch(err => console.log(err));
   });
 };
