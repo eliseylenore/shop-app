@@ -2,7 +2,7 @@
   <div id="app" class="d-flex flex-column h-100">
     <page-nav />
     <secondary-nav />
-    <main class="flex-grow-1">
+    <main class="flex-grow-1 mb-4">
       <router-view />
     </main>
     <page-footer />

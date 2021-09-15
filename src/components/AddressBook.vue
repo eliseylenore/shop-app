@@ -38,6 +38,18 @@
         </template>
       </accordion>
     </div>
+    <button
+      class="btn btn-primary mt-2"
+      v-if="!showAddressForm"
+      @click="showAddressForm = true"
+    >
+      Add address
+    </button>
+    <add-address-form
+      class="mt-4"
+      v-if="showAddressForm"
+      @address-added="showAddressForm = false"
+    />
   </div>
 </template>
 
@@ -45,16 +57,19 @@
 import { mapState } from "vuex";
 import Accordion from "@/components/Accordion.vue";
 import Modal from "@/components/Modal.vue";
+import AddAddressForm from "@/components/AddAddressForm.vue";
 
 export default {
   components: {
     Accordion,
-    Modal
+    Modal,
+    AddAddressForm
   },
   data() {
     return {
       clickedPanel: "",
-      addressToDelete: {}
+      addressToDelete: {},
+      showAddressForm: false
     };
   },
   computed: {

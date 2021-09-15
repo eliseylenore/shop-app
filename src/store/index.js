@@ -467,7 +467,6 @@ export default new Vuex.Store({
                   addr.city === address.city
               );
               address._id = newAddress._id;
-              console.log("returnedAddress", newAddress);
               commit("ADD_TO_ADDRESS_BOOK", address);
               resolve();
             })
