@@ -5,6 +5,7 @@ const moment = require("moment");
 const User = require("../../models/user");
 const Product = require("../../models/product");
 const { PendingOrder } = require("../../models/order");
+const { addPayment } = require("./add-payment");
 
 module.exports = (req, res) => {
   User.findOne({ email: req.body.email }, function(err, user) {
@@ -54,7 +55,7 @@ module.exports = (req, res) => {
             product.save().catch(err => console.log(err));
           } else {
             errors.quantity = "There are no longer enough of " + item.title;
-            return res.json(errors);
+            return res.status(400).json(errors);
           }
         } else {
           errors.noItemFound =
@@ -67,6 +68,35 @@ module.exports = (req, res) => {
       });
     }
     let { shippingAddress, billingAddress, email, items } = cart;
+    addPayment(items, email)
+      .then(() => {
+        newOrder
+          .save()
+          .then(() => {
+            if (user) {
+              user.cart.items = [];
+              user.pendingOrders.push(newOrder);
+              user
+                .save()
+                .then(user => {
+                  console.log(
+                    "Object.keys(errors).length ",
+                    Object.keys(errors).length
+                  );
+                  Object.keys(errors).length === 0
+                    ? res.json({
+                        "order added to pending orders": user.pendingOrders
+                      })
+                    : res.status(400).json(errors);
+                })
+                .catch(err => console.log(err));
+            } else {
+              res.json({ "Order number": newOrder._id });
+            }
+          })
+          .catch(err => console.log(err));
+      })
+      .catch(err => res.status(400).json(err));
     let newOrder = new PendingOrder({
       shippingAddress,
       billingAddress,
@@ -74,30 +104,5 @@ module.exports = (req, res) => {
       items,
       orderDate: moment().format("l")
     });
-    newOrder
-      .save()
-      .then(() => {
-        if (user) {
-          user.cart.items = [];
-          user.pendingOrders.push(newOrder);
-          user
-            .save()
-            .then(user => {
-              console.log(
-                "Object.keys(errors).length ",
-                Object.keys(errors).length
-              );
-              Object.keys(errors).length === 0
-                ? res.json({
-                    "order added to pending orders": user.pendingOrders
-                  })
-                : res.status(400).json(errors);
-            })
-            .catch(err => console.log(err));
-        } else {
-          res.json({ "Order number": newOrder._id });
-        }
-      })
-      .catch(err => console.log(err));
   });
 };
