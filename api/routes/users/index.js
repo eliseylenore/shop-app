@@ -80,11 +80,18 @@ router
     require("./increase-cart-quantity.js")
   );
 
-// @route DELETE api/users/:email/cart/item
-// @desc Deletes item from cart
-// @access private
 router
   .route("/:email/cart/item")
+  // @route POST api/users/:email/cart/item
+  // @desc Creates payment intent with Stripe
+  // @access private
+  .post(
+    passport.authenticate("jwt", { session: false }),
+    require("./add-payment")
+  )
+  // @route DELETE api/users/:email/cart/item
+  // @desc Deletes item from cart
+  // @access private
   .delete(
     passport.authenticate("jwt", { session: false }),
     require("./delete-cart-item")

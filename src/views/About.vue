@@ -14,8 +14,8 @@
           <img src="/img/about-header-small.png" alt="About us" class="w-100" />
         </picture>
       </header>
-      <b-row>
-        <b-col md="6" offset-md="3" class="mt-5">
+      <div class="p-5 bg-turquoise">
+        <div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -48,10 +48,17 @@
             nullam non nisi est. © 2015 — 2021 PRIVACY POLICY SITEMAP FONT
             GENERATOR IMAGES PLUGINS GENERATORS SHARE THE LOREM WA SAI
           </p>
-        </b-col>
-      </b-row>
+        </div>
+      </div>
     </b-container>
   </div>
 </template>
 
 <script></script>
+
+<style lang="scss" scoped>
+.bg-turquoise {
+  background-color: $turquoise-dark;
+  color: white;
+}
+</style>
