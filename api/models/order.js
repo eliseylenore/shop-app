@@ -8,7 +8,9 @@ let orderSchema = new mongoose.Schema({
   shippingAddress: Address.schema,
   billingAddress: Address.schema,
   email: String,
-  orderDate: Date
+  orderDate: Date,
+  name: String,
+  secret: String
 });
 
 const PendingOrder = mongoose.model("pendingOrder", orderSchema);

@@ -17,6 +17,7 @@ module.exports = (req, res) => {
       cart = user.cart;
     } else {
       cart = req.body.cart;
+      console.log("req.body.cart", req.body.cart);
     }
     const errors = {};
     if (cart.items.length === 0) {
@@ -55,6 +56,7 @@ module.exports = (req, res) => {
             product.save().catch(err => console.log(err));
           } else {
             errors.quantity = "There are no longer enough of " + item.title;
+            console.log("Uh oh 5")
             return res.status(400).json(errors);
           }
         } else {
@@ -68,12 +70,14 @@ module.exports = (req, res) => {
       });
     }
     let { shippingAddress, billingAddress, email, items } = cart;
-    addPayment(items, email)
-      .then(() => {
+    let username = user ? user.name : "Anonymous Mouse";
+    addPayment(cart, username)
+      .then(paymentIntent => {
         newOrder
           .save()
           .then(() => {
             if (user) {
+              newOrder.secret = paymentIntent.client_secret;
               user.cart.items = [];
               user.pendingOrders.push(newOrder);
               user
@@ -96,7 +100,10 @@ module.exports = (req, res) => {
           })
           .catch(err => console.log(err));
       })
-      .catch(err => res.status(400).json(err));
+      .catch(err => {
+        console.log("Uh oh 3");
+        res.status(400).json(err);
+      });
     let newOrder = new PendingOrder({
       shippingAddress,
       billingAddress,
