@@ -149,7 +149,7 @@ export default {
             this.$store
               .dispatch("checkoutCart")
               .then(() => {
-                this.$router.push({ name: "OrderSubmitted" });
+                this.$router.push({ name: "Checkout" });
               })
               .catch(err => console.log("ERR!", err));
           }
