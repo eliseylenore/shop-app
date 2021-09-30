@@ -17,7 +17,6 @@ module.exports = (req, res) => {
       cart = user.cart;
     } else {
       cart = req.body.cart;
-      console.log("req.body.cart", req.body.cart);
     }
     const errors = {};
     if (cart.items.length === 0) {
@@ -56,7 +55,6 @@ module.exports = (req, res) => {
             product.save().catch(err => console.log(err));
           } else {
             errors.quantity = "There are no longer enough of " + item.title;
-            console.log("Uh oh 5")
             return res.status(400).json(errors);
           }
         } else {
@@ -73,6 +71,13 @@ module.exports = (req, res) => {
     let username = user ? user.name : "Anonymous Mouse";
     addPayment(cart, username)
       .then(paymentIntent => {
+        let newOrder = new PendingOrder({
+          shippingAddress,
+          billingAddress,
+          email,
+          items,
+          orderDate: moment().format("l")
+        });
         newOrder
           .save()
           .then(() => {
@@ -82,34 +87,26 @@ module.exports = (req, res) => {
               user.pendingOrders.push(newOrder);
               user
                 .save()
-                .then(user => {
-                  console.log(
-                    "Object.keys(errors).length ",
-                    Object.keys(errors).length
-                  );
+                .then(() => {
                   Object.keys(errors).length === 0
                     ? res.json({
-                        "order added to pending orders": user.pendingOrders
+                        secret: newOrder.secret
                       })
                     : res.status(400).json(errors);
                 })
                 .catch(err => console.log(err));
             } else {
-              res.json({ "Order number": newOrder._id });
+              res.json({ secret: newOrder.secret });
             }
           })
-          .catch(err => console.log(err));
+          .catch(err => {
+            errors.serverError = err;
+            res.status(500).json(errors);
+            console.log(err);
+          });
       })
       .catch(err => {
-        console.log("Uh oh 3");
         res.status(400).json(err);
       });
-    let newOrder = new PendingOrder({
-      shippingAddress,
-      billingAddress,
-      email,
-      items,
-      orderDate: moment().format("l")
-    });
   });
 };

@@ -509,7 +509,7 @@ export default new Vuex.Store({
             .then(res => {
               console.log("res " + res);
               commit("EMPTY_CART", state);
-              resolve();
+              resolve(res);
             })
             .catch(err => {
               console.log(err);

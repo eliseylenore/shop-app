@@ -7,9 +7,9 @@
 
 <script>
 var stripe = window.Stripe("pk_test_O13VvsWUjRzTeq5SJhzKEAUT");
+var elements = stripe.elements();
 export default {
   mounted() {
-    var elements = stripe.elements();
     var style = {
       base: {
         iconColor: "#019494",
@@ -34,7 +34,7 @@ export default {
     card.mount("#card-element");
     card.on("change", function(event) {
       // Disable the Pay button if there are no card details in the Element
-      document.querySelector("button").disabled = event.empty;
+      document.querySelector("#submit").disabled = event.empty;
       document.querySelector("#card-error").textContent = event.error
         ? event.error.message
         : "";

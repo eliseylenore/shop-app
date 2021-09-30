@@ -146,12 +146,7 @@ export default {
         })
         .then(() => {
           if (!this.addressError) {
-            this.$store
-              .dispatch("checkoutCart")
-              .then(() => {
-                this.$router.push({ name: "Checkout" });
-              })
-              .catch(err => console.log("ERR!", err));
+            this.$router.push({ name: "Checkout" });
           }
         });
     }
