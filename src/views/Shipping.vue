@@ -29,6 +29,19 @@
               </b-form-select>
             </b-form-group>
             <b-form-group>
+              <label for="name">
+                Recipient name
+              </label>
+              <b-form-input
+                v-model="getShippingAddress.name"
+                type="text"
+                name="name"
+                autocomplete="name"
+                value
+                required
+              ></b-form-input>
+            </b-form-group>
+            <b-form-group>
               <label for="address-line1">
                 Address 1
               </label>
@@ -192,6 +205,7 @@ export default {
       this.$store.commit("UPDATE_USER_EMAIL", e);
     },
     updateShippingAddress(e) {
+      this.getShippingAddress.name = e.name;
       this.getShippingAddress.addressline1 = e.addressline1;
       this.getShippingAddress.addressline2 = e.addressline2;
       this.getShippingAddress.city = e.city;
@@ -203,6 +217,7 @@ export default {
       this.$store
         .dispatch("addShippingAddress", {
           email: this.getUserEmail,
+          name: this.getShippingAddress.name,
           addressline1: this.getShippingAddress.addressline1,
           addressline2: this.getShippingAddress.addressline2,
           city: this.getShippingAddress.city,
@@ -214,6 +229,7 @@ export default {
           if (this.sameAddress) {
             this.$store
               .dispatch("addBillingAddress", {
+                name: this.getShippingAddress.name,
                 addressline1: this.getShippingAddress.addressline1,
                 addressline2: this.getShippingAddress.addressline2,
                 city: this.getShippingAddress.city,

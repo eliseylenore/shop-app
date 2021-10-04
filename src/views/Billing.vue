@@ -14,6 +14,19 @@
           </div>
           <b-form @submit.prevent="addBillingInfo()">
             <b-form-group>
+              <label for="name">
+                Name
+              </label>
+              <b-form-input
+                v-model="getBillingAddress.name"
+                type="text"
+                name="name"
+                autocomplete="name"
+                value
+                required
+              ></b-form-input>
+            </b-form-group>
+            <b-form-group>
               <label for="address-line1">
                 Address 1
               </label>
@@ -137,6 +150,7 @@ export default {
     addBillingInfo() {
       this.$store
         .dispatch("addBillingAddress", {
+          name: this.getBillingAddress.name,
           addressline1: this.getBillingAddress.addressline1,
           addressline2: this.getBillingAddress.addressline2,
           city: this.getBillingAddress.city,

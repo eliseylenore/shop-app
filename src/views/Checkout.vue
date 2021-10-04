@@ -98,7 +98,8 @@ export default {
                     line2: address.addressline2,
                     postal_code: address.zipcode
                   },
-                  email: this.cart.email
+                  email: this.cart.email,
+                  name: address.name
                 }
               }
             })

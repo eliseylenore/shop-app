@@ -34,6 +34,7 @@ module.exports = (req, res) => {
     }
 
     let {
+      name,
       addressline1,
       addressline2,
       city,
@@ -42,6 +43,7 @@ module.exports = (req, res) => {
       zipcode
     } = req.body;
     let newAddress = {
+      name,
       addressline1,
       addressline2,
       city,

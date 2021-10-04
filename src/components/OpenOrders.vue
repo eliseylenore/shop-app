@@ -19,7 +19,7 @@
                 height="10em"
               >
                 <b-row class="mt-3 mx-3 w-100">
-                  <b-col xs="8">
+                  <b-col md="8">
                     <p class="mb-0 text-left">
                       <strong>{{ product.title }}</strong
                       >, size
@@ -33,7 +33,7 @@
                       Quantity: {{ product.quantity }}
                     </p>
                   </b-col>
-                  <b-col xs="4">
+                  <b-col md="4">
                     <div>
                       <button
                         :tabIndex="-1"
@@ -53,6 +53,33 @@
               </product-card>
             </div>
             <div class="mt-3">
+              <h4>Billing</h4>
+              <p class="mb-0 text-left">{{ order.billingAddress.name }}</p>
+              <p class="mb-0 text-left">
+                {{ order.billingAddress.addressline1 }}
+              </p>
+              <p class="mb-0 text-left">
+                {{ order.billingAddress.addressline2 }}
+              </p>
+              <p class="text-left">
+                {{ order.billingAddress.city }},
+                {{ order.billingAddress.state }}
+                {{ order.billingAddress.zipcode }}
+              </p>
+              <h4>Shipping</h4>
+              <p class="mb-0 text-left">{{ order.shippingAddress.name }}</p>
+              <p class="mb-0 text-left">
+                {{ order.shippingAddress.addressline1 }}
+              </p>
+              <p class="mb-0 text-left">
+                {{ order.shippingAddress.addressline2 }}
+              </p>
+              <p class="text-left">
+                {{ order.shippingAddress.city }},
+                {{ order.shippingAddress.state }}
+                {{ order.shippingAddress.zipcode }}
+              </p>
+
               <button
                 :tabIndex="-1"
                 @click="$store.dispatch('markOrderFilled', order)"
