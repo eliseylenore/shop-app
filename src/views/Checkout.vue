@@ -4,6 +4,13 @@
       <header>
         <h1>Checkout</h1>
       </header>
+      <div
+        class="d-flex justify-content-center align-items-center flex-column"
+        v-if="loading"
+      >
+        Processing...
+        <div class="loader"></div>
+      </div>
       <b-row>
         <b-col xs="12" md="7" xl="6" offset-xl="1">
           <b-form @submit.prevent="submitPayment()">
@@ -35,7 +42,8 @@ export default {
   },
   data() {
     return {
-      card: null
+      card: null,
+      loading: false
     };
   },
   mounted() {
@@ -78,11 +86,11 @@ export default {
   methods: {
     submitPayment(clientSecret) {
       // loading(true);
+      this.loading = true;
       this.$store
         .dispatch("checkoutCart")
         .then(res => {
           clientSecret = res.data.secret;
-          console.log("clientSecret ", clientSecret);
           let address = this.cart.billingAddress;
 
           stripe
@@ -109,6 +117,7 @@ export default {
                 // showError(result.error.message);
                 console.log(result.error.message);
               } else {
+                this.loading = false;
                 this.$router.push({ name: "OrderSubmitted" });
               }
             })
@@ -120,4 +129,22 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.loader {
+  border: 16px solid $turquoise-light; /* Light grey */
+  border-top: 16px solid $turquoise-dark;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s ease-in infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
