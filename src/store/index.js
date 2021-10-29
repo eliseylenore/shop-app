@@ -498,7 +498,7 @@ export default new Vuex.Store({
         }
       });
     },
-    checkoutCart({ commit, state }) {
+    checkoutCart({ state }) {
       return new Promise((resolve, reject) => {
         if (!state.cart || !state.cart.items || state.cart.items.length === 0) {
           reject({ "Cart length": "No items in cart" });
@@ -507,8 +507,6 @@ export default new Vuex.Store({
         if (email) {
           UserService.checkoutCart(email, state.cart)
             .then(res => {
-              console.log("res " + res);
-              commit("EMPTY_CART", state);
               resolve(res);
             })
             .catch(err => {
@@ -519,6 +517,9 @@ export default new Vuex.Store({
           console.log("No email!");
         }
       });
+    },
+    emptyCart({ commit, state }) {
+      commit("EMPTY_CART", state);
     },
     cancelOrder({ commit, state }, item) {
       UserService.cancelOrder(state.user.email, item)

@@ -71,7 +71,7 @@ export default {
     this.card.mount("#card-element");
     this.card.on("change", function(event) {
       // Disable the Pay button if there are no card details in the Element
-      document.querySelector("#submit").disabled = event.empty;
+      document.querySelector("#submit").disabled = event.empty || event.error;
       document.querySelector("#card-error").textContent = event.error
         ? event.error.message
         : "";
@@ -113,12 +113,17 @@ export default {
             })
             .then(result => {
               if (result.error) {
+                this.loading = false;
                 // To-do: show error to your customer
                 // showError(result.error.message);
                 console.log(result.error.message);
+                document.querySelector("#card-error").textContent =
+                  result.error.message;
               } else {
                 this.loading = false;
-                this.$router.push({ name: "OrderSubmitted" });
+                this.$store.dispatch("emptyCart").then(() => {
+                  this.$router.push({ name: "OrderSubmitted" });
+                });
               }
             })
             .catch(err => console.log("ERR!", err));

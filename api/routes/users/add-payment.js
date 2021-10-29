@@ -15,6 +15,7 @@ module.exports.addPayment = (cart, username) => {
     const stripe = require("stripe")(stripeSecretKey);
     stripe.paymentIntents
       .create({
+        statement_descriptor: "Shop App purchase",
         amount: totalPrice * 100,
         payment_method_types: ["card"],
         currency: "usd",
