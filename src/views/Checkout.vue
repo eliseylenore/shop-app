@@ -2,17 +2,10 @@
   <div class="mt-5">
     <b-container>
       <header>
-        <h1>Checkout</h1>
+        <h1 class="mb-5">Checkout</h1>
       </header>
-      <div
-        class="d-flex justify-content-center align-items-center flex-column"
-        v-if="loading"
-      >
-        Processing...
-        <div class="loader"></div>
-      </div>
       <b-row>
-        <b-col xs="12" md="7" xl="6" offset-xl="1">
+        <b-col xs="12" md="6" offset-xl="1" class="mb-5">
           <b-form @submit.prevent="submitPayment()">
             <b-form-group>
               <div id="card-element"></div>
@@ -22,8 +15,15 @@
               Submit Payment
             </button>
           </b-form>
+          <div
+            class="d-flex justify-content-center align-items-center flex-column mt-5"
+            v-if="loading"
+          >
+            Processing...
+            <div class="loader"></div>
+          </div>
         </b-col>
-        <b-col xs="12" md="5">
+        <b-col xs="12" md="4" offset-md="1">
           <cart-summary key="" />
         </b-col>
       </b-row>
