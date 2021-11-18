@@ -10,9 +10,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start": "concurrently -n 'server,client' -c 'blue,green' \"nodemon api/server.js\" \"npm run serve\"",
-    "db:start": "node api/server.js",
-    "start:dev": "npm run serve"
+    "start": "node api/server.js",
+    "start-dev": "concurrently -n 'server,client' -c 'blue,green' \"nodemon api/server.js\" \"npm run serve\"",
+    "db:start": "node api/server.js"
   },
   "dependencies": {
     "@stripe/stripe-js": "^1.18.0",
