@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "/api/products",
   withCredentials: false, // This is the default
   headers: {
     Accept: "application/json",
@@ -10,15 +10,11 @@ const apiClient = axios.create({
 });
 
 export default {
-  getProducts: () => apiClient.get("/products"),
-  getFilteredProducts: category =>
-    apiClient.get("/products/category/" + category),
-  getProduct: id => apiClient.get("/products/" + id),
+  getProducts: () => apiClient.get("/"),
+  getFilteredProducts: category => apiClient.get("/category/" + category),
+  getProduct: id => apiClient.get("/" + id),
   createReview: review =>
-    apiClient.post("/products/" + review.product_id + "/reviews", review),
+    apiClient.post("/" + review.product_id + "/reviews", review),
   editReview: payload =>
-    apiClient.put(
-      "/products/" + payload.review.product_id + "/reviews",
-      payload
-    )
+    apiClient.put("/" + payload.review.product_id + "/reviews", payload)
 };

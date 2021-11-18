@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const config = {
-  baseURL: "http://localhost:3000/api",
+  baseURL: "/api/users",
   withCredentials: false, // This is the default
   headers: {
     Accept: "application/json",
@@ -11,44 +11,43 @@ const config = {
 
 export default {
   registerUser: credentials =>
-    axios.post("/users/registration/", credentials, config),
-  loginUser: credentials => axios.post("/users/login/", credentials, config),
-  getUser: email => axios.get("/users/" + email, config),
-  editUser: (email, userInfo) => axios.put("/users/" + email, userInfo, config),
-  addToCart: (email, item) =>
-    axios.post("/users/" + email + "/cart/", item, config),
+    axios.post("/registration/", credentials, config),
+  loginUser: credentials => axios.post("/login/", credentials, config),
+  getUser: email => axios.get("/" + email, config),
+  editUser: (email, userInfo) => axios.put("/" + email, userInfo, config),
+  addToCart: (email, item) => axios.post("/" + email + "/cart/", item, config),
   addAddressToCart: (email, shippingOrBilling, address) =>
     axios.post(
-      "/users/" + email + "/cart/address/" + shippingOrBilling + "/",
+      "/" + email + "/cart/address/" + shippingOrBilling + "/",
       address,
       config
     ),
   addToAddressBook: (email, address) =>
-    axios.post("/users/" + email + "/addToAddressBook/", address, config),
+    axios.post("/" + email + "/addToAddressBook/", address, config),
   deleteAddress: (email, _id) =>
-    axios.delete("/users/" + email + "/address/" + _id, {
+    axios.delete("/" + email + "/address/" + _id, {
       ...config
     }),
   addToItemQuantity: (email, payload) =>
-    axios.put("/users/" + email + "/cart/itemQuantity", payload, config),
+    axios.put("/" + email + "/cart/itemQuantity", payload, config),
   removeItemFromCart: (email, payload) =>
-    axios.delete("/users/" + email + "/cart/item", {
+    axios.delete("/" + email + "/cart/item", {
       data: payload,
       ...config
     }),
   cancelOrder: (email, payload) =>
-    axios.delete("/users/" + email + "/orders/item", {
+    axios.delete("/" + email + "/orders/item", {
       data: payload,
       ...config
     }),
   checkoutCart: (email, cart) =>
-    axios.delete("/users/" + email + "/cart/", {
+    axios.delete("/" + email + "/cart/", {
       data: { email, cart },
       ...config
     }),
-  getOpenOrders: email => axios.get("/users/" + email + "/openOrders", config),
+  getOpenOrders: email => axios.get("/" + email + "/openOrders", config),
   getFulfilledOrders: email =>
-    axios.get("/users/" + email + "/fulfilledOrders/", config),
+    axios.get("/" + email + "/fulfilledOrders/", config),
   markOrderFilled: (email, payload) =>
-    axios.put("/users/" + email + "/orders/", payload, config)
+    axios.put("/" + email + "/orders/", payload, config)
 };

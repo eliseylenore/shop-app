@@ -20,6 +20,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
+// Handle production
+if (process.env.NODE_ENV === "production") {
+  // static folder
+  app.use(express.static(__dirname + "/public"));
+
+  // Handle single page application
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + "/public/index.html"));
+}
+
 const port = process.env.PORT || 3000; // set our port
 
 mongoose
