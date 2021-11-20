@@ -1,9 +1,10 @@
-const { uriCredentials } = require("./keys");
-
 // BASE SETUP
 // =============================================================================
 
 // call the packages we need
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 const express = require("express"); // call express
 const app = express(); // define our app using express
 const bodyParser = require("body-parser");
@@ -32,7 +33,7 @@ if (process.env.NODE_ENV === "production") {
 const port = process.env.PORT || 3000; // set our port
 
 mongoose
-  .connect(uriCredentials, {
+  .connect(process.env.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true

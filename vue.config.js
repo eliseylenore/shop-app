@@ -4,8 +4,12 @@ module.exports = {
   outputDir: path.resolve(__dirname, "./api/public"),
   devServer: {
     proxy: {
-      "/api": {
-        target: "http://localhost:3000"
+      "^/api": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { "^/api": "/api" },
+        logLevel: "debug"
       }
     }
   },

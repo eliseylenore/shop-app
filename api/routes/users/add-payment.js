@@ -1,6 +1,4 @@
 // const User = require("../../models/user");
-const { stripeSecretKey } = require("../../keys");
-
 module.exports.addPayment = (cart, username) => {
   return new Promise((resolve, reject) => {
     const reducer = (previousValue, currentValue) =>
@@ -12,7 +10,7 @@ module.exports.addPayment = (cart, username) => {
     } else {
       totalPrice = items[0].price;
     }
-    const stripe = require("stripe")(stripeSecretKey);
+    const stripe = require("stripe")(process.env.STRIPESECRETKEY);
     stripe.paymentIntents
       .create({
         statement_descriptor: "Shop App purchase",

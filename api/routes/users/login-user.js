@@ -3,7 +3,6 @@ const validateLoginInput = require("../../validation/login");
 const User = require("../../models/user");
 
 const jwt = require("jsonwebtoken");
-const { secretOrKey } = require("../../keys");
 
 module.exports = async (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
@@ -28,7 +27,7 @@ module.exports = async (req, res) => {
       // Sign token
       jwt.sign(
         payload,
-        secretOrKey,
+        process.env.SECRETORKEY,
         {
           expiresIn: 31556926 // 1 year in seconds
         },
