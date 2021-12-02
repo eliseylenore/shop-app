@@ -25,7 +25,7 @@
     "serve": "node server.js",
     "start": "npm run serve",
     "start-dev": "concurrently -n 'server,client' -c 'blue,green' \"nodemon server.js\" \"npm --prefix ./client/ run serve\"",
-    "heroku-postbuild": "cd client && npm run build && npm install"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
