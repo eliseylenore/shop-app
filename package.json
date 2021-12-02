@@ -1,6 +1,10 @@
 {
   "name": "node-api",
   "main": "server.js",
+  "engines": {
+    "node": "14.17.3",
+    "npm": "7.19.1"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "~1.0.1",
