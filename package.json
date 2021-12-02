@@ -18,7 +18,8 @@
     "validator": "^13.5.2"
   },
   "scripts": {
-    "serve": "npm run server.js",
+    "serve": "node server.js",
+    "start": "npm run serve",
     "start-dev": "concurrently -n 'server,client' -c 'blue,green' \"nodemon server.js\" \"npm --prefix ./client/ run serve\"",
     "heroku-postbuild": "cd client && npm run build && npm install"
   },
