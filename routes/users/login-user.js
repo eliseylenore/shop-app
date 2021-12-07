@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
       // Sign token
       jwt.sign(
         payload,
-        process.env.SECRETORKEY,
+        process.env.DB_SECRETORKEY,
         {
           expiresIn: 31556926 // 1 year in seconds
         },
