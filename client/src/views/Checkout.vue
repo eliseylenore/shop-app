@@ -84,13 +84,13 @@ export default {
     ...mapGetters(["getCartTotal"])
   },
   methods: {
-    submitPayment(clientSecret) {
+    submitPayment() {
       // loading(true);
       this.loading = true;
       this.$store
         .dispatch("checkoutCart")
         .then(res => {
-          clientSecret = res.data.secret;
+          let clientSecret = res.data.secret;
           let address = this.cart.billingAddress;
 
           stripe
