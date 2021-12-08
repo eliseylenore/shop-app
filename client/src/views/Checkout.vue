@@ -34,7 +34,9 @@
 <script>
 import CartSummary from "@/components/CartSummary.vue";
 import { mapState, mapGetters } from "vuex";
-let stripe = window.Stripe(`${process.env.VUE_APP_STRIPE_KEY}`);
+import VUE_APP_STRIPE_KEY from "@/keys.js"
+console.log("Stripe key", VUE_APP_STRIPE_KEY)
+let stripe = window.Stripe(VUE_APP_STRIPE_KEY);
 
 export default {
   components: {
