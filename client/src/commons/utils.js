@@ -5,7 +5,7 @@ const getFormattedValue = (value = 0, digits = 2) =>
     .toFixed(digits)
     .replace(/\.0+$/, "");
 
-const formattedDate = date => moment(date).format("l");
+const formattedDate = date => moment(date).utc().format("l");
 
 const stateAbbreviations = [
   "AK",

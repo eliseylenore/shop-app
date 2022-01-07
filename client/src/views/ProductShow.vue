@@ -15,7 +15,7 @@
           <h2 class="mb-0 text-left">
             {{ product.title }}
           </h2>
-          <p>${{ product.price }}</p>
+          <p>${{ price(product.price) }}</p>
           <product-form :product="product" />
           <div class="my-4" :class="descriptionShowing ? 'closed' : 'open'">
             <button
@@ -117,6 +117,7 @@
 </template>
 
 <script>
+import { getFormattedValue } from "../commons/utils";
 import { mapState, mapGetters } from "vuex";
 import ProductForm from "@/components/ProductForm.vue";
 import Review from "@/components/Review.vue";
@@ -144,6 +145,7 @@ export default {
     this.$store.dispatch("fetchProduct", this.$route.params.id);
   },
   methods: {
+    price: productPrice => getFormattedValue(productPrice, 2),
     toggleDescription() {
       this.descriptionShowing = !this.descriptionShowing;
     },

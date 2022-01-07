@@ -11,6 +11,8 @@
               <div id="card-element"></div>
               <div id="card-error"></div>
             </b-form-group>
+            <p class="red-text mb-0">This is a test interaction. Do not use a real card.</p>
+            <p class="red-text">Please use this test card number: 4242 4242 4242 4242</p>
             <button class="btn btn-primary" id="submit" type="submit">
               Submit Payment
             </button>

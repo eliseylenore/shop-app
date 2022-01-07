@@ -15,39 +15,33 @@
                 :product="product"
                 :tabIndex="-1"
                 align="horizontal"
-                :width="25"
-                height="10em"
+                :width="75"
+                height="13em"
               >
-                <b-row class="mt-3 mx-3 w-100">
-                  <b-col md="8">
+                <b-row class="m-3 w-100">
+                  <b-col>
                     <p class="mb-0 text-left">
                       <strong>{{ product.title }}</strong
-                      >, size
-                      <span style="text-transform: capitalize">{{
-                        product.size
-                      }}</span>
+                      >
                     </p>
+                    <p class="mb-0 text-left">Size {{ product.size }}</p>
                     <p class="mb-0 text-left">{{ product.color }}</p>
                     <p class="mb-0 text-left">${{ price(product.price) }}</p>
                     <p class="mb-4 text-left">
                       Quantity: {{ product.quantity }}
                     </p>
-                  </b-col>
-                  <b-col md="4">
-                    <div>
-                      <button
-                        :tabIndex="-1"
-                        class="btn btn-danger"
-                        @click="
-                          $store.dispatch('cancelOrder', {
-                            ...product,
-                            orderId: order._id
-                          })
-                        "
-                      >
-                        Cancel
-                      </button>
-                    </div>
+                    <button
+                      :tabIndex="-1"
+                      class="btn btn-danger"
+                      @click="
+                        $store.dispatch('cancelOrder', {
+                          ...product,
+                          orderId: order._id
+                        })
+                      "
+                    >
+                      Cancel
+                    </button>
                   </b-col>
                 </b-row>
               </product-card>
@@ -79,7 +73,7 @@
                 {{ order.shippingAddress.state }}
                 {{ order.shippingAddress.zipcode }}
               </p>
-
+              <p class="red-text"><strong>Testing feature</strong>: click the Mark fulfilled button to move your order into the previous orders category.</p>
               <button
                 :tabIndex="-1"
                 @click="$store.dispatch('markOrderFilled', order)"
