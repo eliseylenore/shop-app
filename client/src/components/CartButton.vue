@@ -36,7 +36,7 @@ export default {
 <style lang="scss">
 .cart-quantity {
   position: absolute;
-  left: 35px;
+  left: 25px;
   bottom: 16px;
   background-color: red;
   border-radius: 50%;

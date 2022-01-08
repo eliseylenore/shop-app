@@ -15,8 +15,8 @@
       <img
           src="/img/logo-short-with-text.svg"
           alt=""
-          class="cart-icon mb-1"
-          title="Home page"
+          class="cart-icon"
+          title="shop-app home page"
         />
         <span class="sr-only">
           shop-app home
@@ -49,7 +49,7 @@
       <b-nav-item class="mr-2 mr-sm-3" @click="logout" v-if="$store.getters.loggedIn"
         >Logout</b-nav-item
       >
-      <cart-button class="pr-4" />
+      <cart-button class="pr-5" />
     </b-nav>
   </div>
 </template>
