@@ -40,12 +40,12 @@ export default {
   bottom: 16px;
   background-color: red;
   border-radius: 50%;
-  padding: 5px 0px 0;
-  height: 2.1em;
-  width: 2.2em;
-  font-size: 0.7em;
+  padding: 2px 0px 0;
+  height: 2em;
+  width: 2em;
+  font-size: 0.8em;
 }
 .cart-icon {
-  height: 1.3em;
+  height: 1.5em;
 }
 </style>

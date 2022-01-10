@@ -79,7 +79,7 @@
             <p class="mb-0 pl-3">{{ getReviewCount }} reviews</p>
           </div>
           <button
-            v-if="!reviewsExpanded"
+            v-if="!reviewsExpanded && getReviewCount > 0"
             class="btn btn-primary"
             @click="reviewsExpanded = true"
           >
@@ -103,7 +103,7 @@
               <hr />
             </div>
             <button
-              v-if="!allReviewsShown"
+              v-if="!allReviewsShown && getReviewCount >= numberReviews"
               class="btn btn-primary"
               @click="showAllReviews"
             >
