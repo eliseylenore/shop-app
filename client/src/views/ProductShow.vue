@@ -43,7 +43,7 @@
                 style="height: 0.7em;"
               />
             </button>
-            <p v-if="materialsShowing">Materials and care</p>
+            <p v-if="materialsShowing">{{ product.materials }}</p>
           </div>
         </b-col>
       </b-row>
