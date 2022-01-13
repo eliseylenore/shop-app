@@ -40,7 +40,7 @@ export default {
   bottom: 16px;
   background-color: red;
   border-radius: 50%;
-  padding: 5px 0px 0;
+  padding: 3px 0px 0;
   height: 2em;
   width: 2em;
   font-size: 0.8em;
