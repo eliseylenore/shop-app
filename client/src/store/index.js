@@ -55,9 +55,30 @@ export default new Vuex.Store({
         userData.cart.items.length > 0
       ) {
         state.cart = userData.cart;
+      } else {
+        state.cart = {
+          items: [],
+          shippingAddress: {
+            addressline1: "",
+            addressline2: "",
+            city: "",
+            state: "",
+            country: "",
+            zipcode: ""
+          },
+          billingAddress: {
+            addressline1: "",
+            addressline2: "",
+            city: "",
+            state: "",
+            country: "",
+            zipcode: ""
+          },
+          email: ""
+        }
       }
       localStorage.setItem("user", JSON.stringify(userData));
-      localStorage.setItem("cart", JSON.stringify(userData.cart));
+      localStorage.setItem("cart", JSON.stringify(state.cart));
       axios.defaults.headers.common["Authorization"] = `${userData.token}`;
       state.loginError = null;
       state.registerError = null;

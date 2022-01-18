@@ -95,6 +95,21 @@ export default {
     ...mapState(["registerError"])
   },
   methods: {
+    login() {
+      this.$store
+        .dispatch("loginUser", {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push({
+            name: "Products", params: { alert: "just-registered" }
+          });
+        })
+        .catch(err => {
+          console.log("error in login ", err);
+        });
+    },
     register() {
       this.$store
         .dispatch("registerUser", {
@@ -105,10 +120,7 @@ export default {
         })
         .then(() => {
           if (!this.registerError)
-            this.$router.push({
-              name: "Dashboard",
-              params: { page: "profile" }
-            });
+            this.login()
         })
         .catch(err => console.log("ERR", err));
     }
