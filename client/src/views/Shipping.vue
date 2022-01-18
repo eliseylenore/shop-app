@@ -260,7 +260,13 @@ export default {
                 }
               });
           }
-          if (!this.addressError) this.$router.push({ name: "Billing" });
+          if (!this.addressError) {
+            if (this.sameAddress) {
+              this.$router.push({ name: "Checkout" });
+            } else{
+              this.$router.push({ name: "Billing" });
+            }
+          }
         })
         .catch(err => console.log(err));
     }
