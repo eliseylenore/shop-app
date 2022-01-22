@@ -1,11 +1,11 @@
-import moment from "moment";
+import { DateTime } from "luxon";
 
 const getFormattedValue = (value = 0, digits = 2) =>
   parseFloat(value)
     .toFixed(digits)
     .replace(/\.0+$/, "");
 
-const formattedDate = date => moment(date).utc().format("l");
+const formattedDate = date => DateTime.fromISO(date).toFormat("D");
 
 const stateAbbreviations = [
   "AK",

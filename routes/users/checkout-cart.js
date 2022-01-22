@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const moment = require("moment");
+const { DateTime } = require("luxon");
 
 // Load User model
 const User = require("../../models/user");
@@ -76,7 +76,7 @@ module.exports = (req, res) => {
           billingAddress,
           email,
           items,
-          orderDate: moment().format("l")
+          orderDate: DateTime.utc()
         });
         newOrder
           .save()

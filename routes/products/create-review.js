@@ -1,6 +1,6 @@
 const Product = require("../../models/product");
 const { Review } = require("../../models/review");
-const moment = require("moment");
+const { DateTime } = require("luxon");
 
 const validateReviewInput = require("../../validation/review");
 
@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
     useremail,
     text: reviewText,
     rating,
-    date: moment().format("l")
+    date: DateTime.utc()
   });
   if (product === undefined) {
     res.status(400).json({ product });
