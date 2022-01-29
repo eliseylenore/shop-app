@@ -47,5 +47,6 @@ export default {
 }
 .cart-icon {
   height: 1.5em;
+  width: auto;
 }
 </style>

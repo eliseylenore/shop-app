@@ -7,7 +7,7 @@
             <img
               :src="'./../../img/' + selectedImg"
               alt=""
-              class="w-100 product-img "
+              class="w-100 h-auto product-img "
             />
           </div>
         </b-col>
