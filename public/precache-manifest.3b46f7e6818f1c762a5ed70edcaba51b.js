@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "19d84ee9fbacd051586b",
-    "url": "/css/app.e707bbac.css"
+    "revision": "f541f663f9b8d6a44c3a",
+    "url": "/css/app.193814f6.css"
   },
   {
     "revision": "5e199b0ac4abbcb885e0",
@@ -14,6 +14,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "80eec854c9d39d237a5b",
     "url": "/css/chunk-05b8e73a.04892ac6.css"
+  },
+  {
+    "revision": "550f4f22d84e65dcf497",
+    "url": "/css/chunk-16b8843a.81240d51.css"
   },
   {
     "revision": "3d1310089bcae4621327",
@@ -40,10 +44,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/css/chunk-5e2c3e50.87a10fde.css"
   },
   {
-    "revision": "9836da97f706ca507f8c",
-    "url": "/css/chunk-615533e6.ba20b383.css"
-  },
-  {
     "revision": "1268995eb30391706d70",
     "url": "/css/chunk-65f8579e.0b017d20.css"
   },
@@ -60,19 +60,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/coolvetica_rg.8ccdcc9b.woff2"
   },
   {
-    "revision": "e65c743ea1fe2dffd30fa44650fd8035",
+    "revision": "56bc5e7cfaedc5bfd19c339262d2fe57",
     "url": "/img/about-header-large.png"
   },
   {
-    "revision": "e8acc08b27ef9d52d826cfe20085dc3b",
+    "revision": "74e1a74499fa4d984b9c1d2eede88c84",
     "url": "/img/about-header-medium.png"
   },
   {
-    "revision": "25abd7aa710c8724febd6793dc90e124",
+    "revision": "9bf25e55723c3b1edeea02b57cbab70a",
     "url": "/img/about-header-small.png"
   },
   {
-    "revision": "1501560e593f1969e3183a697890deae",
+    "revision": "7044733e574765a7e815c9f016564247",
     "url": "/img/burnt-umber-dress.jpg"
   },
   {
@@ -104,47 +104,47 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/no-image.png"
   },
   {
-    "revision": "15469466dd87ed3cf39ad264a844111f",
+    "revision": "3f04b2a157813dc2c47e267295a8b88b",
     "url": "/img/product-jacket.png"
   },
   {
-    "revision": "ef1a9c0d9392b61d76de5f3154eaf41f",
+    "revision": "9d2670b114f89858038e6b64f487ee2d",
     "url": "/img/product-scarf-pink.png"
   },
   {
-    "revision": "7bbd835b8db8b439a5517977c9a0d22c",
+    "revision": "bbf68ac00e62d829957bd495cd3804ef",
     "url": "/img/product-scarf.png"
   },
   {
-    "revision": "0f355ec6dc2d72cdb46b1364f3f34c35",
+    "revision": "1d12a2c8324980c6bb3af9d69d607044",
     "url": "/img/product-scuba-navy.png"
   },
   {
-    "revision": "2d4bbec9142ce548e713fd6c52b48a85",
+    "revision": "42d16cd87510aad897a69928df9eb6b7",
     "url": "/img/product-scuba-red.png"
   },
   {
-    "revision": "0a1a150673fd40790b956370c9f2eb8d",
+    "revision": "1ba96856e2f285fe42989a2a5572c345",
     "url": "/img/product-scuba.png"
   },
   {
-    "revision": "095c6478698daa6018d584cef994e0eb",
+    "revision": "6646423405a4b1e5ada6304853eedbb7",
     "url": "/img/product-sweater-blue.png"
   },
   {
-    "revision": "82b32e6debb9722d2e846ce5a5693046",
+    "revision": "fc3803bd223740af90b35aec9222d3dc",
     "url": "/img/product-sweater-brown.png"
   },
   {
-    "revision": "798ad7ade96926b140c2e984d77148a0",
+    "revision": "ef31cb8886256ec02b6618618b37f290",
     "url": "/img/product-sweater-purple.png"
   },
   {
-    "revision": "fcfe8a8a578e52ff4637a2f532930ef1",
+    "revision": "4e5fcce00587bfd8f773e51f894ea36f",
     "url": "/img/product-sweater-red.png"
   },
   {
-    "revision": "c7a7435ca2c09e921c8141673752c4ce",
+    "revision": "ab3b2025fd23086825db4a09c8b19eef",
     "url": "/img/product-sweater.png"
   },
   {
@@ -172,12 +172,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/waves-logo.svg"
   },
   {
-    "revision": "9ce57913ce8cdf3ba87deaa425031667",
+    "revision": "1ad2d9d2aca496740b550d913fe6e302",
     "url": "/index.html"
   },
   {
-    "revision": "19d84ee9fbacd051586b",
-    "url": "/js/app.4e682a32.js"
+    "revision": "f541f663f9b8d6a44c3a",
+    "url": "/js/app.bc46654d.js"
   },
   {
     "revision": "5e199b0ac4abbcb885e0",
@@ -190,6 +190,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "80eec854c9d39d237a5b",
     "url": "/js/chunk-05b8e73a.e6683f40.js"
+  },
+  {
+    "revision": "550f4f22d84e65dcf497",
+    "url": "/js/chunk-16b8843a.62ef0b60.js"
   },
   {
     "revision": "cde5ed3685bdf6961b10",
@@ -226,10 +230,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "3b56e60b573788e62604",
     "url": "/js/chunk-5e2c3e50.d3742393.js"
-  },
-  {
-    "revision": "9836da97f706ca507f8c",
-    "url": "/js/chunk-615533e6.c2267915.js"
   },
   {
     "revision": "1268995eb30391706d70",
