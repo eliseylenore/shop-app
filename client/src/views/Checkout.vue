@@ -11,8 +11,12 @@
               <div id="card-element"></div>
               <div id="card-error"></div>
             </b-form-group>
-            <p class="red-text mb-0">This is a test interaction. Do not use a real card.</p>
-            <p class="red-text">Please use this test card number: 4242 4242 4242 4242</p>
+            <p class="red-text mb-0">
+              This is a test interaction. Do not use a real card.
+            </p>
+            <p class="red-text">
+              Please use this test card number: 4242 4242 4242 4242
+            </p>
             <button class="btn btn-primary" id="submit" type="submit">
               Submit Payment
             </button>
@@ -36,8 +40,8 @@
 <script>
 import CartSummary from "@/components/CartSummary.vue";
 import { mapState, mapGetters } from "vuex";
-import VUE_APP_STRIPE_KEY from "@/keys.js"
-console.log("Stripe key", VUE_APP_STRIPE_KEY)
+import VUE_APP_STRIPE_KEY from "@/keys.js";
+console.log("Stripe key", VUE_APP_STRIPE_KEY);
 let stripe = window.Stripe(VUE_APP_STRIPE_KEY);
 
 export default {

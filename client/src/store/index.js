@@ -75,7 +75,7 @@ export default new Vuex.Store({
             zipcode: ""
           },
           email: ""
-        }
+        };
       }
       localStorage.setItem("user", JSON.stringify(userData));
       localStorage.setItem("cart", JSON.stringify(state.cart));

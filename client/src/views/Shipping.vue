@@ -263,7 +263,7 @@ export default {
           if (!this.addressError) {
             if (this.sameAddress) {
               this.$router.push({ name: "Checkout" });
-            } else{
+            } else {
               this.$router.push({ name: "Billing" });
             }
           }

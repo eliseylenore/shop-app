@@ -103,7 +103,8 @@ export default {
         })
         .then(() => {
           this.$router.push({
-            name: "Products", params: { alert: "just-registered" }
+            name: "Products",
+            params: { alert: "just-registered" }
           });
         })
         .catch(err => {
@@ -119,8 +120,7 @@ export default {
           password2: this.password2
         })
         .then(() => {
-          if (!this.registerError)
-            this.login()
+          if (!this.registerError) this.login();
         })
         .catch(err => console.log("ERR", err));
     }

@@ -7,6 +7,10 @@ import "bootstrap";
 import { BootstrapVue } from "bootstrap-vue";
 
 import "@/assets/fonts/fonts.css";
+import wb from './registerServiceWorker';
+
+// service worker for pwa
+Vue.prototype.$workbox = wb;
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue);

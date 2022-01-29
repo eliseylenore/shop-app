@@ -21,8 +21,7 @@
                 <b-row class="m-3 w-100">
                   <b-col>
                     <p class="mb-0 text-left">
-                      <strong>{{ product.title }}</strong
-                      >
+                      <strong>{{ product.title }}</strong>
                     </p>
                     <p class="mb-0 text-left">Size {{ product.size }}</p>
                     <p class="mb-0 text-left">{{ product.color }}</p>
@@ -73,7 +72,10 @@
                 {{ order.shippingAddress.state }}
                 {{ order.shippingAddress.zipcode }}
               </p>
-              <p class="red-text"><strong>Testing feature</strong>: click the Mark fulfilled button to move your order into the previous orders category.</p>
+              <p class="red-text">
+                <strong>Testing feature</strong>: click the Mark fulfilled
+                button to move your order into the previous orders category.
+              </p>
               <button
                 :tabIndex="-1"
                 @click="$store.dispatch('markOrderFilled', order)"

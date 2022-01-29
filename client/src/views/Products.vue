@@ -93,7 +93,7 @@ export default {
   computed: {
     ...mapState({
       products: state => state.products,
-      networkError: state => state.networkError, 
+      networkError: state => state.networkError,
       username: state => state.user.name
     }),
     category() {
@@ -101,7 +101,8 @@ export default {
         ? this.$route.params.category.charAt(0).toUpperCase() +
             this.$route.params.category.slice(1)
         : this.$route.params.alert !== undefined
-        ? `Welcome ${this.username}, you're successfully registered!` : "Find what you're looking for.";
+        ? `Welcome ${this.username}, you're successfully registered!`
+        : "Find what you're looking for.";
     }
   },
   watch: {

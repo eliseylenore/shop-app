@@ -18,17 +18,22 @@
         <div class="pr-lg-5">
           <h2 class="text-left white">The shop-app mission</h2>
           <p>
-              We strive to help our customers live out their adventures.
-            </p>
-            <p>
-              These can range from the everyday to special vacation gear, from the beach to the mountains.
-            </p>
-            <h2 class="text-left white">
-              How it started
-            </h2>
-            <p>
-              In 2020, shop-app's founder saw a need opening for quality retail gear for the everyday person. Due to the pandemic, everyone wanted to get out and enjoy the outdoors, and there was a market that merged between outdoor gear and personal apparel. We've been going strong ever since then.
-            </p>
+            We strive to help our customers live out their adventures.
+          </p>
+          <p>
+            These can range from the everyday to special vacation gear, from the
+            beach to the mountains.
+          </p>
+          <h2 class="text-left white">
+            How it started
+          </h2>
+          <p>
+            In 2020, shop-app's founder saw a need opening for quality retail
+            gear for the everyday person. Due to the pandemic, everyone wanted
+            to get out and enjoy the outdoors, and there was a market that
+            merged between outdoor gear and personal apparel. We've been going
+            strong ever since then.
+          </p>
         </div>
       </div>
     </b-container>

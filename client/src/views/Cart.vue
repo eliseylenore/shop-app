@@ -58,40 +58,40 @@
             </button>
           </b-col>
           <!-- <div :class="cart.items.length < 2 ? 'justify-content-end' : 'row'"> -->
-            <div
-              :class="cart.items.length < 2 ? 'col-md-6' : 'col-md-4'"
-              v-for="product in cart.items"
-              :key="product._id + product.size"
-              style="position: relative"
-              class="mb-4"
-            >
-              <product-card :product="product">
-                <b-row class="mt-3 mx-3 w-100">
-                  <b-col xs="12">
-                    <p class="mb-0">
-                      <strong>{{ product.title }}</strong
-                      >, size
-                      <span style="text-transform: capitalize">{{
-                        product.size
-                      }}</span>
-                    </p>
-                    <p class="mb-0">{{ product.color }}</p>
-                    <p class="mb-0">${{ price(product.price) }}</p>
-                    <div
-                      class="d-flex mb-4 flex-row justify-content-between align-items-center"
+          <div
+            :class="cart.items.length < 2 ? 'col-md-6' : 'col-md-4'"
+            v-for="product in cart.items"
+            :key="product._id + product.size"
+            style="position: relative"
+            class="mb-4"
+          >
+            <product-card :product="product">
+              <b-row class="mt-3 mx-3 w-100">
+                <b-col xs="12">
+                  <p class="mb-0">
+                    <strong>{{ product.title }}</strong
+                    >, size
+                    <span style="text-transform: capitalize">{{
+                      product.size
+                    }}</span>
+                  </p>
+                  <p class="mb-0">{{ product.color }}</p>
+                  <p class="mb-0">${{ price(product.price) }}</p>
+                  <div
+                    class="d-flex mb-4 flex-row justify-content-between align-items-center"
+                  >
+                    <p class="mb-0">Quantity {{ product.quantity }}</p>
+                    <button
+                      class="btn btn-light mr-3"
+                      @click="showModal(product)"
                     >
-                      <p class="mb-0">Quantity {{ product.quantity }}</p>
-                      <button
-                        class="btn btn-light mr-3"
-                        @click="showModal(product)"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </b-col>
-                </b-row>
-              </product-card>
-            </div>
+                      Remove
+                    </button>
+                  </div>
+                </b-col>
+              </b-row>
+            </product-card>
+          </div>
           <!-- </div> -->
         </b-row>
       </div>

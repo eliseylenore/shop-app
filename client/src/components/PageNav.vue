@@ -12,7 +12,7 @@
           $route.name === 'Products' ? 'active' : 'inactive'
         ]"
       >
-      <img
+        <img
           src="/img/logo-short-with-text.svg"
           alt=""
           class="cart-icon"
@@ -27,7 +27,10 @@
       <b-nav-item
         :to="{ name: 'Login' }"
         v-if="!$store.getters.loggedIn"
-        :class="['nav-item mr-2 mr-sm-3', $route.name === 'Login' ? 'active' : 'inactive']"
+        :class="[
+          'nav-item mr-2 mr-sm-3',
+          $route.name === 'Login' ? 'active' : 'inactive'
+        ]"
         >Login</b-nav-item
       >
       <b-nav-item
@@ -46,7 +49,10 @@
         />
         <span class="sr-only">Your account</span>
       </b-nav-item>
-      <b-nav-item class="mr-2 mr-sm-3" @click="logout" v-if="$store.getters.loggedIn"
+      <b-nav-item
+        class="mr-2 mr-sm-3"
+        @click="logout"
+        v-if="$store.getters.loggedIn"
         >Logout</b-nav-item
       >
       <cart-button class="pr-5" />

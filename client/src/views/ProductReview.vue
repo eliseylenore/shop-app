@@ -1,7 +1,6 @@
 <template>
   <div class="mt-5">
     <b-container>
-
       <header class="mb-4">
         <h1>Review product</h1>
         <h2>{{ product.title }}</h2>
@@ -60,7 +59,8 @@
               ></b-form-textarea>
               <div v-if="reviewText.length > 300">
                 <p class="mt-3 red-text">
-                  300 character limit ({{ reviewText.length - 300 }} above limit)
+                  300 character limit ({{ reviewText.length - 300 }} above
+                  limit)
                 </p>
               </div>
             </b-form-group>

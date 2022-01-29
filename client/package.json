@@ -2,18 +2,14 @@
   "name": "shop-app",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "14.17.3",
-    "npm": "7.19.1"
-  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start": "node api/server.js",
-    "start-dev": "concurrently -n 'server,client' -c 'blue,green' \"nodemon api/server.js\" \"npm run serve\"",
     "db:start": "node api/server.js",
-    "heroku-postbuild": "npm run build && cd api && npm install"
+    "heroku-postbuild": "npm run build && cd api && npm install",
+    "start": "node api/server.js",
+    "start-dev": "concurrently -n 'server,client' -c 'blue,green' \"nodemon api/server.js\" \"npm run serve\""
   },
   "dependencies": {
     "@stripe/stripe-js": "^1.18.0",
@@ -25,6 +21,7 @@
     "dotenv": "^8.2.0",
     "is-empty": "^1.2.0",
     "jquery": "^3.6.0",
+    "register-service-worker": "^1.7.1",
     "stripe": "^8.176.0",
     "validator": "^13.6.0",
     "vue": "^2.6.12",
@@ -35,6 +32,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.10",
     "@vue/cli-plugin-eslint": "^4.5.10",
+    "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-plugin-router": "^4.5.10",
     "@vue/cli-plugin-vuex": "^4.5.10",
     "@vue/cli-service": "^4.5.10",
@@ -47,5 +45,9 @@
     "prettier": "^1.19.1",
     "sass-loader": "^10.1.1",
     "vue-template-compiler": "^2.6.12"
+  },
+  "engines": {
+    "node": "14.17.3",
+    "npm": "7.19.1"
   }
 }
