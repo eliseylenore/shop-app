@@ -7,7 +7,7 @@ import "bootstrap";
 import { BootstrapVue } from "bootstrap-vue";
 
 import "@/assets/fonts/fonts.css";
-import wb from './registerServiceWorker';
+import wb from "./registerServiceWorker";
 
 // service worker for pwa
 Vue.prototype.$workbox = wb;
