@@ -10,10 +10,12 @@ const app = express(); // define our app using express
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const cors = require("cors");
+const compression = require("compression")
 
 const users = require("./routes/users/");
 const products = require("./routes/products/");
 const mongoose = require("mongoose");
+
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -24,13 +26,16 @@ app.use(cors());
 const port = process.env.PORT || 3000; // set our port
 
 mongoose
-  .connect(process.env.DB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-  })
-  .then(() => console.log("Mongo db connected"))
-  .catch(err => console.log(err));
+.connect(process.env.DB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+})
+.then(() => console.log("Mongo db connected"))
+.catch(err => console.log(err));
+
+// Enable gZip
+app.use(compression())
 
 // ROUTES FOR OUR API
 // =============================================================================

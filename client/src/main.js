@@ -4,7 +4,18 @@ import router from "./router";
 import axios from "axios";
 import store from "./store";
 import "bootstrap";
-import { BootstrapVue } from "bootstrap-vue";
+import { 
+    LayoutPlugin, 
+    ModalPlugin,
+    TablePlugin, 
+    NavPlugin,
+    FormInputPlugin,
+    FormCheckboxPlugin,
+    FormGroupPlugin,
+    FormSelectPlugin,
+    FormPlugin
+
+  } from "bootstrap-vue";
 
 import "@/assets/fonts/fonts.css";
 import wb from "./registerServiceWorker";
@@ -13,7 +24,15 @@ import wb from "./registerServiceWorker";
 Vue.prototype.$workbox = wb;
 
 // Make BootstrapVue available throughout your project
-Vue.use(BootstrapVue);
+Vue.use(LayoutPlugin);
+Vue.use(ModalPlugin);
+Vue.use(TablePlugin);
+Vue.use(NavPlugin);
+Vue.use(FormInputPlugin);
+Vue.use(FormCheckboxPlugin);
+Vue.use(FormSelectPlugin);
+Vue.use(FormGroupPlugin);
+Vue.use(FormPlugin);
 
 Vue.config.productionTip = false;
 

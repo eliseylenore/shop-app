@@ -1,6 +1,19 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import FileNotFound from "../views/FileNotFound.vue";
+const About = () => import("../views/About.vue");
+const Register = () => import("../views/RegisterUser.vue");
+const Login = () => import("../views/LoginUser.vue");
+const Dashboard = () => import("../views/Dashboard.vue");
+const EditProfile = () => import("../views/EditProfile.vue");
+const Products = () => import("../views/Products.vue");
+const ProductShow = () => import("../views/ProductShow.vue");
+const Cart = () => import("../views/Cart.vue");
+const Shipping = () => import("../views/Shipping.vue");
+const Billing = () => import("../views/Billing.vue");
+const Checkout = () => import("../views/Checkout.vue");
+const OrderSubmitted = () => import("../views/OrderSubmitted.vue");
+const ProductReview = () => import("../views/ProductReview.vue");
 
 Vue.use(VueRouter);
 
@@ -15,88 +28,75 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    component: About
   },
   {
     path: "/register",
     name: "Register",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/RegisterUser.vue")
+    component: Register
   },
   {
     path: "/login",
     name: "Login",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/LoginUser.vue")
+    component: Login
   },
   {
     path: "/dashboard/:page",
     name: "Dashboard",
     meta: { requiresAuth: true },
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Dashboard.vue")
+    component: Dashboard
   },
   {
     path: "/editprofile",
     name: "EditProfile",
     meta: { requiresAuth: true },
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/EditProfile.vue")
+    component: EditProfile
   },
   {
     path: "/products",
     name: "Products",
     alias: ["/outerwear", "/swimwear", "/accessories"],
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Products.vue")
+    component: Products
   },
   {
     path: "/products/category/:category",
     name: "Category",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Products.vue")
+    component: Products
   },
   {
     path: "/product/:id",
     name: "ProductShow",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/ProductShow.vue")
+    component: ProductShow
   },
   {
     path: "/cart",
     name: "Cart",
-    component: () => import(/* webpackChunkName: "about" */ "../views/Cart.vue")
+    component: Cart
   },
   {
     path: "/shipping",
     name: "Shipping",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Shipping.vue")
+    component: Shipping
   },
   {
     path: "/billing",
     name: "Billing",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Billing.vue")
+    component: Billing
   },
   {
     path: "/checkout",
     name: "Checkout",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Checkout.vue")
+    component: Checkout
   },
   {
     path: "/ordersubmitted",
     name: "OrderSubmitted",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/OrderSubmitted.vue")
+    component: OrderSubmitted
   },
   {
     path: "/product/:id/review",
     name: "ProductReview",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/ProductReview.vue")
+    component: ProductReview
   },
   { path: "*", component: FileNotFound }
 ];
