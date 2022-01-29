@@ -28,6 +28,7 @@
     "start-dev": "concurrently -n 'server,client' -c 'blue,green' \"nodemon server.js\" \"npm --prefix ./client/ run serve\""
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "vue-cli-plugin-compression": "~1.1.5"
   }
 }
