@@ -36,7 +36,7 @@ export default {};
 .nav {
   padding: 30px;
   .nav-item {
-    font-family: Coolvetica;
+    font-family: "Coolvetica", Sans-Serif;
     font-weight: normal;
     font-size: 2em;
     a {

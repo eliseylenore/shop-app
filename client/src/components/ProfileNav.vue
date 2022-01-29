@@ -53,7 +53,7 @@ export default {};
 .nav.secondary-nav {
   padding: 30px;
   .nav-item {
-    font-family: Coolvetica;
+    font-family: "Coolvetica", Sans-Serif;
     font-size: 2em;
     font-weight: normal;
   }
