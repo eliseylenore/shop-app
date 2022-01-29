@@ -2,7 +2,7 @@
   <div>
     <b-table-simple
       small
-      table-class="w-100"
+      table-class="w-100 mb-3"
       thead-class="hidden_header"
       tbody-tr-class="no-border-top"
       show-empty="true"
@@ -58,5 +58,8 @@ export default {
 }
 td:first-child {
   color: #666666;
+}
+.table-sm th, .table-sm td {
+    padding: 0.3rem;
 }
 </style>

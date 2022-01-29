@@ -80,6 +80,7 @@ header {
   h1,
   h2 {
     font-family: "Coolvetica", sans-serif !important;
+    font-weight: normal;
   }
   h2,
   h3 {

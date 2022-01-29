@@ -25,28 +25,21 @@ $theme-colors: (
 // Specific imports
 @import "~bootstrap/scss/_functions.scss";
 @import "~bootstrap/scss/_variables.scss";
-// @import "~bootstrap/scss/mixins";
-// @import "~bootstrap/scss/_root.scss";
 @import "~bootstrap/scss/bootstrap-reboot.scss";
-@import "~bootstrap/scss/_type.scss";
-// @import "~bootstrap/scss/_images.scss";
-// @import "~bootstrap/scss/_code.scss";
 @import "~bootstrap/scss/_grid.scss";
-@import "~bootstrap/scss/_tables.scss";
 @import "~bootstrap/scss/_forms.scss";
 @import "~bootstrap/scss/_buttons.scss";
-// @import "~bootstrap/scss/_dropdown.scss";
 @import "~bootstrap/scss/_nav.scss";
-// @import "~bootstrap/scss/_navbar.scss";
 @import "~bootstrap/scss/_card.scss";
 @import "~bootstrap/scss/_close.scss";
 @import "~bootstrap/scss/_modal.scss";
 @import "~bootstrap/scss/utilities";
-@import "~bootstrap/scss/bootstrap-grid.scss";
 
 // this is what I would use if I wanted to import ALL of bootstrap
 // @import '~bootstrap/scss/bootstrap.scss';
-@import '~bootstrap-vue/src/index.scss';
+
+// looks like I don't need this, since we import in main.js
+// @import '~bootstrap-vue/src/index.scss';
 
 td {
   border-top: none!important;

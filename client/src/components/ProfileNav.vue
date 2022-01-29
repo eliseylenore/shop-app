@@ -55,6 +55,7 @@ export default {};
   .nav-item {
     font-family: Coolvetica;
     font-size: 2em;
+    font-weight: normal;
   }
   .nav-item:hover:after,
   .nav-item:after,
