@@ -1,7 +1,7 @@
 // for more info about the validator package: https://www.npmjs.com/package/validator
 
-const Validator = require("validator");
-const isEmpty = require("is-empty");
+const { isEmpty, isEmail, isPostalCode, equals} = require("validator");
+// const isEmpty = require("is-empty");
 module.exports = function validateAddressInput(data) {
   let errors = {};
   // Convert empty fields to an empty string so we can use validator functions
@@ -13,33 +13,33 @@ module.exports = function validateAddressInput(data) {
   data.zipcode = !isEmpty(data.zipcode) ? data.zipcode : "";
   data.country = !isEmpty(data.country) ? data.country : "";
 
-  if (!Validator.isEmpty(data.email) && !Validator.isEmail(data.email)) {
+  if (!isEmpty(data.email) && !isEmail(data.email)) {
     console.log("Email invalid", data.email);
     errors.email = "Email is invalid";
   }
 
   // Address line1 checks
-  if (Validator.isEmpty(data.addressline1)) {
+  if (isEmpty(data.addressline1)) {
     errors.addressline1 = "Address Line 1 field is required";
   }
   // City checks
-  if (Validator.isEmpty(data.city)) {
+  if (isEmpty(data.city)) {
     errors.city = "City field is required";
   }
   // State checks
-  if (Validator.isEmpty(data.state)) {
+  if (isEmpty(data.state)) {
     errors.state = "State field is required";
   }
   // State checks
-  if (Validator.isEmpty(data.country)) {
+  if (isEmpty(data.country)) {
     errors.country = "Country field is required";
-  } else if (!Validator.equals(data.country, "United States")) {
+  } else if (!equals(data.country, "United States")) {
     errors.country = "Country must be United States";
   }
   // Zipcode checks
-  if (Validator.isEmpty(data.zipcode)) {
+  if (isEmpty(data.zipcode)) {
     errors.zipcode = "Zipcode field is required";
-  } else if (!Validator.isPostalCode(data.zipcode, "US")) {
+  } else if (!isPostalCode(data.zipcode, "US")) {
     errors.zipcode = "Zipcode is invalid";
   }
 
