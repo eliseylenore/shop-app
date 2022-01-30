@@ -1,4 +1,4 @@
-import { DateTime } from "luxon";
+import { DateTime } from "luxon/src/luxon";
 
 const getFormattedValue = (value = 0, digits = 2) =>
   parseFloat(value)
