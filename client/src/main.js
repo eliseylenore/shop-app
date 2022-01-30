@@ -7,7 +7,7 @@ import "bootstrap";
 import { 
     LayoutPlugin, 
     ModalPlugin,
-    TablePlugin, 
+    TableSimplePlugin, 
     NavPlugin,
     FormInputPlugin,
     FormTextareaPlugin,
@@ -15,7 +15,6 @@ import {
     FormGroupPlugin,
     FormSelectPlugin,
     FormPlugin
-
   } from "bootstrap-vue";
 
 import "@/assets/fonts/fonts.css";
@@ -27,7 +26,7 @@ Vue.prototype.$workbox = wb;
 // Make BootstrapVue available throughout your project
 Vue.use(LayoutPlugin);
 Vue.use(ModalPlugin);
-Vue.use(TablePlugin);
+Vue.use(TableSimplePlugin);
 Vue.use(NavPlugin);
 Vue.use(FormInputPlugin);
 Vue.use(FormCheckboxPlugin);
