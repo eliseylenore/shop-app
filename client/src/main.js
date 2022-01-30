@@ -10,6 +10,7 @@ import {
     TablePlugin, 
     NavPlugin,
     FormInputPlugin,
+    FormTextareaPlugin,
     FormCheckboxPlugin,
     FormGroupPlugin,
     FormSelectPlugin,
@@ -30,6 +31,7 @@ Vue.use(TablePlugin);
 Vue.use(NavPlugin);
 Vue.use(FormInputPlugin);
 Vue.use(FormCheckboxPlugin);
+Vue.use(FormTextareaPlugin);
 Vue.use(FormSelectPlugin);
 Vue.use(FormGroupPlugin);
 Vue.use(FormPlugin);

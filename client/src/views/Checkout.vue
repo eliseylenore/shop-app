@@ -41,7 +41,8 @@
 import CartSummary from "@/components/CartSummary.vue";
 import { mapState, mapGetters } from "vuex";
 import VUE_APP_STRIPE_KEY from "@/keys.js";
-let stripe = window.Stripe(VUE_APP_STRIPE_KEY);
+import {loadStripe} from "@stripe/stripe-js/pure";
+// let stripe = window.Stripe(VUE_APP_STRIPE_KEY);
 
 export default {
   components: {
@@ -50,39 +51,44 @@ export default {
   data() {
     return {
       card: null,
-      loading: false
+      loading: false,
+      stripe: null, 
+      elements: null
     };
   },
   mounted() {
-    var style = {
-      base: {
-        iconColor: "#019494",
-        color: "#000",
-        fontFamily: "Myriad Pro, sans-serif",
-        fontSize: "16px",
-        fontSmoothing: "antialiased",
-        ":-webkit-autofill": {
-          color: "#fce883"
+    loadStripe(VUE_APP_STRIPE_KEY).then((result) => {
+      this.stripe = result
+      this.elements = result.elements()
+      var style = {
+        base: {
+          iconColor: "#019494",
+          color: "#000",
+          fontFamily: "Myriad Pro, sans-serif",
+          fontSize: "16px",
+          fontSmoothing: "antialiased",
+          ":-webkit-autofill": {
+            color: "#fce883"
+          },
+          "::placeholder": {
+            color: "#019494"
+          }
         },
-        "::placeholder": {
-          color: "#019494"
+        invalid: {
+          iconColor: "#FF5E5C",
+          color: "#FF5E5C"
         }
-      },
-      invalid: {
-        iconColor: "#FF5E5C",
-        color: "#FF5E5C"
-      }
-    };
-    var elements = stripe.elements();
-    this.card = elements.create("card", { style: style });
-    this.card.mount("#card-element");
-    this.card.on("change", function(event) {
-      // Disable the Pay button if there are no card details in the Element
-      document.querySelector("#submit").disabled = event.empty || event.error;
-      document.querySelector("#card-error").textContent = event.error
-        ? event.error.message
-        : "";
-    });
+      };
+      this.card = this.elements.create("card", { style: style });
+      this.card.mount("#card-element");
+      this.card.on("change", function(event) {
+        // Disable the Pay button if there are no card details in the Element
+        document.querySelector("#submit").disabled = event.empty || event.error;
+        document.querySelector("#card-error").textContent = event.error
+          ? event.error.message
+          : "";
+      });
+    })
   },
   computed: {
     ...mapState({
@@ -100,7 +106,7 @@ export default {
           let clientSecret = res.data.secret;
           let address = this.cart.billingAddress;
 
-          stripe
+          this.stripe
             .confirmCardPayment(clientSecret, {
               payment_method: {
                 type: "card",

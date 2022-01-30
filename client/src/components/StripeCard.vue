@@ -6,39 +6,47 @@
 </template>
 
 <script>
-var stripe = window.Stripe("pk_test_O13VvsWUjRzTeq5SJhzKEAUT");
-var elements = stripe.elements();
+import VUE_APP_STRIPE_KEY from "@/keys.js";
+import {loadStripe} from "@stripe/stripe-js/pure";
 export default {
-  mounted() {
-    var style = {
-      base: {
-        iconColor: "#019494",
-        color: "#000",
-        fontFamily: "Myriad Pro, sans-serif",
-        fontSize: "16px",
-        fontSmoothing: "antialiased",
-        ":-webkit-autofill": {
-          color: "#fce883"
-        },
-        "::placeholder": {
-          color: "#019494"
-        }
-      },
-      invalid: {
-        iconColor: "#FF5E5C",
-        color: "#FF5E5C"
-      }
+  data() {
+    return {
+      elements: null
     };
-
-    var card = elements.create("card", { style: style });
-    card.mount("#card-element");
-    card.on("change", function(event) {
-      // Disable the Pay button if there are no card details in the Element
-      document.querySelector("#submit").disabled = event.empty;
-      document.querySelector("#card-error").textContent = event.error
-        ? event.error.message
-        : "";
-    });
+  },
+  mounted() {
+    loadStripe(VUE_APP_STRIPE_KEY).then(result => {
+      this.elements = result.elements()
+      var style = {
+        base: {
+          iconColor: "#019494",
+          color: "#000",
+          fontFamily: "Myriad Pro, sans-serif",
+          fontSize: "16px",
+          fontSmoothing: "antialiased",
+          ":-webkit-autofill": {
+            color: "#fce883"
+          },
+          "::placeholder": {
+            color: "#019494"
+          }
+        },
+        invalid: {
+          iconColor: "#FF5E5C",
+          color: "#FF5E5C"
+        }
+      };
+  
+      var card = this.elements.create("card", { style: style });
+      card.mount("#card-element");
+      card.on("change", function(event) {
+        // Disable the Pay button if there are no card details in the Element
+        document.querySelector("#submit").disabled = event.empty;
+        document.querySelector("#card-error").textContent = event.error
+          ? event.error.message
+          : "";
+      });
+    })
   }
 };
 </script>
